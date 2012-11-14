@@ -6,7 +6,7 @@ group: navigation
 ---
 {% include JB/setup %}
 
-I am deepak
+"When the grace is lost from life, come with a burst of song."
 
 Hi, my name is Deepak, I live in Cochi(India) known as "queen of arabian sea" in "God's own country" Kerala. 
 
