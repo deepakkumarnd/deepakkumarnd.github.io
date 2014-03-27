@@ -31,7 +31,7 @@ If you apply **to_i** to a string in ruby which starts with a number you will ge
 
 The **Post.find** uses the same mechanism internally so that you don't have to change anything else.
 
-But what if you want to get rid of the id parameter? You will have to do some hardwork for that. Luckly a quick google search gave me an awesome gem called     [friendly_id](https://github.com/norman/friendly_id) which solves this issue in a very few steps.
+But what if you want to get rid of the id parameter? You will have to do some hardwork for that. Luckily a quick google search gave me an awesome gem called [friendly_id](https://github.com/norman/friendly_id) which solves this issue in a very few steps.
 
 # Steps to use FriendlyId
 
@@ -82,7 +82,7 @@ or if you already have a post model
 
   Now you will have friendly readable urls in your applicaion, restart your application and go to any post to see the changed url.
 
-# Accessign the individual post using new url
+# Accessing the individual post using new url
 
   Now we have a readable url but in the latest version of **FriendlyId** they haven't modified the **Model#find** method to use the new changed url. So to use that you have to the new format.
 
