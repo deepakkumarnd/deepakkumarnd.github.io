@@ -24,7 +24,7 @@ check the version of installed capistrano using **cap** command
     $ cap -V                               # or cap --version
     Capistrano Version: 3.0.1 (Rake Version: 10.1.0) ###
 
-Since the version 3 capistrano is **multistaged** by default means you can setup your application to deploy in differnt environments without installing additional plugins.
+Capistrano version 3 is **multistaged** by default means you can setup your application to deploy in differnt environments (production, staging etc) without installing additional plugins.
 
 Capistrano comes with a bunch of default task which you can list using.
 
@@ -70,8 +70,9 @@ If you want to input something while deploying like specifying branch name durin
 
 If you don't input anything the proc will be evaluated and branch will get assigned to the result.
 Set the directory to which you want to deploy your application, and specify the version control used.
+Here I have a deploy user in my VPS.
 
-    set :deploy_to, '/deploy/apps/foobar'
+    set :deploy_to, '/home/deploy/apps/foobar'
     set :scm, :git
 
 The following options are also available for configuring capistrano output
@@ -85,7 +86,7 @@ The following options are also available for configuring capistrano output
 Now it is the time to modify the environment file just open your environemnt file say deploy/production.rb.
 Set the stage variable
 
-    set :stage, :staging
+    set :stage, :production
 
 Now change the roles
 
@@ -100,6 +101,25 @@ You can define as many roles as you need, also each role can have an array of se
 When you execute a task on a particular role, the generated command runs in all these servers with that role.
 Here deploy is my deployment user on VPS, Rememmber you need to sign in to VPS and add your ssh key in ~/.ssh/authorizeds_keys in order to deploy your application.
 Done
+
+You can make use of capistrano plugins to easily add tasks such as bundle, asset compilation etc
+
+For using rvm you can use.
+
+    require 'capistrano/rvm'
+
+You can require the bundle plugin to run the bundle command
+
+    require 'capistrano/bundler'
+
+If you are using puma server then you can use the puma plugin to start, stop and restart the server.
+
+    require 'capistrano/puma'
+
+If you are using a rails applicaiton you can use the following tasks too.
+
+    require 'capistrano/rails/assets'
+    require 'capistrano/rails/migrations'
 
 You can now deploy your application by running
 
