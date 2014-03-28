@@ -16,6 +16,5 @@ Other than programing I read books and love to ride my Firefox Nitro bike. I am 
 
 Lets connect on
 
-[![Facebook](assets/images/facebook-icon.jpg)](https://facebook.com/deepakkumarnd)
 [![Twitter](assets/images/twitter-icon.png)](https://twitter.com/42races)
 [![Github](assets/images/github-icon.jpg)](https://github.com/42races)
