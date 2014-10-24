@@ -13,12 +13,22 @@ Here are the steps to cook french fries.
 
 Step 1: Take a big sized potato and clean it.
 
+<img src="https://dl.dropboxusercontent.com/u/36026026/friench_fries/1.jpg" style="width:400px;"/>
+
 Step 2: Cut the potato into elongated pieces.
+
+<img src="https://dl.dropboxusercontent.com/u/36026026/friench_fries/2.jpg" style="width:400px;"/>
 
 Step 3: Pour oil(I used coconut oil) into the pan after heating the frying pan.
 
-Step 4: Put some salt into the oil and stir it well.
+Step 4: Add some salt and put the chopped potatoes to into the heated oil.
 
-Step 5: Put the chopped potatoes to into the boiling oil and cook until the color of the potatoes becomes brownish yellow.
+<img src="https://dl.dropboxusercontent.com/u/36026026/friench_fries/3.jpg" style="width:400px;"/>
+
+Step 4: Cook until the color of the potatoes becomes golden brown.
+
+<img src="https://dl.dropboxusercontent.com/u/36026026/friench_fries/4.jpg" style="width:400px;"/>
 
 Yeah, the french fries is ready to serve as a snack or as a side dish.
+
+<img src="https://dl.dropboxusercontent.com/u/36026026/friench_fries/5.jpg" style="width:400px;"/>
