@@ -9,10 +9,10 @@ pygments: true
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : 42races
+title : Deepak Kumar
 tagline: Site Tagline
 author :
-  name : Deepak Kumar
+  name : 42races
   email : deepakkumarnd@gmail.com
   github : 42races
   twitter : 42races
@@ -26,7 +26,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://42races.github.com
+production_url : http://42races.github.io
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
@@ -123,4 +123,3 @@ JB :
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
-
