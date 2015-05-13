@@ -10,12 +10,12 @@ group: navigation
 
 <img src="assets/images/deepak.jpg" style="width:100px;"/>
 
-Hi, my name is Deepak, I live in Cochi(India) known as "queen of arabian sea" in "God's own country" Kerala.
+Hi, my name is Deepak, I live in Cochin(India) known as "queen of arabian sea" in "God's own country" Kerala.
 
-I am working as a software developer with a startup [theamazingfactory] (http://theamazingfactory.com). I develop web applications using Ruby On Rails and ruby has became my favourite language.
+I am working as a software developer. I develop web applications using Ruby On Rails and Ruby has became my favourite language.
 
-Other than programing I read books and love to ride my Firefox Nitro bike. I am very much interested in pencil drawing and I do drawing occassionally.
+Other than programing I read books and love to ride my Firefox Nitro bike.
 
 Lets connect on
 
-<a href="https://twitter.com/42races" target="_blank"><img src="assets/images/twitter-icon.png" style="width:50px;"/></a>&nbsp;<a href="https://github.com/42races" target="_blank"><img src="assets/images/github-icon.png" style="width:50px;"/></a>
+<a href="https://twitter.com/42races" target="_blank"><img src="assets/images/twitter-icon.png" style="width:30px;"/></a>&nbsp;<a href="https://github.com/42races" target="_blank"><img src="assets/images/github-icon.png" style="width:30px;"/></a>
