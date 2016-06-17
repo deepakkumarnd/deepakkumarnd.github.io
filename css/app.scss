@@ -1,0 +1,116 @@
+// This is the entry point for all the css in your app
+
+@import 'values';
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: $bg-color;
+  font-family: sans-serif;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 100;
+  color: $link-color-default;
+  &:hover {
+    color: $link-color-active;
+    text-decoration: underline;
+  }
+}
+
+ul {
+  list-style: none;
+}
+
+.pull-left {
+  display: inline-block;
+  float: left;
+}
+
+.pull-right {
+  display: inline-block;
+  float: right;
+}
+
+.container {
+  max-width: 768px;
+  min-height: 100%;
+  margin: 0 auto;
+
+  .header {
+    padding: $default-padding;
+    background-color: #fff;
+
+    .name {
+      font-size: 40px;
+      font-family: monospace;
+      font-weight: 800;
+      display: inline-block;
+    }
+
+    .links {
+      display: inline-block;
+      a {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .page-content {
+    background-color: #fff;
+    padding: $default-padding;
+    margin: $default-margin auto;
+    .posts {
+      .post-item {
+        padding: 2*$default-padding $default-padding;
+        border-radius: $default-radius;
+
+        a.post-title {
+          font-size: 22px;
+          font-weight: 100;
+          color: $text-color;
+          &:hover {
+            color: $text-color;
+            text-decoration: none;
+          }
+        }
+
+        .post-date {
+          font-size: 10px;
+          position: relative;
+          top: 7px;
+        }
+
+        &:hover {
+          background-color: $bg-color;
+        }
+      }
+    }
+  }
+
+  .footer {
+    background-color: #fff;
+    padding: $default-padding 0 ;
+    margin: $default-margin auto;
+    height: 30px;
+    width: 100%;
+    display: table;
+    .copyright {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
