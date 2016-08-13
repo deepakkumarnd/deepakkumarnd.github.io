@@ -1,0 +1,55 @@
+<p>Ruby is a facinating language, It&#39;s flexibible enough to easily extend the language and powerfull 
+enough to make coding a breeze. Being a C programmer for a long time, my early ruby coding was a 
+kind of C style. I didn&#39;t even realized my coding was so bad. Then I slowly came to aware of ruby 
+community and conventions to be followed while writing ruby code. I was also exposed to the test 
+driven development which I hate untill I got surprised by it&#39;s it&#39;s importantance.</p>
+
+<p>Ruby provides a lot of built in programming tools(features) which makes coding a lot easier. So I 
+want to discuss few of them which I felt really cool.</p>
+
+<h2>Lambda &amp; Proc</h2>
+
+<p>I found lambda and Proc so much interesting but wasn&#39;t able to figgure out their proper usage.
+Basically both are block of code which can be executed, passed or assigned just like a variable.
+You can create a block of code as follows.</p>
+<div class="highlight"><pre><span class="vg">myproc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Proc</span><span class="o">.</span><span class="vg">new</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">some</span><span class="w"> </span><span class="vg">piece</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">code</span>
+<span class="vg">end</span>
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span class="vg">mylambda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">lambda</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">some</span><span class="w"> </span><span class="vg">piece</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">code</span>
+<span class="vg">end</span>
+</pre></div>
+<p>So now you have a block of code assigned to a variable which can be executed at will by a call 
+method.</p>
+<div class="highlight"><pre><span class="vg">myproc</span><span class="o">.</span><span class="vg">call</span>
+</pre></div>
+<p>You can pass arguments to it as follows so that the block variables are assigned these values.</p>
+<div class="highlight"><pre><span class="vg">myproc</span><span class="o">.</span><span class="vg">call</span><span class="p">(</span><span class="il">10</span><span class="p">)</span>
+</pre></div>
+<p>You can assign the proc on some other variable.</p>
+<div class="highlight"><pre><span class="vg">new_proc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">myproc</span>
+</pre></div>
+<p>You can pass the block to some methods</p>
+<div class="highlight"><pre><span class="vg">def</span><span class="w"> </span><span class="vg">foo</span><span class="w"> </span><span class="vg">block</span>
+<span class="w">  </span><span class="vg">block</span><span class="o">.</span><span class="vg">call</span>
+<span class="vg">end</span>
+
+<span class="vg">foo</span><span class="w"> </span><span class="vg">myproc</span>
+</pre></div>
+<p>So if you want to reuse the code and doesn&#39;t worth making a method the you can go with proc or
+lambda. For example I have a class Student.</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Student</span>
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">initialize</span><span class="p">(</span><span class="vg">name</span><span class="p">)</span>
+<span class="w">    </span><span class="err">@</span><span class="vg">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">name</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="w">  </span><span class="o">...</span>
+<span class="vg">end</span>
+</pre></div>
+<p>suppose I have 30 students, students = [s1,s2,s3...s30] and I want list of their name in camel
+case then I can use proc to do that neatly.</p>
+<div class="highlight"><pre><span class="vg">camelize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Proc</span><span class="o">.</span><span class="vg">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span><span class="w"> </span><span class="vg">var</span><span class="o">.</span><span class="vg">name</span><span class="o">.</span><span class="vg">capitalize</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">name</span><span class="o">.</span><span class="vg">present</span><span class="o">?</span><span class="w"> </span><span class="p">}</span>
+<span class="vg">students</span><span class="o">.</span><span class="vg">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="vg">camelize</span><span class="p">)</span>
+</pre></div>
+<p>Thats it here I can avoid a method and still I&#39;m able to reuse the code.</p>

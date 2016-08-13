@@ -1,0 +1,41 @@
+<p>While going through <strong>rake</strong> source code I came across a function named <strong>module_function</strong>. I googled about it and came to know that it provides an easy way to create module functions where the receiver is the module itself. Take an example of a <strong><em>Sample</em></strong> module.</p>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Sample</span>
+  <span class="n">def</span> <span class="n">random_string</span>
+    <span class="p">#</span> <span class="n">generates</span> <span class="n">a</span> <span class="n">random</span> <span class="kt">string</span>
+    <span class="err">[</span><span class="p">(</span><span class="c">&#39;A&#39;..&#39;Z&#39;), (&#39;a&#39;..&#39;z&#39;), (&#39;0&#39;..&#39;9&#39;)].map(&amp;:to_a).reduce(:+).shuffle.take(8).join</span>
+  <span class="k">end</span>
+
+  <span class="n">module_function</span> <span class="p">:</span><span class="n">random_string</span>
+<span class="k">end</span>
+
+<span class="n">Sample</span><span class="p">.</span><span class="n">random_string</span> <span class="p">#</span> <span class="o">=&gt;</span>  <span class="s">&quot;NMHPXydR&quot;</span>
+</pre></div>
+<p>The method <strong><em>random</em>string</strong>_ can be invoked on the module itself. If you include the module in a class then this method becomes private to that class&#39;s instance.</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">A</span>
+<span class="w">  </span><span class="vg">include</span><span class="w"> </span><span class="vg">Sample</span>
+
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">generate_random_string</span>
+<span class="w">    </span><span class="vg">random_string</span><span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="vg">private</span><span class="w"> </span><span class="vg">method</span><span class="w"> </span><span class="vg">call</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+
+<span class="vg">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">A</span><span class="o">.</span><span class="vg">new</span>
+<span class="vg">o</span><span class="o">.</span><span class="vg">generate_random_string</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;GQV1j0OK&quot;</span>
+</pre></div>
+<p>Another interesting thing about this method is the module maintains an original copy even if you override the method. In order to understand it lets take an example. Lets override the <strong><em>random</em>string</strong>_ method in the <strong><em>Sample</em></strong> module.</p>
+<div class="highlight"><pre><span class="k">module</span> <span class="nn">Sample</span>
+
+  <span class="p">#</span> <span class="n">override</span> <span class="n">random_string</span>
+  <span class="n">def</span> <span class="n">random_string</span>
+    <span class="p">#</span> <span class="n">generates</span> <span class="n">a</span> <span class="n">random</span> <span class="kt">string</span> <span class="n">containing</span> <span class="n">only</span> <span class="n">numbers</span>
+    <span class="p">(</span><span class="mf">0.</span><span class="p">.</span><span class="mi">9</span><span class="p">).</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="p">:</span><span class="n">to_s</span><span class="p">).</span><span class="n">shuffle</span><span class="p">.</span><span class="n">join</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+<p>Now if you call the mehtod using on instance of class <strong><em>A</em></strong> you will get the new method</p>
+<div class="highlight"><pre><span class="vg">o</span><span class="o">.</span><span class="vg">generate_random_string</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="o">=&gt;</span><span class="w">  </span><span class="s2">&quot;8073541692&quot;</span>
+</pre></div>
+<p>But the module method is the same</p>
+<div class="highlight"><pre><span class="vg">Sample</span><span class="o">.</span><span class="vg">random_string</span><span class="w">       </span><span class="err">#</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s2">&quot;VBkj5fMd&quot;</span>
+</pre></div>
+<p>I found this is a very easy way to create module methods hope you also feel so.</p>

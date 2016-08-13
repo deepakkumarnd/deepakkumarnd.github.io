@@ -1,0 +1,62 @@
+<p>Somtimes it is required to execute some unix system command within your
+ruby script. For that ruby provides a variety of ways.</p>
+
+<p>you can use backquotes to execute a unix system command </p>
+<div class="highlight"><pre><span class="err">`</span><span class="vg">ls</span><span class="w"> </span><span class="o">-</span><span class="vg">al</span><span class="err">`</span>
+</pre></div>
+<p>or </p>
+<div class="highlight"><pre><span class="nf">%x</span><span class="p">{</span><span class="n">ls</span> <span class="o">-</span><span class="n">al</span><span class="p">}</span>
+</pre></div>
+<p>or even system method</p>
+<div class="highlight"><pre><span class="vg">system</span><span class="p">(</span><span class="s2">&quot;ls -al&quot;</span><span class="p">)</span>
+</pre></div>
+<p>Apart from these ruby provides a IO.popen which spawns a subprocess and creates a pipe
+or IO stream between ruby interpreter and the subprocess. So the interesting thing is 
+you can send the input to this subprocess as a standard input also you can get the 
+standard output of this subprocess. Here is a small example.</p>
+<div class="highlight"><pre><span class="vg">def</span><span class="w"> </span><span class="vg">run_command</span><span class="p">(</span><span class="vg">command</span><span class="p">,</span><span class="w"> </span><span class="vg">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="c1">&#39;&#39;)</span>
+<span class="w">  </span><span class="vg">IO</span><span class="o">.</span><span class="vg">popen</span><span class="p">(</span><span class="vg">command</span><span class="p">,</span><span class="w"> </span><span class="c1">&#39;r+&#39;) do |pipe|</span>
+<span class="w">    </span><span class="vg">pipe</span><span class="o">.</span><span class="vg">puts</span><span class="w"> </span><span class="vg">input</span>
+<span class="w">    </span><span class="vg">pipe</span><span class="o">.</span><span class="vg">close_write</span>
+<span class="w">    </span><span class="vg">pipe</span><span class="o">.</span><span class="vg">read</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+
+<span class="vg">puts</span><span class="w"> </span><span class="vg">run_command</span><span class="w"> </span><span class="s2">&quot;wc -w&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;How many people are here&quot;</span>
+</pre></div>
+<p>Here we have opened an IO stream in read write mode and we wrote our input to the
+stream. Once the write to the stream is done we have to close the stream in order to 
+continue the subprocess. The output produced to the standard output of the sub process 
+can be read from the pipe using the read method.</p>
+
+<p>But what if the sub process is an interactive one like passwd. Which expects a human to 
+type the old password and then the new password then repeat it to confirm password. Using
+ruby&#39;s expect and pty library you can mimick a human. Here is a sample program which changes the user password.</p>
+<div class="highlight"><pre><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;expect&#39;</span>
+<span class="vg">require</span><span class="w"> </span><span class="c1">&#39;pty&#39;</span>
+
+<span class="vg">old_password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;hell&quot;</span>
+
+<span class="vg">PTY</span><span class="o">.</span><span class="vg">spawn</span><span class="p">(</span><span class="s2">&quot;passwd&quot;</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">input</span><span class="p">,</span><span class="w"> </span><span class="vg">output</span><span class="p">,</span><span class="w"> </span><span class="vg">pid</span><span class="o">|</span>
+<span class="w">  </span><span class="vg">output</span><span class="o">.</span><span class="vg">sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">true</span>
+<span class="w">  </span><span class="err">$</span><span class="vg">expect_verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">false</span>
+
+<span class="w">  </span><span class="vg">input</span><span class="o">.</span><span class="vg">expect</span><span class="p">(</span><span class="s2">&quot;(current) UNIX password:&quot;</span><span class="p">,</span><span class="w"> </span><span class="il">30</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">response</span><span class="o">|</span>
+<span class="w">    </span><span class="vg">output</span><span class="o">.</span><span class="vg">print</span><span class="w"> </span><span class="s2">&quot;#{old_password}\n&quot;</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">response</span>
+<span class="w">  </span><span class="vg">end</span>
+
+<span class="w">  </span><span class="vg">input</span><span class="o">.</span><span class="vg">expect</span><span class="p">(</span><span class="o">/</span><span class="vg">UNIX</span><span class="w"> </span><span class="nl">password:</span><span class="o">/</span><span class="p">,</span><span class="il">2</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">response</span><span class="o">|</span>
+<span class="w">    </span><span class="vg">output</span><span class="o">.</span><span class="vg">print</span><span class="w"> </span><span class="s2">&quot;welcome123\n&quot;</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">response</span>
+<span class="w">  </span><span class="vg">end</span>
+
+<span class="w">  </span><span class="vg">input</span><span class="o">.</span><span class="vg">expect</span><span class="p">(</span><span class="o">/</span><span class="vg">UNIX</span><span class="w"> </span><span class="nl">password:</span><span class="o">/</span><span class="p">)</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">response</span><span class="o">|</span>
+<span class="w">    </span><span class="vg">output</span><span class="o">.</span><span class="vg">print</span><span class="w"> </span><span class="s2">&quot;welcome123\n&quot;</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">response</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+</pre></div>
+<p>Here we have spawned the passwd command and expect it to ask some questions.
+We can either go with strings or regular expressions as expected strings, the 
+matched block will get executed once a matching expected string is found. 
+The second argument is timeout in seconds (default 999,999), which means if 
+timeout is 30 expect method will wait for maximum 30 seconds before executing 
+the block. </p>

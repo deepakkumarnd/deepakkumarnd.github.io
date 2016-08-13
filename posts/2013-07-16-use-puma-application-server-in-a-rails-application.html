@@ -1,0 +1,72 @@
+<h1>Puma server setup in a rails application</h1>
+
+<p><a href="http://puma.io">Puma</a> is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications
+developed by <a href="https://engineyard.com">Engine Yard</a>.</p>
+
+<h2>Install puma server</h2>
+<div class="highlight"><pre><span class="vg">gem</span><span class="w"> </span><span class="vg">install</span><span class="w"> </span><span class="vg">puma</span>
+</pre></div>
+<p>or add gem &#39;puma&#39; in Gemfile then run the bundle command.</p>
+
+<h2>Deployment</h2>
+
+<p>Puma comes with a built in capistrano recipes for starting stoping and restarting the puma server.
+In order to use these built in tasks add the following line to deploy.rb</p>
+<div class="highlight"><pre><span class="vg">require</span><span class="w"> </span><span class="c1">&#39;puma/capistrano&#39;</span>
+</pre></div>
+<p>The above line provdes these cap tasks you can use them as follows.</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle <span class="nb">exec </span>cap puma:start
+<span class="nv">$ </span>bundle <span class="nb">exec </span>cap puma:restart
+<span class="nv">$ </span>bundle <span class="nb">exec </span>cap puma:stop
+</pre></div>
+<h2>Configuration</h2>
+
+<p>Add a configuration file for puma in config directory</p>
+<div class="highlight"><pre><span class="vg">touch</span><span class="w"> </span><span class="vg">config</span><span class="o">/</span><span class="vg">puma_env</span><span class="o">.</span><span class="vg">rb</span>
+</pre></div>
+<p>Sample configuration file is <a href="https://github.com/puma/puma/blob/master/examples/config.rb">here</a>
+All details of available configuration is <a href="https://github.com/puma/puma/blob/master/lib/puma/configuration.rb">here</a></p>
+
+<p>Actually you don&#39;t have to do any configuration for using puma, if you include the capistrano recipe then puma requires
+zero configuration to use.</p>
+
+<p>Now just deploy your application</p>
+<div class="highlight"><pre><span class="vg">cap</span><span class="w"> </span><span class="nl">deploy:</span><span class="vg">setup</span>
+<span class="vg">cap</span><span class="w"> </span><span class="nl">deploy:</span><span class="vg">cold</span>
+<span class="vg">cap</span><span class="w"> </span><span class="vg">deploy</span>
+</pre></div>
+<h2>Configure a reverse proxy in nginx web server</h2>
+
+<p>Incase you are using nginx as the web server you can use the reverse proxy configuration for nginx as follows.</p>
+
+<p>Add the following configuration in nginx.conf.</p>
+<div class="highlight"><pre><span class="vg">upstream</span><span class="w"> </span><span class="vg">puma</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="vg">server</span><span class="w"> </span><span class="nl">unix:</span><span class="o">///</span><span class="vg">var</span><span class="o">/</span><span class="vg">sock</span><span class="o">/</span><span class="vg">puma</span><span class="o">.</span><span class="vg">sock</span><span class="w"> </span><span class="vg">fail_timeout</span><span class="o">=</span><span class="il">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="vg">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">listen</span><span class="w"> </span><span class="il">80</span><span class="w"> </span><span class="vg">default</span><span class="w"> </span><span class="vg">deferred</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">server_name</span><span class="w"> </span><span class="vg">example</span><span class="o">.</span><span class="vg">com</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">root</span><span class="w"> </span><span class="o">/</span><span class="vg">home</span><span class="o">/</span><span class="vg">deploy</span><span class="o">/</span><span class="vg">apps</span><span class="o">/</span><span class="vg">example</span><span class="o">/</span><span class="vg">current</span><span class="o">/</span><span class="vg">public</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">location</span><span class="w"> </span><span class="o">^~</span><span class="w"> </span><span class="o">/</span><span class="vg">assets</span><span class="o">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="vg">gzip_static</span><span class="w"> </span><span class="vg">on</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">expires</span><span class="w"> </span><span class="vg">max</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">add_header</span><span class="w"> </span><span class="vg">Cache</span><span class="o">-</span><span class="vg">Control</span><span class="w"> </span><span class="vg">public</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="vg">try_files</span><span class="w"> </span><span class="err">$</span><span class="vg">uri</span><span class="o">/</span><span class="vg">index</span><span class="o">.</span><span class="vg">html</span><span class="w"> </span><span class="err">$</span><span class="vg">uri</span><span class="w"> </span><span class="err">@</span><span class="vg">puma</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">location</span><span class="w"> </span><span class="err">@</span><span class="vg">puma</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="vg">proxy_set_header</span><span class="w"> </span><span class="vg">X</span><span class="o">-</span><span class="vg">Forwarded</span><span class="o">-</span><span class="vg">For</span><span class="w"> </span><span class="err">$</span><span class="vg">proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">proxy_set_header</span><span class="w"> </span><span class="vg">Host</span><span class="w"> </span><span class="err">$</span><span class="vg">http_host</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">proxy_redirect</span><span class="w"> </span><span class="vg">off</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">proxy_pass</span><span class="w"> </span><span class="nl">http:</span><span class="o">//</span><span class="vg">puma</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="vg">error_page</span><span class="w"> </span><span class="il">500</span><span class="w"> </span><span class="il">502</span><span class="w"> </span><span class="il">503</span><span class="w"> </span><span class="il">504</span><span class="w"> </span><span class="o">/</span><span class="il">500</span><span class="o">.</span><span class="vg">html</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">client_max_body_size</span><span class="w"> </span><span class="il">4</span><span class="vg">G</span><span class="p">;</span>
+<span class="w">  </span><span class="vg">keepalive_timeout</span><span class="w"> </span><span class="il">10</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Now restart your nginx server</p>
+<div class="highlight"><pre><span class="vg">service</span><span class="w"> </span><span class="vg">nginx</span><span class="w"> </span><span class="vg">restart</span>
+</pre></div>

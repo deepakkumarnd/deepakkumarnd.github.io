@@ -1,0 +1,70 @@
+<p>When you develop a rails application say a blog application, the framework uses the database id to identify an individual blog post. So the url to an individual post looks like</p>
+<div class="highlight"><pre><span class="vg">foo</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">posts</span><span class="o">/</span><span class="il">122</span>
+</pre></div>
+<p>If you share this url to someone it is really hard to guess the contents of the post without going to the actual post.</p>
+
+<p>One way to solve this issue is to use friendly url rather than using just the id of the post. The simplest way is to simply override the <strong>to_param</strong> method in your model.</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Post</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">to_param</span>
+<span class="w">    </span><span class="s2">&quot;#{id}-#{title}&quot;</span><span class="o">.</span><span class="vg">parameterize</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+</pre></div>
+<p>So now onwards you will have a readable url in your blog posts, somthing like</p>
+<div class="highlight"><pre><span class="vg">foo</span><span class="o">.</span><span class="vg">com</span><span class="o">/</span><span class="vg">posts</span><span class="o">/</span><span class="il">22</span><span class="o">-</span><span class="vg">friendly</span><span class="o">-</span><span class="vg">id</span>
+</pre></div>
+<p>If you apply <strong>to_i</strong> to a string in ruby which starts with a number you will get that number back</p>
+<div class="highlight"><pre><span class="c1">&#39;22-friendly-id&#39;.to_i =&gt; 22</span>
+</pre></div>
+<p>The <strong>Post.find</strong> uses the same mechanism internally so that you don&#39;t have to change anything else.</p>
+
+<p>But what if you want to get rid of the id parameter? You will have to do some hardwork for that. Luckily a quick google search gave me an awesome gem called <a href="https://github.com/norman/friendly_id">friendly_id</a> which solves this issue in a very few steps.</p>
+
+<h1>Steps to use FriendlyId</h1>
+
+<h2>Installation</h2>
+
+<p>Add the following line to your <strong>Gemfile</strong></p>
+<div class="highlight"><pre><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;friendly_id&#39;, &#39;~&gt; 5.0.0&#39;</span>
+</pre></div>
+<h2>Run the generator command</h2>
+<div class="highlight"><pre><span class="vg">rails</span><span class="w"> </span><span class="vg">generate</span><span class="w"> </span><span class="vg">friendly_id</span>
+</pre></div>
+<p>You need to add a slug field in your model to use friendly_url</p>
+<div class="highlight"><pre><span class="vg">rails</span><span class="w"> </span><span class="vg">generate</span><span class="w"> </span><span class="vg">scaffold</span><span class="w"> </span><span class="vg">post</span><span class="w"> </span><span class="nl">title:</span><span class="vg">string</span><span class="w"> </span><span class="nl">slug:</span><span class="vg">string</span>
+</pre></div>
+<p>or if you already have a post model</p>
+<div class="highlight"><pre><span class="vg">rails</span><span class="w"> </span><span class="vg">generate</span><span class="w"> </span><span class="vg">migration</span><span class="w"> </span><span class="vg">add_slug_to_posts</span><span class="w"> </span><span class="nl">slug:</span><span class="vg">string</span>
+</pre></div>
+<h2>Add a database index on the slug field for faster access</h2>
+
+<p>open the corresponding migration file and add an index to slug field</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">AddSlugToPosts</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Migration</span>
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">change</span>
+<span class="w">    </span><span class="vg">add_column</span><span class="w"> </span><span class="o">:</span><span class="vg">posts</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">slug</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">string</span>
+<span class="w">    </span><span class="vg">add_index</span><span class="w"> </span><span class="o">:</span><span class="vg">posts</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">slug</span><span class="p">,</span><span class="w"> </span><span class="nl">unique:</span><span class="w"> </span><span class="vg">true</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+</pre></div>
+<h2>Run migration</h2>
+
+<p>rake db:migrate</p>
+
+<h2>Add the friendly id module in the model file</h2>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Post</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">  </span><span class="vg">extend</span><span class="w"> </span><span class="vg">FriendlyId</span>
+<span class="w">  </span><span class="vg">friendly_id</span><span class="w"> </span><span class="o">:</span><span class="vg">title</span><span class="p">,</span><span class="w"> </span><span class="nl">use:</span><span class="w"> </span><span class="o">:</span><span class="vg">slugged</span>
+<span class="vg">end</span>
+</pre></div>
+<h2>Done now update your previous records</h2>
+<div class="highlight"><pre><span class="vg">rails</span><span class="w"> </span><span class="vg">c</span>
+<span class="o">&gt;&gt;</span><span class="w"> </span><span class="vg">Post</span><span class="o">.</span><span class="vg">find_each</span><span class="p">(</span><span class="o">&amp;:</span><span class="vg">save</span><span class="p">)</span>
+</pre></div>
+<p>Now you will have friendly readable urls in your applicaion, restart your application and go to any post to see the changed url.</p>
+
+<h1>Accessing the individual post using new url</h1>
+
+<p>Now we have a readable url but in the latest version of <strong>FriendlyId</strong> they haven&#39;t modified the <strong>Model#find</strong> method to use the new changed url. So to use that you have to the new format.</p>
+<div class="highlight"><pre><span class="vg">Post</span><span class="o">.</span><span class="vg">friendly</span><span class="o">.</span><span class="vg">find</span><span class="p">(</span><span class="vg">params</span><span class="p">[</span><span class="o">:</span><span class="vg">id</span><span class="p">])</span>
+</pre></div>
+<p>You may also edit the config file <strong>config/initializers/friendly_id.rb</strong> of your rails application root directory.</p>

@@ -1,0 +1,108 @@
+<p>Sometimes we might have to run some jobs repeatedly at particular intervals of time say backup logs, sending emails etc. In unix systems we can schedule such tasks using the buitin cron daemon. Cron is a daemon used to execute scheduled tasks. Unix systems provides a command <strong>crontab</strong> which allows to create scheduled tasks for an individual user.</p>
+
+<p>Cron  searches  its  spool area (/var/spool/cron/crontabs) for crontab files and load them into memory.  File in this directory should not be accessed directly - the crontab command should be used to access and update them. you can use the following command to edit your own crontab file.</p>
+<div class="highlight"><pre><span class="nv">$ </span>crontab -e
+</pre></div>
+<p>For example suppose you want to backup your log directory every day at 1:10 AM add the following line to the crontab.</p>
+<div class="highlight"><pre><span class="nl">10</span><span class="w"> </span><span class="il">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="o">*</span><span class="w">  </span><span class="o">/</span><span class="vg">path</span><span class="o">/</span><span class="vg">to</span><span class="o">/</span><span class="vg">your</span><span class="o">/</span><span class="vg">backup</span><span class="o">/</span><span class="vg">script</span><span class="o">.</span><span class="vg">sh</span>
+</pre></div>
+<p>Cron uses section 10 1 * * * * to figgure out the schedule to execute the job. To understand the format here is the cron mapping of each field.</p>
+<div class="highlight"><pre><span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">+--</span> <span class="n">Year</span>              <span class="p">(</span><span class="n">range:</span> <span class="mi">1900</span><span class="o">-</span><span class="mi">3000</span><span class="p">)</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">+----</span> <span class="n">Day</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Week</span>   <span class="p">(</span><span class="n">range:</span> <span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">1</span> <span class="n">standing</span> <span class="k">for</span> <span class="n">Monday</span><span class="p">)</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">|</span> <span class="o">+------</span> <span class="n">Month</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Year</span> <span class="p">(</span><span class="n">range:</span> <span class="mi">1</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span>
+<span class="o">|</span> <span class="o">|</span> <span class="o">+--------</span> <span class="n">Day</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Month</span>  <span class="p">(</span><span class="n">range:</span> <span class="mi">1</span><span class="o">-</span><span class="mi">31</span><span class="p">)</span>
+<span class="o">|</span> <span class="o">+----------</span> <span class="n">Hour</span>              <span class="p">(</span><span class="n">range:</span> <span class="mi">0</span><span class="o">-</span><span class="mi">23</span><span class="p">)</span>
+<span class="o">+------------</span> <span class="n">Minute</span>            <span class="p">(</span><span class="n">range:</span> <span class="mi">0</span><span class="o">-</span><span class="mi">59</span><span class="p">)</span>
+</pre></div>
+<p>But directly editing the crontab is bit hard, and it is painful to update the crontab to make a change. If you are in a ruby/rails project there is a wonderful gem called <strong>whenever</strong> which can be used to schedule your crontab.</p>
+
+<p>Lets take an example of sending a daily digest email of some updates to users. Lets say we have a mailer like this.</p>
+<div class="highlight"><pre><span class="err">#</span><span class="w"> </span><span class="nl">file:</span><span class="w"> </span><span class="vg">app</span><span class="o">/</span><span class="vg">mailers</span><span class="o">/</span><span class="vg">user_mailer</span><span class="o">.</span><span class="vg">rb</span>
+
+<span class="vg">class</span><span class="w"> </span><span class="vg">UserMailer</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActionMailer:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">digest_email_update</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="vg">email</span><span class="w"> </span><span class="vg">sending</span><span class="w"> </span><span class="vg">logic</span><span class="w"> </span><span class="vg">goes</span><span class="w"> </span><span class="vg">here</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+</pre></div>
+<p>Since we need to send the email as a separate process, lets create a rake task to do that. You may create a new file email_tasks.rake in lib/tasks directory of your rails application.</p>
+<div class="highlight"><pre><span class="err">#</span><span class="w"> </span><span class="nl">file:</span><span class="w"> </span><span class="vg">lib</span><span class="o">/</span><span class="vg">tasks</span><span class="o">/</span><span class="vg">email_tasks</span><span class="o">.</span><span class="vg">rake</span>
+
+<span class="vg">desc</span><span class="w"> </span><span class="c1">&#39;send digest email&#39;</span>
+<span class="vg">task</span><span class="w"> </span><span class="nl">send_digest_email:</span><span class="w"> </span><span class="o">:</span><span class="vg">environment</span><span class="w"> </span><span class="vg">do</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="vg">set</span><span class="w"> </span><span class="vg">options</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">any</span>
+<span class="w">  </span><span class="vg">UserMailer</span><span class="o">.</span><span class="vg">digest_email_update</span><span class="p">(</span><span class="vg">options</span><span class="p">)</span><span class="o">.</span><span class="vg">deliver!</span>
+<span class="vg">end</span>
+</pre></div>
+<p>The <strong>send<em>digest</em>email: :environment</strong> means to load the rails environment before running the task, so that you can access the application&#39;s classes (<strong>UserMailer</strong>) in the rake task.</p>
+
+<p>Now just run the command <strong>rake -T</strong> to view the newly created rake task. You can just test everything works fine by running the task and checking whether the email is sent or not.</p>
+
+<p>At this point we have a working rake task which can be scheduled using <strong>crontab</strong>.</p>
+
+<h2>Steps to automate the created rake task using whenever gem</h2>
+
+<p>Install whenever gem</p>
+
+<p>add the following line to Gemfile and execute bundle command</p>
+<div class="highlight"><pre><span class="err">#</span><span class="w"> </span><span class="nl">file:</span><span class="w"> </span><span class="vg">Gemfile</span>
+
+<span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;whenever&#39;, require: false</span>
+</pre></div>
+<p>Install the gem by running bundle command</p>
+<div class="highlight"><pre><span class="nv">$ </span>bundle
+</pre></div>
+<p>Now go to the project directory and run the wheneverize command to create a schedule file</p>
+<div class="highlight"><pre><span class="nv">$ </span>wheneverize .
+</pre></div>
+<p>This will create a <strong>schedule.rb</strong> file in <strong>config</strong> directory of your rails application.
+Edit the schedule.rb file to schedule our task. Lets say we need to send the digest email at 10PM every day.</p>
+<div class="highlight"><pre><span class="err">#</span><span class="w"> </span><span class="nl">file:</span><span class="w"> </span><span class="vg">config</span><span class="o">/</span><span class="vg">schedule</span><span class="o">.</span><span class="vg">rb</span>
+
+<span class="vg">every</span><span class="w"> </span><span class="o">:</span><span class="vg">day</span><span class="p">,</span><span class="w"> </span><span class="nl">at:</span><span class="w"> </span><span class="c1">&#39;10pm&#39; do</span>
+<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">specify</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">task</span><span class="w"> </span><span class="vg">name</span><span class="w"> </span><span class="vg">as</span><span class="w"> </span><span class="vg">a</span><span class="w"> </span><span class="vg">string</span>
+<span class="w">  </span><span class="vg">rake</span><span class="w"> </span><span class="c1">&#39;send_digest_email&#39;</span>
+<span class="vg">end</span>
+</pre></div>
+<p>Just run whenever command to get a preview of the generated schedules in the actual cron format.</p>
+<div class="highlight"><pre><span class="nv">$ </span>whenever
+</pre></div>
+<p>You can verify the created schedule and then update your crontab using</p>
+<div class="highlight"><pre><span class="nv">$ </span>whenever -w
+</pre></div>
+<p>run whenever --help to see various options available</p>
+<div class="highlight"><pre><span class="nv">$ </span>whenever --help
+</pre></div>
+<p>In order to clear your crontab run the following command</p>
+<div class="highlight"><pre><span class="nv">$ </span>whenever -c
+</pre></div>
+<h1>Custom Job types</h1>
+
+<p>Other than just rake task whenever provides three more job types namely command, runner and script. Apart from these you may create your own job type too. In the following example you can see we heve used all these three job types. Job type runner allows you to input some piece of code as a string which should be run at a particular interval of time. Similaryly command accepts a command to be run at each interval whereas rake runs a rake task defined in your application.</p>
+<div class="highlight"><pre><span class="vg">every</span><span class="w"> </span><span class="il">3</span><span class="o">.</span><span class="vg">hours</span><span class="w"> </span><span class="vg">do</span>
+<span class="w">  </span><span class="vg">runner</span><span class="w"> </span><span class="c1">&#39;User.expire_session_cache&#39;</span>
+<span class="w">  </span><span class="vg">rake</span><span class="w"> </span><span class="c1">&#39;rake_task_name&#39;</span>
+<span class="w">  </span><span class="vg">command</span><span class="w"> </span><span class="c1">&#39;/usr/bin/command_name&#39;</span>
+<span class="vg">end</span>
+</pre></div>
+<p>Suppose you want to create a custom <strong>job_type</strong> you can do so by defining that job_type. Lets say we are defining a new job type foo.</p>
+<div class="highlight"><pre><span class="n">job_type</span> <span class="o">:</span><span class="n">foo</span><span class="o">,</span> <span class="s1">&#39;/usr/local/bin/foo :taskname :filename&#39;</span>
+</pre></div>
+<p>you use this new job type as follows in your <strong>schedule.rb</strong></p>
+<div class="highlight"><pre><span class="vg">every</span><span class="w"> </span><span class="il">2</span><span class="o">.</span><span class="vg">hours</span><span class="w"> </span><span class="vg">do</span>
+<span class="w">  </span><span class="vg">foo</span><span class="w"> </span><span class="c1">&#39;somecommand&#39;, filename: &#39;inputfilepath&#39;</span>
+<span class="vg">end</span>
+</pre></div>
+<h1>Use capistrano plugin to automate the task scheduling</h1>
+
+<p>Whenever provides capistrano recipes to automate the crontab updating during each deployment. To do that just require the plugin.</p>
+<div class="highlight"><pre><span class="err">#</span><span class="w"> </span><span class="nl">file:</span><span class="w"> </span><span class="vg">config</span><span class="o">/</span><span class="vg">deploy</span><span class="o">.</span><span class="vg">rb</span>
+
+<span class="vg">require</span><span class="w"> </span><span class="c1">&#39;whenever/capistrano&#39;</span>
+
+<span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">whenever_environment</span><span class="p">,</span><span class="w"> </span><span class="vg">defer</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="vg">stage</span><span class="w"> </span><span class="p">}</span>
+<span class="vg">set</span><span class="w"> </span><span class="o">:</span><span class="vg">whenever_command</span><span class="p">,</span><span class="w"> </span><span class="c1">&#39;bundle exec whenever&#39;</span>
+</pre></div>
+<p>thats it. Now on deployment capistrano will update your crontab.</p>

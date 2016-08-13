@@ -1,0 +1,138 @@
+<p>Git is the only version control system I have used so far. I use git every day and I find it is really helping me to organize my code neatly. I find it is really easy to code without having any fear of conflicting with others code or my own code. It&#39;s really easy to work on multiple features at the same time by different people and then merge the features into a single codebase. Git maintains the history so I can even go back to a previous code point very easily. Here are few commands I use in daily life as well as in troubles.</p>
+
+<h1>Basic commands</h1>
+
+<h2>Initialize a git repo</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git init
+</pre></div>
+<h2>Add a remote origin</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git remote add origin &lt;git repo url&gt;
+</pre></div>
+<h2>Add files to git</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git add filename
+</pre></div>
+<h2>Remove a file from git</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git rm filename
+</pre></div>
+<h2>Commit changes</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git commit -m <span class="s2">&quot;Commit message&quot;</span>
+</pre></div>
+<h2>Push to remote server</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git push origin branchname
+</pre></div>
+<h2>Pull from remote server</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git pull origin branchname
+</pre></div>
+<h2>View commit log</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git log
+</pre></div>
+<h2>View code changes</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git diff
+</pre></div>
+<h2>Restore a deleted file (deleted from file system not from git)</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git checkout filename
+</pre></div>
+<h2>Revert a changed file back to original file</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git reset --hard HEAD filename
+</pre></div>
+<h2>Revert a changed file back to original file without loosing changes</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git reset --soft HEAD filename
+</pre></div>
+<h2>Reverting back to version before last commit</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git reset --hard HEAD^ filename
+</pre></div>
+<h2>Reverting back to version before last commit without loosing changes</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git reset --soft HEAD^ filename
+</pre></div>
+<h2>Edit your last commit message after the commit</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git commit --amend
+</pre></div>
+<h2>Remove the cached file from git</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git rm  --cached filename
+<span class="nv">$ </span>git rm -r --cached .   <span class="c"># will remove all the git cached files from git.</span>
+</pre></div>
+<p>By default git won&#39;t ignore the files which are already added to git and later added to .gitignore
+so to ignore them later remove them form cache.</p>
+
+<h1>Branching</h1>
+
+<h2>Create a new branch</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git branch -b test_branch
+</pre></div>
+<h2>Checkout a remote branch from origin</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git checkout -b sprint-15 origin/sprint-15
+</pre></div>
+<h2>List all the available branches</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git branch
+</pre></div>
+<h2>Switch to the new branch</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git checkout test_branch
+</pre></div>
+<h2>Merging two branches</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git merge test_branch   <span class="c"># test_branch will get merged with current branch</span>
+</pre></div>
+<h2>Delete a branch</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git branch -d test_branch <span class="c"># This command ensures that the changes in the test_branch are already in current branch</span>
+</pre></div>
+<h2>Rename a branch</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git branch -m old_branch new_branch
+</pre></div>
+<h1>Other commands</h1>
+
+<h2>Git gui tools</h2>
+<div class="highlight"><pre><span class="nv">$ </span>gitk
+</pre></div>
+<p>or</p>
+<div class="highlight"><pre><span class="nv">$ </span>git gui
+</pre></div>
+<h2>UNDO - merge</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git reset --hard HEAD      <span class="c"># before committing</span>
+<span class="nv">$ </span>git reset --hard ORIG_HEAD <span class="c"># after  committing</span>
+</pre></div>
+<h2>Bash Prompt with git branch info</h2>
+<div class="highlight"><pre><span class="vg">function</span><span class="w"> </span><span class="vg">git_branch_name</span><span class="p">(){</span>
+<span class="w">    </span><span class="vg">git_head</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="vg">git</span><span class="w"> </span><span class="vg">symbolic</span><span class="o">-</span><span class="vg">ref</span><span class="w"> </span><span class="vg">HEAD</span><span class="w"> </span><span class="il">2</span><span class="o">&gt;/</span><span class="vg">dev</span><span class="o">/</span><span class="vg">null</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="vg">return</span>
+<span class="w">    </span><span class="vg">echo</span><span class="w"> </span><span class="s2">&quot;[&quot;</span><span class="err">$</span><span class="p">{</span><span class="vg">git_head#refs</span><span class="o">/</span><span class="vg">heads</span><span class="o">/</span><span class="p">}</span><span class="s2">&quot;]&quot;</span>
+<span class="p">}</span>
+
+<span class="vg">export</span><span class="w"> </span><span class="vg">PS1</span><span class="o">=</span><span class="s2">&quot;\u@\W \$(git_branch_name)\$ \n -&gt;&quot;</span>
+</pre></div>
+<h2>Colorful display of git (status, diff, branch) etc</h2>
+<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">config</span><span class="w"> </span><span class="o">--</span><span class="vg">global</span><span class="w"> </span><span class="vg">color</span><span class="o">.</span><span class="vg">status</span><span class="w">  </span><span class="vg">true</span>
+</pre></div>
+<h2>Configure core editor for git</h2>
+<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">config</span><span class="w"> </span><span class="o">--</span><span class="vg">global</span><span class="w"> </span><span class="vg">core</span><span class="o">.</span><span class="vg">editor</span><span class="w"> </span><span class="vg">emacs</span>
+</pre></div>
+<h2>Git log with commit info</h2>
+<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="o">-</span><span class="vg">p</span>
+</pre></div>
+<h2>Advanced git config -edit the configuration file</h2>
+<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">config</span><span class="w"> </span><span class="o">--</span><span class="vg">global</span><span class="w"> </span><span class="o">-</span><span class="vg">e</span><span class="w">      </span><span class="err">#</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">will</span><span class="w"> </span><span class="vg">open</span><span class="w"> </span><span class="vg">the</span><span class="w"> </span><span class="vg">config</span><span class="w"> </span><span class="vg">file</span>
+
+<span class="p">[</span><span class="vg">alias</span><span class="p">]</span>
+<span class="w">  </span><span class="vg">lg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">log</span><span class="w"> </span><span class="o">--</span><span class="vg">color</span><span class="w"> </span><span class="o">--</span><span class="vg">pretty</span><span class="o">=</span><span class="nl">format:</span><span class="c1">&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --no-merges</span>
+<span class="w">  </span><span class="vg">st</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">status</span>
+<span class="w">  </span><span class="vg">ci</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">commit</span>
+<span class="w">  </span><span class="vg">br</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">branch</span>
+<span class="w">  </span><span class="vg">co</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">checkout</span>
+<span class="w">  </span><span class="vg">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">diff</span>
+<span class="w">  </span><span class="vg">show</span><span class="o">-</span><span class="vg">files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">show</span><span class="w"> </span><span class="o">--</span><span class="vg">pretty</span><span class="o">=</span><span class="s2">&quot;format:&quot;</span><span class="w"> </span><span class="o">--</span><span class="vg">name</span><span class="o">-</span><span class="vg">only</span>
+</pre></div>
+<h1>Issues I have faced.</h1>
+
+<h2>Could not execute editor</h2>
+<div class="highlight"><pre><span class="o">/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">libexec</span><span class="o">/</span><span class="vg">git</span><span class="o">-</span><span class="vg">core</span><span class="o">/</span><span class="vg">git</span><span class="o">-</span><span class="vg">sh</span><span class="o">-</span><span class="nl">setup:</span><span class="w"> </span><span class="vg">line</span><span class="w"> </span><span class="il">106</span><span class="o">:</span><span class="w"> </span><span class="o">/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="nl">mate:</span><span class="w"> </span><span class="vg">No</span><span class="w"> </span><span class="vg">such</span><span class="w"> </span><span class="vg">file</span><span class="w"> </span><span class="vg">or</span><span class="w"> </span><span class="vg">directory</span>
+<span class="vg">Could</span><span class="w"> </span><span class="vg">not</span><span class="w"> </span><span class="vg">execute</span><span class="w"> </span><span class="vg">editor</span>
+
+<span class="vg">git</span><span class="w"> </span><span class="vg">config</span><span class="w"> </span><span class="o">--</span><span class="vg">global</span><span class="w"> </span><span class="vg">core</span><span class="o">.</span><span class="vg">editor</span><span class="w"> </span><span class="vg">vim</span><span class="w">  </span><span class="vg">this</span><span class="w"> </span><span class="vg">didn</span><span class="c1">&#39;t work for me</span>
+</pre></div>
+<p>fix</p>
+<div class="highlight"><pre><span class="vg">set</span><span class="w"> </span><span class="vg">GIT_EDITOR</span><span class="o">=/</span><span class="vg">usr</span><span class="o">/</span><span class="vg">bin</span><span class="o">/</span><span class="vg">vim</span>
+<span class="vg">export</span><span class="w"> </span><span class="err">$</span><span class="vg">GIT_EDITOR</span>
+</pre></div>
+<h2>Reset file permissions in git and restore the file status</h2>
+<div class="highlight"><pre><span class="nv">$ </span>git diff -p <span class="se">\</span>
+  <span class="p">|</span> grep -E <span class="s1">&#39;^(diff|old mode|new mode)&#39;</span> <span class="se">\</span>
+  <span class="p">|</span> sed -e <span class="s1">&#39;s/^old/NEW/;s/^new/old/;s/^NEW/new/&#39;</span> <span class="se">\</span>
+  <span class="p">|</span> git apply
+</pre></div>

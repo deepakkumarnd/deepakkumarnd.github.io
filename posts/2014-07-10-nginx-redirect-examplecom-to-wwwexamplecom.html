@@ -1,0 +1,12 @@
+<p>It is advised to go with either www or without www format for your domain name.</p>
+
+<p>Login as root and add the following lines in nginx config file</p>
+<div class="highlight"><pre><span class="vg">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="vg">listen</span><span class="w"> </span><span class="il">80</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">server_name</span><span class="w"> </span><span class="vg">example</span><span class="o">.</span><span class="vg">com</span><span class="p">;</span>
+<span class="w">    </span><span class="vg">return</span><span class="w"> </span><span class="il">301</span><span class="w"> </span><span class="nl">http:</span><span class="o">//</span><span class="vg">www</span><span class="o">.</span><span class="vg">example</span><span class="o">.</span><span class="vg">com$request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>now restart nginx</p>
+<div class="highlight"><pre><span class="nv">$ </span>nginx -t reload
+</pre></div>

@@ -1,0 +1,18 @@
+<p>Login as <strong>root</strong> user</p>
+
+<p>create a file <strong>access_cred</strong> in <strong>/var</strong> in the following format</p>
+<div class="highlight"><pre><span class="n">username</span><span class="o">:</span><span class="n">encrypted_password</span>
+</pre></div>
+<p>create encrypted password using openssl</p>
+<div class="highlight"><pre><span class="nv">$ </span>openssl passwd -crypt &lt;password&gt;
+</pre></div>
+<p>copy that password and create the file as specified above</p>
+
+<p>Now add the following lines to server or location block in nginx config file</p>
+<div class="highlight"><pre><span class="vg">auth_basic</span><span class="w"> </span><span class="s2">&quot;Restricted Access&quot;</span><span class="p">;</span>
+<span class="vg">auth_basic_user_file</span><span class="w"> </span><span class="o">/</span><span class="vg">var</span><span class="o">/</span><span class="vg">access_cred</span><span class="p">;</span>
+</pre></div>
+<p>Restart nginx</p>
+<div class="highlight"><pre><span class="nv">$ </span>nginx -t reload
+</pre></div>
+<p><a href="http://roger.steneteg.org/441/basic-authentication-with-nginx/">reference</a></p>

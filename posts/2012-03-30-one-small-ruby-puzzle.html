@@ -1,0 +1,22 @@
+<p>One day I was going through the famous book Metaprogramming Ruby. This piece of code caught my attention.</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Roulette</span>
+<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">method_missing</span><span class="p">(</span><span class="vg">name</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="vg">args</span><span class="p">)</span>
+<span class="w">    </span><span class="vg">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">name</span><span class="o">.</span><span class="vg">to_s</span><span class="o">.</span><span class="vg">capitalize</span>
+<span class="w">    </span><span class="il">3</span><span class="o">.</span><span class="vg">times</span><span class="w"> </span><span class="vg">do</span>
+<span class="w">      </span><span class="vg">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">rand</span><span class="p">(</span><span class="il">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="il">1</span>
+<span class="w">      </span><span class="vg">puts</span><span class="w"> </span><span class="s2">&quot;#{number}...&quot;</span>
+<span class="w">    </span><span class="vg">end</span>
+<span class="w">    </span><span class="s2">&quot;#{person} got a #{number}&quot;</span>
+<span class="w">  </span><span class="vg">end</span>
+<span class="vg">end</span>
+
+<span class="vg">number_of</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Roulette</span><span class="o">.</span><span class="vg">new</span>
+<span class="vg">puts</span><span class="w"> </span><span class="vg">number_of</span><span class="o">.</span><span class="vg">bob</span>
+<span class="vg">puts</span><span class="w"> </span><span class="vg">number_of</span><span class="o">.</span><span class="vg">frank</span>
+</pre></div>
+<p>Here the class Roulette overrides the method_missing method. The puzzle is to predict the output of the program. At the first look we may end up in a very quick solution. So since there is no method like bob and frank obviously the method missing gets called and we expect six random numbers as the output, but the actual output is something crazy. The program enters in a recurssive call and crashes due to lack of memory.</p>
+
+<p>So lets see what exactly happend here. For the first call number_of.bob the block is executed 3 times and produces three random numbers. The very first line after that is</p>
+<div class="highlight"><pre><span class="s2">&quot;#{person} got a #{number}&quot;</span>
+</pre></div>
+<p>so here the interpreter looks for a variable named number in the current scope and it will fail to find one because ruby has a block scope ie local variables defined inside a block are not accessible outside the block. Here the number is defined inside the loop which has a block scope. So number results in a method call and is handled by method<em>missing as there is no method named &quot;number&quot;. So method</em>missing gets called each time this line encounters which causes an infinite recursion and the program crashes.</p>

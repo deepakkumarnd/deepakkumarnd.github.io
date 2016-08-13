@@ -1,0 +1,15 @@
+<p>In your Gemfile add the following gems</p>
+<div class="highlight"><pre><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;angularjs-rails&#39;</span>
+<span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;angular-rails-templates&#39;</span>
+</pre></div>
+<p>require them in application.js also require the template directory too which is <strong>app/assets/templates</strong> in this case.</p>
+<div class="highlight"><pre><span class="c1">//= require angular</span>
+<span class="c1">//= require angular-rails-templates</span>
+<span class="c1">//= require ../templates</span>
+</pre></div>
+<p>Now in your angular initializer file config.js.coffee</p>
+<div class="highlight"><pre><span class="vg">window</span><span class="o">.</span><span class="vg">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">angular</span><span class="o">.</span><span class="vg">module</span><span class="p">(</span><span class="c1">&#39;App&#39;, [ &#39;templates&#39;]);</span>
+</pre></div>
+<p>Now your will be able to access your templates with just the filename eg: home.html</p>
+
+<p>The templates can be made of any other template engine, for example <strong>home.html.slim</strong> in template directory will be converted into <strong>home.html</strong> on accessing.</p>

@@ -1,0 +1,59 @@
+<p>There are situations where we want to create a unique constraint for more than
+one columns. In a database level it can be easily achieved by adding a unique
+index on one or more fields.</p>
+
+<p>The same thing can be achieved by using rails validations too, but the advantage
+of using rails validations are.</p>
+
+<ol>
+<li>You can easily modify the validation</li>
+<li>You can provide user friendly messages if any violations occur.</li>
+<li><p>Easy in development mode.</p>
+
+<p>At the same time the disadvantage can come in situations where if you are
+using multiple app servers and two operations results in records which violates
+uniqueness. For example say two users are trying to create user accounts with
+same username from two app instances, both the app instances pass the unique
+validation test and two records with same username will be created in the
+database.</p></li>
+</ol>
+
+<p>In such cases the data integrity should be ensured using database level unique
+constraints. The same thing applies to other constraints too. So the best thing
+in a production app would be to add critical constraints like unique at database
+level and to add validation in rails app for a user friendly response.</p>
+
+<p>Lets take an example say we have a User model and Topic model, users can
+subscribe or unsubscribe topics and we store the relationship in a user_topics
+join table.</p>
+<div class="highlight"><pre><span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">User</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="vg">has_many</span><span class="w"> </span><span class="o">:</span><span class="vg">topics</span><span class="p">,</span><span class="w"> </span><span class="nl">through:</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">  </span><span class="vg">end</span>
+
+<span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">Topic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">    </span><span class="vg">has_many</span><span class="w"> </span><span class="o">:</span><span class="vg">users</span><span class="p">,</span><span class="w"> </span><span class="nl">through:</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span>
+<span class="w">    </span><span class="o">...</span>
+<span class="w">  </span><span class="vg">end</span>
+
+<span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">UserTopic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
+<span class="w">    </span><span class="vg">belongs_to</span><span class="w"> </span><span class="o">:</span><span class="vg">user</span>
+<span class="w">    </span><span class="vg">belongs_to</span><span class="w"> </span><span class="o">:</span><span class="vg">topic</span>
+
+<span class="w">    </span><span class="vg">validates</span><span class="w"> </span><span class="o">:</span><span class="vg">user_id</span><span class="p">,</span><span class="w"> </span><span class="nl">uniquness:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">scope:</span><span class="w"> </span><span class="o">:</span><span class="vg">topic_id</span><span class="p">,</span><span class="w"> </span><span class="nl">message:</span><span class="w"> </span><span class="c1">&#39;You are</span>
+<span class="w">      </span><span class="vg">already</span><span class="w"> </span><span class="vg">following</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">topic</span><span class="c1">&#39; }</span>
+<span class="w">  </span><span class="vg">end</span>
+</pre></div>
+<p>The validation in UserTopic model ensures only one record is created for a user
+for a particular topic. Now lets write a migration to add a unique constraint in
+database for ensuring the data integrity at database level.</p>
+<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">AddUniqueContraintToUserTopic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Migration</span>
+<span class="w">  </span><span class="vg">add_index</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">:</span><span class="vg">user_id</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">topic_id</span><span class="p">],</span><span class="w"> </span><span class="nl">unique:</span><span class="w"> </span><span class="vg">true</span>
+<span class="vg">end</span>
+
+
+<span class="err">$</span><span class="w"> </span><span class="vg">rake</span><span class="w"> </span><span class="nl">db:</span><span class="vg">migrate</span>
+</pre></div>
+<p>By doing so we can ensure the integrity of the database.</p>
