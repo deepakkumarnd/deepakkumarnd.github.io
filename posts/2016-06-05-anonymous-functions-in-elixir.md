@@ -11,9 +11,7 @@ Anonymous functions are first class values in Elixir, they can be passed as argu
 
 Creating an anonymouse function in elixir
 
-```
     f = fn(x) -> x * x end
-```
 
 or in short form
 

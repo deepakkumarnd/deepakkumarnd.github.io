@@ -34,6 +34,16 @@ ul {
   list-style: none;
 }
 
+pre {
+  background-color: $code-bg-color;
+  padding: $code-padding-1 $code-padding-2;
+  border-radius: $default-radius;
+
+  code {
+    color: $code-text-color;
+  }
+}
+
 .pull-left {
   display: inline-block;
   float: left;
@@ -72,6 +82,11 @@ ul {
     background-color: #fff;
     padding: $default-padding;
     margin: $default-margin auto;
+    p {
+      line-height: 1.5em;
+      margin: 2em 0;
+    }
+
     .posts {
       .post-item {
         padding: 2*$default-padding $default-padding;
