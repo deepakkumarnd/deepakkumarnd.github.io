@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -33,51 +32,60 @@ want to discuss few of them which I felt really cool.</p>
 Basically both are block of code which can be executed, passed or assigned just like a variable.
 You can create a block of code as follows.</p>
 
-<p>myproc = Proc.new do |var|
-      # some piece of code
-    end
-or</p>
+<pre><code>myproc = Proc.new do |var|
+  # some piece of code
+end
+</code></pre>
 
-<p>mylambda = lambda do |var|
-      # some piece of code
-    end</p>
+<p>or</p>
+
+<pre><code>mylambda = lambda do |var|
+  # some piece of code
+end
+</code></pre>
 
 <p>So now you have a block of code assigned to a variable which can be executed at will by a call 
 method.</p>
 
-<p>myproc.call</p>
+<pre><code>myproc.call
+</code></pre>
 
 <p>You can pass arguments to it as follows so that the block variables are assigned these values.</p>
 
-<p>myproc.call(10)</p>
+<pre><code>myproc.call(10)
+</code></pre>
 
 <p>You can assign the proc on some other variable.</p>
 
-<p>new_proc = myproc</p>
+<pre><code>new_proc = myproc
+</code></pre>
 
 <p>You can pass the block to some methods</p>
 
-<p>def foo block
-      block.call
-    end</p>
+<pre><code>def foo block
+  block.call
+end
 
-<p>foo myproc</p>
+foo myproc
+</code></pre>
 
 <p>So if you want to reuse the code and doesn't worth making a method the you can go with proc or
 lambda. For example I have a class Student.</p>
 
-<p>class Student
-      def initialize(name)
-        @name = name
-      end
-      ...
-    end</p>
+<pre><code>class Student
+  def initialize(name)
+    @name = name
+  end
+  ...
+end
+</code></pre>
 
 <p>suppose I have 30 students, students = [s1,s2,s3...s30] and I want list of their name in camel
 case then I can use proc to do that neatly.</p>
 
-<p>camelize = Proc.new { |var| var.name.capitalize if name.present? }
-    students.collect(&amp;camelize)</p>
+<pre><code>camelize = Proc.new { |var| var.name.capitalize if name.present? }
+students.collect(&amp;camelize)
+</code></pre>
 
 <p>Thats it here I can avoid a method and still I'm able to reuse the code.</p>
 </div>

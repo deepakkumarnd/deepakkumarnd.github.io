@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -20,18 +19,21 @@
 <div class="page-content">
 <p>In your Gemfile add the following gems</p>
 
-<p>gem 'angularjs-rails'
-    gem 'angular-rails-templates'</p>
+<pre><code>gem 'angularjs-rails'
+gem 'angular-rails-templates'
+</code></pre>
 
 <p>require them in application.js also require the template directory too which is <strong>app/assets/templates</strong> in this case.</p>
 
-<p>//= require angular
-    //= require angular-rails-templates
-    //= require ../templates</p>
+<pre><code>//= require angular
+//= require angular-rails-templates
+//= require ../templates
+</code></pre>
 
 <p>Now in your angular initializer file config.js.coffee</p>
 
-<p>window.App = angular.module('App', [ 'templates']);</p>
+<pre><code>window.App = angular.module('App', [ 'templates']);
+</code></pre>
 
 <p>Now your will be able to access your templates with just the filename eg: home.html</p>
 

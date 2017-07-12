@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -23,30 +22,34 @@ ruby script. For that ruby provides a variety of ways.</p>
 
 <p>you can use backquotes to execute a unix system command </p>
 
-<p><code>ls -al</code></p>
+<pre><code>`ls -al`
+</code></pre>
 
 <p>or </p>
 
-<p>%x{ls -al}</p>
+<pre><code>%x{ls -al}
+</code></pre>
 
 <p>or even system method</p>
 
-<p>system("ls -al")</p>
+<pre><code>system("ls -al")
+</code></pre>
 
 <p>Apart from these ruby provides a IO.popen which spawns a subprocess and creates a pipe
 or IO stream between ruby interpreter and the subprocess. So the interesting thing is 
 you can send the input to this subprocess as a standard input also you can get the 
 standard output of this subprocess. Here is a small example.</p>
 
-<p>def run<em>command(command, input = '')
-      IO.popen(command, 'r+') do |pipe|
-        pipe.puts input
-        pipe.close</em>write
-        pipe.read
-      end
-    end</p>
+<pre><code>def run_command(command, input = '')
+  IO.popen(command, 'r+') do |pipe|
+    pipe.puts input
+    pipe.close_write
+    pipe.read
+  end
+end
 
-<p>puts run_command "wc -w", "How many people are here"</p>
+puts run_command "wc -w", "How many people are here"
+</code></pre>
 
 <p>Here we have opened an IO stream in read write mode and we wrote our input to the
 stream. Once the write to the stream is done we have to close the stream in order to 
@@ -57,27 +60,28 @@ can be read from the pipe using the read method.</p>
 type the old password and then the new password then repeat it to confirm password. Using
 ruby's expect and pty library you can mimick a human. Here is a sample program which changes the user password.</p>
 
-<p>require 'expect'
-    require 'pty'</p>
+<pre><code>require 'expect'
+require 'pty'
 
-<p>old_password = "hell"</p>
+old_password = "hell"
 
-<p>PTY.spawn("passwd") do |input, output, pid|
-      output.sync = true
-      $expect_verbose = false</p>
+PTY.spawn("passwd") do |input, output, pid|
+  output.sync = true
+  $expect_verbose = false
 
-<p>input.expect("(current) UNIX password:", 30) do |response|
-        output.print "#{old_password}\n" if response
-      end</p>
+  input.expect("(current) UNIX password:", 30) do |response|
+    output.print "#{old_password}\n" if response
+  end
 
-<p>input.expect(/UNIX password:/,2) do |response|
-        output.print "welcome123\n" if response
-      end</p>
+  input.expect(/UNIX password:/,2) do |response|
+    output.print "welcome123\n" if response
+  end
 
-<p>input.expect(/UNIX password:/) do |response|
-        output.print "welcome123\n" if response
-      end
-    end</p>
+  input.expect(/UNIX password:/) do |response|
+    output.print "welcome123\n" if response
+  end
+end
+</code></pre>
 
 <p>Here we have spawned the passwd command and expect it to ask some questions.
 We can either go with strings or regular expressions as expected strings, the 

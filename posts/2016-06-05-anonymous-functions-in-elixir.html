@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -22,39 +21,44 @@
 
 <p>Creating an anonymouse function in elixir</p>
 
-<pre><code>    f = fn(x) -&gt; x * x end
+<pre><code>f = fn(x) -&gt; x * x end
 </code></pre>
 
 <p>or in short form</p>
 
-<p>f = &amp;(&amp;1*&amp;1)</p>
+<pre><code>f = &amp;(&amp;1*&amp;1)
+</code></pre>
 
 <p>where &amp;1 will be replaced by the first argument.</p>
 
 <p>Invoking an anonymous function</p>
 
-<p>f.(2)   # 2*2 =&gt; 4</p>
+<pre><code>f.(2)   # 2*2 =&gt; 4
+</code></pre>
 
 <p>Anonymous function can be created out of named functions as well. For example we can make <strong>String.upcase/1</strong> as anonymous. By doing this we can pass them to other functions.</p>
 
-<p>g = &amp;String.upcase(&amp;1)</p>
+<pre><code>g = &amp;String.upcase(&amp;1)
 
-<p>g.("hello")  # "HELLO"</p>
+g.("hello")  # "HELLO"
+</code></pre>
 
 <p>Anonymous functions has many use cases, they can be used in <strong>Enum.map/2</strong> function.</p>
 
-<p>names = ["Deepak", "raghu", "Akram", "Stalin"]
-    Enum.map(names, g)  # ["DEEPAK", "RAGHU", "AKRAM", "STALIN]</p>
+<pre><code>names = ["Deepak", "raghu", "Akram", "Stalin"]
+Enum.map(names, g)  # ["DEEPAK", "RAGHU", "AKRAM", "STALIN]
+</code></pre>
 
 <p>You many use pattern matching in anonymous function, in that case you need to use the same arity.</p>
 
-<p>f = fn
-      (:square, x) -&gt;  x * x
-      (:cube, x) -&gt; x * x * x
-    end</p>
+<pre><code>f = fn
+  (:square, x) -&gt;  x * x
+  (:cube, x) -&gt; x * x * x
+end
 
-<p>f.(:square, 4)   # 16
-    f.(:cube, 4)     # 64</p>
+f.(:square, 4)   # 16
+f.(:cube, 4)     # 64
+</code></pre>
 </div>
 <div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
 </div></div>

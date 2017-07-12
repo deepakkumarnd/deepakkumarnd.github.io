@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -49,35 +48,38 @@ level and to add validation in rails app for a user friendly response.</p>
 subscribe or unsubscribe topics and we store the relationship in a user_topics
 join table.</p>
 
-<p>class User &lt; ActiveRecord::Base
-        ...
-        has<em>many :topics, through: :user</em>topics
-        ...
-      end</p>
+<pre><code>  class User &lt; ActiveRecord::Base
+    ...
+    has_many :topics, through: :user_topics
+    ...
+  end
 
-<p>class Topic &lt; ActiveRecord::Base
-        ...
-        has<em>many :users, through: :user</em>topics
-        ...
-      end</p>
+  class Topic &lt; ActiveRecord::Base
+    ...
+    has_many :users, through: :user_topics
+    ...
+  end
 
-<p>class UserTopic &lt; ActiveRecord::Base
-        belongs<em>to :user
-        belongs</em>to :topic</p>
+  class UserTopic &lt; ActiveRecord::Base
+    belongs_to :user
+    belongs_to :topic
 
-<p>validates :user<em>id, uniquness: { scope: :topic</em>id, message: 'You are
-          already following this topic' }
-      end</p>
+    validates :user_id, uniquness: { scope: :topic_id, message: 'You are
+      already following this topic' }
+  end
+</code></pre>
 
 <p>The validation in UserTopic model ensures only one record is created for a user
 for a particular topic. Now lets write a migration to add a unique constraint in
 database for ensuring the data integrity at database level.</p>
 
-<p>class AddUniqueContraintToUserTopic &lt; ActiveRecord::Migration
-      add<em>index :user</em>topics, [:user<em>id, :topic</em>id], unique: true
-    end</p>
+<pre><code>class AddUniqueContraintToUserTopic &lt; ActiveRecord::Migration
+  add_index :user_topics, [:user_id, :topic_id], unique: true
+end
 
-<p>$ rake db:migrate</p>
+
+$ rake db:migrate
+</code></pre>
 
 <p>By doing so we can ensure the integrity of the database.</p>
 </div>

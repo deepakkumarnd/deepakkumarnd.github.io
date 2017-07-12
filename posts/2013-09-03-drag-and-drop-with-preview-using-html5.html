@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -24,63 +23,66 @@
 
 <p>First step is to create a drop area in the web page.</p>
 
-<p>...
-    </p>
-<div class="drag-and-drop">
-        <output id="preview"></output>
-        <div id="droparea"><em>Drop Your Photos Here</em></div>
-    </div>
-    ...
+<pre><code>...
+&lt;div class="drag-and-drop"&gt;
+    &lt;output id="preview"&gt;&lt;/output&gt;
+    &lt;div id="droparea"&gt;&lt;em&gt;Drop Your Photos Here&lt;/em&gt;&lt;/div&gt;
+&lt;/div&gt;
+...
+</code></pre>
 
 <p>"output" element displays the preview of the image we are dropping. Of course you need to do some css styling to make this looks like something where we can drop our images. Once you have added the <a href="https://raw.github.com/deepakkumarnd/mylabs/master/drag_and_drop/drag_and_drop.css">css</a> just open the html page in a browser.</p>
 
 <p>Next step is to add the event listeners to the "droparea".</p>
 
-<p>...
-    var droparea = document.getElementById('droparea');
-    droparea.addEventListener('dragover', handleDragOver, false);
-    droparea.addEventListener('drop', handleFileSelect, false);</p>
+<pre><code>...
+var droparea = document.getElementById('droparea');
+droparea.addEventListener('dragover', handleDragOver, false);
+droparea.addEventListener('drop', handleFileSelect, false);
 
-<p>handleDragOver: function(evt){
-        evt.stopPropagation();
-        evt.preventDefault();
-        evt.dataTransfer.dropEffect = "copy";
-    },</p>
+handleDragOver: function(evt){
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = "copy";
+},
 
-<p>handleFileSelect: function(evt){
-        evt.stopPropagation();
-        evt.preventDefault();
-        var files = evt.dataTransfer.files;
-        var output = [];</p>
+handleFileSelect: function(evt){
+    evt.stopPropagation();
+    evt.preventDefault();
+    var files = evt.dataTransfer.files;
+    var output = [];
 
-<p>for (var i=0, f; f=files[i]; i++){
-            if (!f.type.match('image.*')) { continue; }
-            DragAndDrop.setPreview(f);
-        }
-    },
-    ...</p>
+    for (var i=0, f; f=files[i]; i++){
+        if (!f.type.match('image.*')) { continue; }
+        DragAndDrop.setPreview(f);
+    }
+},
+...
+</code></pre>
 
 <p>handleDragOver and handleFileSelect are the functions handling 'dragover' and 'drop' events. In handleFileSelect we sets the preview using HTML5 FileReader api.</p>
 
-<p>...
-    setPreview: function(image){
-        var reader = new FileReader();
-        reader.onload = (function(theFile) {
-                return function(e) {
-                    var span = document.createElement('span');
-                    span.innerHTML = ['<img class="thumb" src="',%20e.target.result,%20'" title="', escape(theFile.name),
-                      '"><a class="close" href="javascript:void(0)">x</a>'].join('');
-                    DragAndDrop.preview.insertBefore(span, null);
-                };
-        })(image);</p>
+<pre><code>...
+setPreview: function(image){
+    var reader = new FileReader();
+    reader.onload = (function(theFile) {
+            return function(e) {
+                var span = document.createElement('span');
+                span.innerHTML = ['&lt;img class="thumb" src="', e.target.result, '" title="', escape(theFile.name),
+                  '"/&gt;&lt;a class="close" href="javascript:void(0)"&gt;x&lt;/a&gt;'].join('');
+                DragAndDrop.preview.insertBefore(span, null);
+            };
+    })(image);
 
-<p>reader.readAsDataURL(image);
-    },
-    ...</p>
+    reader.readAsDataURL(image);
+},
+...
+</code></pre>
 
 <p>Here is the <a href="https://raw.github.com/deepakkumarnd/mylabs/master/drag_and_drop/drag_and_drop.js">javascript</a> I used for doing drag and drop. The code is self explanatory. When the page loads an alert will be shown if your browser doesn't support HTML5 file apis. The page will be initialized on load to respond to "dragover" and "drop" events. Once you select files drags them and dropped to the drop area, the files can be accessed in handleDragOver function as below.</p>
 
-<p>var files = evt.dataTransfer.files;</p>
+<pre><code>var files = evt.dataTransfer.files;
+</code></pre>
 
 <p>To show the preview a FileReader object is created, which then reads the file and displays it in "output" section. A close button is also displayed so that you can remove the selected image from the page.</p>
 

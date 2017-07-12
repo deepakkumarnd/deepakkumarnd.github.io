@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -22,15 +21,17 @@
 
 <p>Login as root and add the following lines in nginx config file</p>
 
-<p>server {
-        listen 80;
-        server<em>name example.com;
-        return 301 http://www.example.com$request</em>uri;
-    }</p>
+<pre><code>server {
+    listen 80;
+    server_name example.com;
+    return 301 http://www.example.com$request_uri;
+}
+</code></pre>
 
 <p>now restart nginx</p>
 
-<p>$ nginx -t reload</p>
+<pre><code>$ nginx -t reload
+</code></pre>
 </div>
 <div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
 </div></div>

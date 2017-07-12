@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -22,22 +21,26 @@
 
 <p>create a file <strong>access_cred</strong> in <strong>/var</strong> in the following format</p>
 
-<p>username:encrypted_password</p>
+<pre><code>username:encrypted_password
+</code></pre>
 
 <p>create encrypted password using openssl</p>
 
-<p>$ openssl passwd -crypt <password></password></p>
+<pre><code>$ openssl passwd -crypt &lt;password&gt;
+</code></pre>
 
 <p>copy that password and create the file as specified above</p>
 
 <p>Now add the following lines to server or location block in nginx config file</p>
 
-<p>auth<em>basic "Restricted Access";
-    auth</em>basic<em>user</em>file /var/access_cred;</p>
+<pre><code>auth_basic "Restricted Access";
+auth_basic_user_file /var/access_cred;
+</code></pre>
 
 <p>Restart nginx</p>
 
-<p>$ nginx -t reload</p>
+<pre><code>$ nginx -t reload
+</code></pre>
 
 <p><a href="http://roger.steneteg.org/441/basic-authentication-with-nginx/">reference</a></p>
 </div>

@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -20,25 +19,29 @@
 <div class="page-content">
 <p>When you develop a rails application say a blog application, the framework uses the database id to identify an individual blog post. So the url to an individual post looks like</p>
 
-<p>foo.com/posts/122</p>
+<pre><code>foo.com/posts/122
+</code></pre>
 
 <p>If you share this url to someone it is really hard to guess the contents of the post without going to the actual post.</p>
 
 <p>One way to solve this issue is to use friendly url rather than using just the id of the post. The simplest way is to simply override the <strong>to_param</strong> method in your model.</p>
 
-<p>class Post &lt; ActiveRecord::Base
-      def to_param
-        "#{id}-#{title}".parameterize
-      end
-    end</p>
+<pre><code>class Post &lt; ActiveRecord::Base
+  def to_param
+    "#{id}-#{title}".parameterize
+  end
+end
+</code></pre>
 
 <p>So now onwards you will have a readable url in your blog posts, somthing like</p>
 
-<p>foo.com/posts/22-friendly-id</p>
+<pre><code>foo.com/posts/22-friendly-id
+</code></pre>
 
 <p>If you apply <strong>to_i</strong> to a string in ruby which starts with a number you will get that number back</p>
 
-<p>'22-friendly-id'.to_i =&gt; 22</p>
+<pre><code>'22-friendly-id'.to_i =&gt; 22
+</code></pre>
 
 <p>The <strong>Post.find</strong> uses the same mechanism internally so that you don't have to change anything else.</p>
 
@@ -50,30 +53,35 @@
 
 <p>Add the following line to your <strong>Gemfile</strong></p>
 
-<p>gem 'friendly_id', '~&gt; 5.0.0'</p>
+<pre><code>gem 'friendly_id', '~&gt; 5.0.0'
+</code></pre>
 
 <h2>Run the generator command</h2>
 
-<p>rails generate friendly_id</p>
+<pre><code>rails generate friendly_id
+</code></pre>
 
 <p>You need to add a slug field in your model to use friendly_url</p>
 
-<p>rails generate scaffold post title:string slug:string</p>
+<pre><code>rails generate scaffold post title:string slug:string
+</code></pre>
 
 <p>or if you already have a post model</p>
 
-<p>rails generate migration add<em>slug</em>to_posts slug:string</p>
+<pre><code>rails generate migration add_slug_to_posts slug:string
+</code></pre>
 
 <h2>Add a database index on the slug field for faster access</h2>
 
 <p>open the corresponding migration file and add an index to slug field</p>
 
-<p>class AddSlugToPosts &lt; ActiveRecord::Migration
-      def change
-        add<em>column :posts, :slug, :string
-        add</em>index :posts, :slug, unique: true
-      end
-    end</p>
+<pre><code>class AddSlugToPosts &lt; ActiveRecord::Migration
+  def change
+    add_column :posts, :slug, :string
+    add_index :posts, :slug, unique: true
+  end
+end
+</code></pre>
 
 <h2>Run migration</h2>
 
@@ -81,15 +89,17 @@
 
 <h2>Add the friendly id module in the model file</h2>
 
-<p>class Post &lt; ActiveRecord::Base
-      extend FriendlyId
-      friendly_id :title, use: :slugged
-    end</p>
+<pre><code>class Post &lt; ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+end
+</code></pre>
 
 <h2>Done now update your previous records</h2>
 
-<p>rails c
-    &gt;&gt; Post.find_each(&amp;:save)</p>
+<pre><code>rails c
+&gt;&gt; Post.find_each(&amp;:save)
+</code></pre>
 
 <p>Now you will have friendly readable urls in your applicaion, restart your application and go to any post to see the changed url.</p>
 
@@ -97,7 +107,8 @@
 
 <p>Now we have a readable url but in the latest version of <strong>FriendlyId</strong> they haven't modified the <strong>Model#find</strong> method to use the new changed url. So to use that you have to the new format.</p>
 
-<p>Post.friendly.find(params[:id])</p>
+<pre><code>Post.friendly.find(params[:id])
+</code></pre>
 
 <p>You may also edit the config file <strong>config/initializers/friendly_id.rb</strong> of your rails application root directory.</p>
 </div>

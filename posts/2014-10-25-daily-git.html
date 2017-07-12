@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -24,68 +23,84 @@
 
 <h2>Initialize a git repo</h2>
 
-<p>$ git init</p>
+<pre><code>$ git init
+</code></pre>
 
 <h2>Add a remote origin</h2>
 
-<p>$ git remote add origin <git repo url></git></p>
+<pre><code>$ git remote add origin &lt;git repo url&gt;
+</code></pre>
 
 <h2>Add files to git</h2>
 
-<p>$ git add filename</p>
+<pre><code>$ git add filename
+</code></pre>
 
 <h2>Remove a file from git</h2>
 
-<p>$ git rm filename</p>
+<pre><code>$ git rm filename
+</code></pre>
 
 <h2>Commit changes</h2>
 
-<p>$ git commit -m "Commit message"</p>
+<pre><code>$ git commit -m "Commit message"
+</code></pre>
 
 <h2>Push to remote server</h2>
 
-<p>$ git push origin branchname</p>
+<pre><code>$ git push origin branchname
+</code></pre>
 
 <h2>Pull from remote server</h2>
 
-<p>$ git pull origin branchname</p>
+<pre><code>$ git pull origin branchname
+</code></pre>
 
 <h2>View commit log</h2>
 
-<p>$ git log</p>
+<pre><code>$ git log
+</code></pre>
 
 <h2>View code changes</h2>
 
-<p>$ git diff</p>
+<pre><code>$ git diff
+</code></pre>
 
 <h2>Restore a deleted file (deleted from file system not from git)</h2>
 
-<p>$ git checkout filename</p>
+<pre><code>$ git checkout filename
+</code></pre>
 
 <h2>Revert a changed file back to original file</h2>
 
-<p>$ git reset --hard HEAD filename</p>
+<pre><code>$ git reset --hard HEAD filename
+</code></pre>
 
 <h2>Revert a changed file back to original file without loosing changes</h2>
 
-<p>$ git reset --soft HEAD filename</p>
+<pre><code>$ git reset --soft HEAD filename
+</code></pre>
 
 <h2>Reverting back to version before last commit</h2>
 
-<p>$ git reset --hard HEAD^ filename</p>
+<pre><code>$ git reset --hard HEAD^ filename
+</code></pre>
 
 <h2>Reverting back to version before last commit without loosing changes</h2>
 
-<p>$ git reset --soft HEAD^ filename</p>
+<pre><code>$ git reset --soft HEAD^ filename
+</code></pre>
 
 <h2>Edit your last commit message after the commit</h2>
 
-<p>$ git commit --amend</p>
+<pre><code>$ git commit --amend
+</code></pre>
 
 <h2>Remove the cached file from git</h2>
 
-<p>$ git rm  --cached filename
-    $ git rm -r --cached .   # will remove all the git cached files from git.</p>
+<pre><code>$ git rm  --cached filename
+$ git rm -r --cached .   # will remove all the git cached files from git.
+</code></pre>
 
 <p>By default git won't ignore the files which are already added to git and later added to .gitignore
 so to ignore them later remove them form cache.</p>
@@ -94,101 +109,119 @@ so to ignore them later remove them form cache.</p>
 
 <h2>Create a new branch</h2>
 
-<p>$ git branch -b test_branch</p>
+<pre><code>$ git branch -b test_branch
+</code></pre>
 
 <h2>Checkout a remote branch from origin</h2>
 
-<p>$ git checkout -b sprint-15 origin/sprint-15</p>
+<pre><code>$ git checkout -b sprint-15 origin/sprint-15
+</code></pre>
 
 <h2>List all the available branches</h2>
 
-<p>$ git branch</p>
+<pre><code>$ git branch
+</code></pre>
 
 <h2>Switch to the new branch</h2>
 
-<p>$ git checkout test_branch</p>
+<pre><code>$ git checkout test_branch
+</code></pre>
 
 <h2>Merging two branches</h2>
 
-<p>$ git merge test<em>branch   # test</em>branch will get merged with current branch</p>
+<pre><code>$ git merge test_branch   # test_branch will get merged with current branch
+</code></pre>
 
 <h2>Delete a branch</h2>
 
-<p>$ git branch -d test<em>branch # This command ensures that the changes in the test</em>branch are already in current branch</p>
+<pre><code>$ git branch -d test_branch # This command ensures that the changes in the test_branch are already in current branch
+</code></pre>
 
 <h2>Rename a branch</h2>
 
-<p>$ git branch -m old<em>branch new</em>branch</p>
+<pre><code>$ git branch -m old_branch new_branch
+</code></pre>
 
 <h1>Other commands</h1>
 
 <h2>Git gui tools</h2>
 
-<p>$ gitk</p>
+<pre><code>$ gitk
+</code></pre>
 
 <p>or</p>
 
-<p>$ git gui</p>
+<pre><code>$ git gui
+</code></pre>
 
 <h2>UNDO - merge</h2>
 
-<p>$ git reset --hard HEAD      # before committing
-    $ git reset --hard ORIG_HEAD # after  committing</p>
+<pre><code>$ git reset --hard HEAD      # before committing
+$ git reset --hard ORIG_HEAD # after  committing
+</code></pre>
 
 <h2>Bash Prompt with git branch info</h2>
 
-<p>function git<em>branch</em>name(){
-        git<em>head=$(git symbolic-ref HEAD 2&gt;/dev/null) || return
-        echo "["${git</em>head#refs/heads/}"]"
-    }</p>
+<pre><code>function git_branch_name(){
+    git_head=$(git symbolic-ref HEAD 2&gt;/dev/null) || return
+    echo "["${git_head#refs/heads/}"]"
+}
 
-<p>export PS1="\u@\W \$(git<em>branch</em>name)\$ \n -&gt;"</p>
+export PS1="\u@\W \$(git_branch_name)\$ \n -&gt;"
+</code></pre>
 
 <h2>Colorful display of git (status, diff, branch) etc</h2>
 
-<p>git config --global color.status  true</p>
+<pre><code>git config --global color.status  true
+</code></pre>
 
 <h2>Configure core editor for git</h2>
 
-<p>git config --global core.editor emacs</p>
+<pre><code>git config --global core.editor emacs
+</code></pre>
 
 <h2>Git log with commit info</h2>
 
-<p>git log -p</p>
+<pre><code>git log -p
+</code></pre>
 
 <h2>Advanced git config -edit the configuration file</h2>
 
-<p>git config --global -e      # this will open the config file</p>
+<pre><code>git config --global -e      # this will open the config file
 
-<p>[alias]
-      lg = log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --no-merges
-      st = status
-      ci = commit
-      br = branch
-      co = checkout
-      df = diff
-      show-files = show --pretty="format:" --name-only</p>
+[alias]
+  lg = log --color --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit --no-merges
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  show-files = show --pretty="format:" --name-only
+</code></pre>
 
 <h1>Issues I have faced.</h1>
 
 <h2>Could not execute editor</h2>
 
-<p>/usr/libexec/git-core/git-sh-setup: line 106: /usr/bin/mate: No such file or directory
-    Could not execute editor</p>
+<pre><code>/usr/libexec/git-core/git-sh-setup: line 106: /usr/bin/mate: No such file or directory
+Could not execute editor
 
-<p>git config --global core.editor vim  this didn't work for me</p>
+git config --global core.editor vim  this didn't work for me
+</code></pre>
 
 <p>fix</p>
 
-<p>set GIT<em>EDITOR=/usr/bin/vim
-    export $GIT</em>EDITOR</p>
+<pre><code>set GIT_EDITOR=/usr/bin/vim
+export $GIT_EDITOR
+</code></pre>
 
 <h2>Reset file permissions in git and restore the file status</h2>
 
-<p>$ git diff -p \
-      | grep -E '^(diff|old mode|new mode)' \
-      | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
-      | git apply</p>
+<pre><code>$ git diff -p \
+  | grep -E '^(diff|old mode|new mode)' \
+  | sed -e 's/^old/NEW/;s/^new/old/;s/^NEW/new/' \
+  | git apply
+</code></pre>
 </div>
 <div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
 </div></div>

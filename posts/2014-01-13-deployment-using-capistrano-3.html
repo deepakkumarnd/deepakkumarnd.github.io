@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -22,46 +21,53 @@
 
 <h3>Installation</h3>
 
-<p>$ gem install capistrano</p>
+<pre><code>$ gem install capistrano
+</code></pre>
 
 <p>or you can specify the gem in a Gemfile as follows, in ruby based projects (Rails, Sinatra etc)</p>
 
-<p>group :developemnt do
-      gem 'capistrano'
-    end</p>
+<pre><code>group :developemnt do
+  gem 'capistrano'
+end
+</code></pre>
 
 <p>check the version of installed capistrano using <strong>cap</strong> command</p>
 
-<p>$ cap -V                               # or cap --version
-    Capistrano Version: 3.0.1 (Rake Version: 10.1.0) ###</p>
+<pre><code>$ cap -V                               # or cap --version
+Capistrano Version: 3.0.1 (Rake Version: 10.1.0) ###
+</code></pre>
 
 <p>Capistrano version 3 is <strong>multistaged</strong> by default means you can setup your application to deploy in differnt environments (production, staging etc) without installing additional plugins.</p>
 
 <p>Capistrano comes with a bunch of default task which you can list using.</p>
 
-<p>$ bundle exec cap -vT                  # or simply cap -vT</p>
+<pre><code>$ bundle exec cap -vT                  # or simply cap -vT
+</code></pre>
 
 <p>Here I am going to describe deploying a sinatra application to my VPS using capistrano. So lets say I have a sinatra application named 'foobar' which is production ready and needs to be deployed to a VPS. The very basic deployment can be summarised in four steps.</p>
 
 <p><strong>step1 :</strong> Add capistrano gem to Gemfile and run bundle command to install it</p>
 
-<p>group :development do
-      gem 'capistrano'
-    end</p>
+<pre><code>group :development do
+  gem 'capistrano'
+end
 
-<p>$ bundle</p>
+$ bundle
+</code></pre>
 
 <p><strong>step2 :</strong> Install capistrano in your application</p>
 
-<p>$ bundle exec cap install</p>
+<pre><code>$ bundle exec cap install
+</code></pre>
 
 <p>This will add the following files to your application</p>
 
-<p>Capfile
-    config/deploy.rb
-    config/deploy/production.rb
-    config/deploy/staging.rb
-    lib/capistrano/tasks          # directory</p>
+<pre><code>Capfile
+config/deploy.rb
+config/deploy/production.rb
+config/deploy/staging.rb
+lib/capistrano/tasks          # directory
+</code></pre>
 
 <p><strong>setp3 :</strong> Edit the deploy.rb file and put the global configuration here</p>
 
@@ -69,45 +75,52 @@
 
 <p>The set command is used to set static configurations.</p>
 
-<p>set :application, 'foobar'                       # application name
-    set :repo<em>url, 'git@example.com:me/foobar.git'   # your repo url
-    set :branch, 'master'                            # branch to be deployed
-    set :keep</em>releases, 2                            # keeps only two copies of deployments</p>
+<pre><code>set :application, 'foobar'                       # application name
+set :repo_url, 'git@example.com:me/foobar.git'   # your repo url
+set :branch, 'master'                            # branch to be deployed
+set :keep_releases, 2                            # keeps only two copies of deployments
+</code></pre>
 
 <p>The <strong>keep_release</strong> option above will keep upto 2 versions and deletes the previous deployments
 If you want to input something while deploying like specifying branch name during deployment you can use <strong>ask</strong> command.</p>
 
-<p>ask :branch, proc { <code>git rev-parse --abbrev-ref HEAD</code>.chomp }</p>
+<pre><code>ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+</code></pre>
 
 <p>If you don't input anything the proc will be evaluated and branch will get assigned to the result.
 Set the directory to which you want to deploy your application, and specify the version control used.
 Here I have a deploy user in my VPS.</p>
 
-<p>set :deploy_to, '/home/deploy/apps/foobar'
-    set :scm, :git</p>
+<pre><code>set :deploy_to, '/home/deploy/apps/foobar'
+set :scm, :git
+</code></pre>
 
 <p>The following options are also available for configuring capistrano output</p>
 
-<p>set :format, :pretty
-    set :log_level, :debug
-    set :pty, true</p>
+<pre><code>set :format, :pretty
+set :log_level, :debug
+set :pty, true
+</code></pre>
 
 <p><strong>step4 :</strong> Configure the environment file</p>
 
 <p>Now it is the time to modify the environment file just open your environemnt file say deploy/production.rb.
 Set the stage variable</p>
 
-<p>set :stage, :production</p>
+<pre><code>set :stage, :production
+</code></pre>
 
 <p>Now change the roles</p>
 
-<p>role :app, %w{deploy@<vps_ip_address>}
-    role :web, %w{deploy@<vps_ip_address>}
-    role :db,  %w{deploy@<vps_ip_address>}</vps_ip_address></vps_ip_address></vps_ip_address></p>
+<pre><code>role :app, %w{deploy@&lt;vps_ip_address&gt;}
+role :web, %w{deploy@&lt;vps_ip_address&gt;}
+role :db,  %w{deploy@&lt;vps_ip_address&gt;}
+</code></pre>
 
 <p>You can define as many roles as you need, also each role can have an array of servers as the second argument</p>
 
-<p>eg: role :queue, %w{ queue@server1 queue@server2 ...}</p>
+<pre><code>eg: role :queue, %w{ queue@server1 queue@server2 ...}
+</code></pre>
 
 <p>When you execute a task on a particular role, the generated command runs in all these servers with that role.
 Here deploy is my deployment user on VPS, Rememmber you need to sign in to VPS and add your ssh key in ~/.ssh/authorizeds_keys in order to deploy your application.
@@ -117,24 +130,29 @@ Done</p>
 
 <p>For using rvm you can use.</p>
 
-<p>require 'capistrano/rvm'</p>
+<pre><code>require 'capistrano/rvm'
+</code></pre>
 
 <p>You can require the bundle plugin to run the bundle command</p>
 
-<p>require 'capistrano/bundler'</p>
+<pre><code>require 'capistrano/bundler'
+</code></pre>
 
 <p>If you are using puma server then you can use the puma plugin to start, stop and restart the server.</p>
 
-<p>require 'capistrano/puma'</p>
+<pre><code>require 'capistrano/puma'
+</code></pre>
 
 <p>If you are using a rails applicaiton you can use the following tasks too.</p>
 
-<p>require 'capistrano/rails/assets'
-    require 'capistrano/rails/migrations'</p>
+<pre><code>require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+</code></pre>
 
 <p>You can now deploy your application by running</p>
 
-<p>cap production deploy</p>
+<pre><code>cap production deploy
+</code></pre>
 </div>
 <div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
 </div></div>

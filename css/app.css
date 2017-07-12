@@ -24,6 +24,13 @@ a {
 ul {
   list-style: none; }
 
+pre {
+  background-color: black;
+  padding: 2em 1em;
+  border-radius: 5px; }
+  pre code {
+    color: #d46f55; }
+
 .pull-left {
   display: inline-block;
   float: left; }
@@ -52,6 +59,9 @@ ul {
     background-color: #fff;
     padding: 10px;
     margin: 10px auto; }
+    .container .page-content p {
+      line-height: 1.5em;
+      margin: 2em 0; }
     .container .page-content .posts .post-item {
       padding: 20px 10px;
       border-radius: 5px; }

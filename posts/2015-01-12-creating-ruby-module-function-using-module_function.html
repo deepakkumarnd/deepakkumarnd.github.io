@@ -7,12 +7,11 @@
 <link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
 <link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
 <link href="/css/app.css" rel="stylesheet" type="text/css">
-<link href="/css/default.css" rel="stylesheet" type="text/css">
 <script src="/js/app.js" type="text/javascript"></script><title>Document</title>
 </head>
 <body><div class="container">
 <div class="header">
-<div class="name">Deepak Kumar</div>
+<div class="name"><a href="/">Deepak Kumar</a></div>
 <div class="links pull-right">
 <a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
 </div>
@@ -20,48 +19,53 @@
 <div class="page-content">
 <p>While going through <strong>rake</strong> source code I came across a function named <strong>module_function</strong>. I googled about it and came to know that it provides an easy way to create module functions where the receiver is the module itself. Take an example of a <strong><em>Sample</em></strong> module.</p>
 
-<p>module Sample
-      def random<em>string
-        # generates a random string
-        [('A'..'Z'), ('a'..'z'), ('0'..'9')].map(&amp;:to</em>a).reduce(:+).shuffle.take(8).join
-      end</p>
+<pre><code>module Sample
+  def random_string
+    # generates a random string
+    [('A'..'Z'), ('a'..'z'), ('0'..'9')].map(&amp;:to_a).reduce(:+).shuffle.take(8).join
+  end
 
-<p>module<em>function :random</em>string
-    end</p>
+  module_function :random_string
+end
 
-<p>Sample.random_string # =&gt;  "NMHPXydR"</p>
+Sample.random_string # =&gt;  "NMHPXydR"
+</code></pre>
 
 <p>The method <strong><em>random</em>string</strong>_ can be invoked on the module itself. If you include the module in a class then this method becomes private to that class's instance.</p>
 
-<p>class A
-      include Sample</p>
+<pre><code>class A
+  include Sample
 
-<p>def generate<em>random</em>string
-        random_string    # private method call
-      end
-    end</p>
+  def generate_random_string
+    random_string    # private method call
+  end
+end
 
-<p>o = A.new
-    o.generate<em>random</em>string  # =&gt; "GQV1j0OK"</p>
+o = A.new
+o.generate_random_string  # =&gt; "GQV1j0OK"
+</code></pre>
 
 <p>Another interesting thing about this method is the module maintains an original copy even if you override the method. In order to understand it lets take an example. Lets override the <strong><em>random</em>string</strong>_ method in the <strong><em>Sample</em></strong> module.</p>
 
-<p>module Sample</p>
+<pre><code>module Sample
 
-<p># override random<em>string
-      def random</em>string
-        # generates a random string containing only numbers
-        (0..9).map(&amp;:to_s).shuffle.join
-      end
-    end</p>
+  # override random_string
+  def random_string
+    # generates a random string containing only numbers
+    (0..9).map(&amp;:to_s).shuffle.join
+  end
+end
+</code></pre>
 
 <p>Now if you call the mehtod using on instance of class <strong><em>A</em></strong> you will get the new method</p>
 
-<p>o.generate<em>random</em>string   # =&gt;  "8073541692"</p>
+<pre><code>o.generate_random_string   # =&gt;  "8073541692"
+</code></pre>
 
 <p>But the module method is the same</p>
 
-<p>Sample.random_string       # =&gt; "VBkj5fMd"</p>
+<pre><code>Sample.random_string       # =&gt; "VBkj5fMd"
+</code></pre>
 
 <p>I found this is a very easy way to create module methods hope you also feel so.</p>
 </div>
