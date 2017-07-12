@@ -1,18 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>Login as <strong>root</strong> user</p>
 
 <p>create a file <strong>access_cred</strong> in <strong>/var</strong> in the following format</p>
-<div class="highlight"><pre><span class="n">username</span><span class="o">:</span><span class="n">encrypted_password</span>
-</pre></div>
+
+<p>username:encrypted_password</p>
+
 <p>create encrypted password using openssl</p>
-<div class="highlight"><pre><span class="nv">$ </span>openssl passwd -crypt &lt;password&gt;
-</pre></div>
+
+<p>$ openssl passwd -crypt <password></password></p>
+
 <p>copy that password and create the file as specified above</p>
 
 <p>Now add the following lines to server or location block in nginx config file</p>
-<div class="highlight"><pre><span class="vg">auth_basic</span><span class="w"> </span><span class="s2">&quot;Restricted Access&quot;</span><span class="p">;</span>
-<span class="vg">auth_basic_user_file</span><span class="w"> </span><span class="o">/</span><span class="vg">var</span><span class="o">/</span><span class="vg">access_cred</span><span class="p">;</span>
-</pre></div>
+
+<p>auth<em>basic "Restricted Access";
+    auth</em>basic<em>user</em>file /var/access_cred;</p>
+
 <p>Restart nginx</p>
-<div class="highlight"><pre><span class="nv">$ </span>nginx -t reload
-</pre></div>
+
+<p>$ nginx -t reload</p>
+
 <p><a href="http://roger.steneteg.org/441/basic-authentication-with-nginx/">reference</a></p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

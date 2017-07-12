@@ -58,9 +58,9 @@ ul {
       .container .page-content .posts .post-item a.post-title {
         font-size: 22px;
         font-weight: 100;
-        color: #333; }
+        color: #333333; }
         .container .page-content .posts .post-item a.post-title:hover {
-          color: #333;
+          color: #333333;
           text-decoration: none; }
       .container .page-content .posts .post-item .post-date {
         font-size: 10px;

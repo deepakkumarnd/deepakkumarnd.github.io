@@ -1,22 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>One day I was going through the famous book Metaprogramming Ruby. This piece of code caught my attention.</p>
-<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Roulette</span>
-<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">method_missing</span><span class="p">(</span><span class="vg">name</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="vg">args</span><span class="p">)</span>
-<span class="w">    </span><span class="vg">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">name</span><span class="o">.</span><span class="vg">to_s</span><span class="o">.</span><span class="vg">capitalize</span>
-<span class="w">    </span><span class="il">3</span><span class="o">.</span><span class="vg">times</span><span class="w"> </span><span class="vg">do</span>
-<span class="w">      </span><span class="vg">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">rand</span><span class="p">(</span><span class="il">10</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="il">1</span>
-<span class="w">      </span><span class="vg">puts</span><span class="w"> </span><span class="s2">&quot;#{number}...&quot;</span>
-<span class="w">    </span><span class="vg">end</span>
-<span class="w">    </span><span class="s2">&quot;#{person} got a #{number}&quot;</span>
-<span class="w">  </span><span class="vg">end</span>
-<span class="vg">end</span>
 
-<span class="vg">number_of</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Roulette</span><span class="o">.</span><span class="vg">new</span>
-<span class="vg">puts</span><span class="w"> </span><span class="vg">number_of</span><span class="o">.</span><span class="vg">bob</span>
-<span class="vg">puts</span><span class="w"> </span><span class="vg">number_of</span><span class="o">.</span><span class="vg">frank</span>
-</pre></div>
+<pre><code class="ruby">class Roulette
+  def method_missing(name, *args)
+    person = name.to_s.capitalize
+
+    3.times do
+      number = rand(10) + 1
+      puts "#{number}..."
+    end
+
+    "#{person} got a #{number}"
+  end
+end
+
+number_of = Roulette.new
+puts number_of.bob
+puts number_of.frank
+</code></pre>
+
 <p>Here the class Roulette overrides the method_missing method. The puzzle is to predict the output of the program. At the first look we may end up in a very quick solution. So since there is no method like bob and frank obviously the method missing gets called and we expect six random numbers as the output, but the actual output is something crazy. The program enters in a recurssive call and crashes due to lack of memory.</p>
 
 <p>So lets see what exactly happend here. For the first call number_of.bob the block is executed 3 times and produces three random numbers. The very first line after that is</p>
-<div class="highlight"><pre><span class="s2">&quot;#{person} got a #{number}&quot;</span>
-</pre></div>
-<p>so here the interpreter looks for a variable named number in the current scope and it will fail to find one because ruby has a block scope ie local variables defined inside a block are not accessible outside the block. Here the number is defined inside the loop which has a block scope. So number results in a method call and is handled by method<em>missing as there is no method named &quot;number&quot;. So method</em>missing gets called each time this line encounters which causes an infinite recursion and the program crashes.</p>
+
+<pre><code class="ruby">"#{person} got a #{number}"
+</code></pre>
+
+<p>so here the interpreter looks for a variable named number in the current scope and it will fail to find one because ruby has a block scope ie local variables defined inside a block are not accessible outside the block. Here the number is defined inside the loop which has a block scope. So number results in a method call and is handled by method<em>missing as there is no method named "number". So method</em>missing gets called each time this line encounters which causes an infinite recursion and the program crashes.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

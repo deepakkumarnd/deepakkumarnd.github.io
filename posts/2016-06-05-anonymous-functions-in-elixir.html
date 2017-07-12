@@ -1,31 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.</p>
 
 <p>Creating an anonymouse function in elixir</p>
-<div class="highlight"><pre><span class="vg">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">fn</span><span class="p">(</span><span class="vg">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="vg">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="vg">x</span><span class="w"> </span><span class="vg">end</span>
-</pre></div>
+
+<pre><code>    f = fn(x) -&gt; x * x end
+</code></pre>
+
 <p>or in short form</p>
-<div class="highlight"><pre><span class="vg">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="p">(</span><span class="o">&amp;</span><span class="il">1</span><span class="o">*&amp;</span><span class="il">1</span><span class="p">)</span>
-</pre></div>
+
+<p>f = &amp;(&amp;1*&amp;1)</p>
+
 <p>where &amp;1 will be replaced by the first argument.</p>
 
 <p>Invoking an anonymous function</p>
-<div class="highlight"><pre><span class="vg">f</span><span class="o">.</span><span class="p">(</span><span class="il">2</span><span class="p">)</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="il">2</span><span class="o">*</span><span class="vg">2</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="il">4</span>
-</pre></div>
+
+<p>f.(2)   # 2*2 =&gt; 4</p>
+
 <p>Anonymous function can be created out of named functions as well. For example we can make <strong>String.upcase/1</strong> as anonymous. By doing this we can pass them to other functions.</p>
-<div class="highlight"><pre><span class="vg">g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="vg">String</span><span class="o">.</span><span class="vg">upcase</span><span class="p">(</span><span class="o">&amp;</span><span class="il">1</span><span class="p">)</span>
 
-<span class="vg">g</span><span class="o">.</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="s2">&quot;HELLO&quot;</span>
-</pre></div>
+<p>g = &amp;String.upcase(&amp;1)</p>
+
+<p>g.("hello")  # "HELLO"</p>
+
 <p>Anonymous functions has many use cases, they can be used in <strong>Enum.map/2</strong> function.</p>
-<div class="highlight"><pre><span class="vg">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Deepak&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;raghu&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Akram&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Stalin&quot;</span><span class="p">]</span>
-<span class="vg">Enum</span><span class="o">.</span><span class="vg">map</span><span class="p">(</span><span class="vg">names</span><span class="p">,</span><span class="w"> </span><span class="vg">g</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;DEEPAK&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;RAGHU&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;AKRAM&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">&quot;</span><span class="vg">STALIN</span><span class="p">]</span>
-</pre></div>
-<p>You many use pattern matching in anonymous function, in that case you need to use the same arity.</p>
-<div class="highlight"><pre><span class="vg">f</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">fn</span>
-<span class="w">  </span><span class="p">(</span><span class="o">:</span><span class="vg">square</span><span class="p">,</span><span class="w"> </span><span class="vg">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">  </span><span class="vg">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="vg">x</span>
-<span class="w">  </span><span class="p">(</span><span class="o">:</span><span class="vg">cube</span><span class="p">,</span><span class="w"> </span><span class="vg">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="vg">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="vg">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="vg">x</span>
-<span class="vg">end</span>
 
-<span class="vg">f</span><span class="o">.</span><span class="p">(</span><span class="o">:</span><span class="vg">square</span><span class="p">,</span><span class="w"> </span><span class="il">4</span><span class="p">)</span><span class="w">   </span><span class="err">#</span><span class="w"> </span><span class="il">16</span>
-<span class="vg">f</span><span class="o">.</span><span class="p">(</span><span class="o">:</span><span class="vg">cube</span><span class="p">,</span><span class="w"> </span><span class="il">4</span><span class="p">)</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="il">64</span>
-</pre></div>
+<p>names = ["Deepak", "raghu", "Akram", "Stalin"]
+    Enum.map(names, g)  # ["DEEPAK", "RAGHU", "AKRAM", "STALIN]</p>
+
+<p>You many use pattern matching in anonymous function, in that case you need to use the same arity.</p>
+
+<p>f = fn
+      (:square, x) -&gt;  x * x
+      (:cube, x) -&gt; x * x * x
+    end</p>
+
+<p>f.(:square, 4)   # 16
+    f.(:cube, 4)     # 64</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

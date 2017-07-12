@@ -1,6 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>In one of the early <a href="//krug.github.io">KRUG</a> meetup I took an introductory session on <a href="//golang.org">Go programming</a> language. At that time I was just trying go for fun. While I was explaining about goroutines so many questions came up. People asked weather goroutines are green threads, fiber or is it a native thread. In this post I hope to cover important concepts regarding threads, green threads and fibers.</p>
 
-<p>In computers threads play a major role, they are the way to implement concurrency. A thread of execution is the smallest sequence of instructions that can be managed by a scheduler independently. A thread is associated with a process. Process is a program under execution which has resources like code, data, stack, heap, sockets and CPU time. Process can have one or more threads and they share process&#39;s memory.</p>
+<p>In computers threads play a major role, they are the way to implement concurrency. A thread of execution is the smallest sequence of instructions that can be managed by a scheduler independently. A thread is associated with a process. Process is a program under execution which has resources like code, data, stack, heap, sockets and CPU time. Process can have one or more threads and they share process's memory.</p>
 
 <h1>OS threads (1:1)</h1>
 
@@ -25,3 +45,8 @@
 <p>Fibers are much like threads, they differ from threads in the way they do the scheduling. Fibers stops themselves and yields CPU to other fibers, which is called co-operative multitasking whereas in threads operating system preempts the thread and runs another thread which is called preemptive multitasking.</p>
 
 <p>In languages like Go, Haskell and Erlang which all uses hybrid threads in a different way. They try to combine the good aspects of native threads as well as green threads. Each of these concurrency models depends on its own implementation. In Go the runtime provides a scheduler which can schedule goroutines to multiple OS threads, so if one goroutine is blocked go run time can schedule other goroutine to anothet os thread. Go promotes use of channels for communication and synchronization instead of shared memory thereby minimizing synchronization issues. In go the programmer has an important role in implementing concurrency but the language runtime can take care of executing the concurrent code parallely if hardware support is available. System calls interfaces in go are implemented in a way that does not block go runtime scheduler. The goroutines are very light weight of size 4KB-8KB, more memory is allocated on demand by the runtime.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

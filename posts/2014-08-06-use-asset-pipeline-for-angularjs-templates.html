@@ -1,15 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>In your Gemfile add the following gems</p>
-<div class="highlight"><pre><span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;angularjs-rails&#39;</span>
-<span class="vg">gem</span><span class="w"> </span><span class="c1">&#39;angular-rails-templates&#39;</span>
-</pre></div>
+
+<p>gem 'angularjs-rails'
+    gem 'angular-rails-templates'</p>
+
 <p>require them in application.js also require the template directory too which is <strong>app/assets/templates</strong> in this case.</p>
-<div class="highlight"><pre><span class="c1">//= require angular</span>
-<span class="c1">//= require angular-rails-templates</span>
-<span class="c1">//= require ../templates</span>
-</pre></div>
+
+<p>//= require angular
+    //= require angular-rails-templates
+    //= require ../templates</p>
+
 <p>Now in your angular initializer file config.js.coffee</p>
-<div class="highlight"><pre><span class="vg">window</span><span class="o">.</span><span class="vg">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">angular</span><span class="o">.</span><span class="vg">module</span><span class="p">(</span><span class="c1">&#39;App&#39;, [ &#39;templates&#39;]);</span>
-</pre></div>
+
+<p>window.App = angular.module('App', [ 'templates']);</p>
+
 <p>Now your will be able to access your templates with just the filename eg: home.html</p>
 
 <p>The templates can be made of any other template engine, for example <strong>home.html.slim</strong> in template directory will be converted into <strong>home.html</strong> on accessing.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

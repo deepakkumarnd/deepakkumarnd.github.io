@@ -1,55 +1,87 @@
-<p>Ruby is a facinating language, It&#39;s flexibible enough to easily extend the language and powerfull 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
+<p>Ruby is a facinating language, It's flexibible enough to easily extend the language and powerfull 
 enough to make coding a breeze. Being a C programmer for a long time, my early ruby coding was a 
-kind of C style. I didn&#39;t even realized my coding was so bad. Then I slowly came to aware of ruby 
+kind of C style. I didn't even realized my coding was so bad. Then I slowly came to aware of ruby 
 community and conventions to be followed while writing ruby code. I was also exposed to the test 
-driven development which I hate untill I got surprised by it&#39;s it&#39;s importantance.</p>
+driven development which I hate untill I got surprised by it's it's importantance.</p>
 
 <p>Ruby provides a lot of built in programming tools(features) which makes coding a lot easier. So I 
 want to discuss few of them which I felt really cool.</p>
 
 <h2>Lambda &amp; Proc</h2>
 
-<p>I found lambda and Proc so much interesting but wasn&#39;t able to figgure out their proper usage.
+<p>I found lambda and Proc so much interesting but wasn't able to figgure out their proper usage.
 Basically both are block of code which can be executed, passed or assigned just like a variable.
 You can create a block of code as follows.</p>
-<div class="highlight"><pre><span class="vg">myproc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Proc</span><span class="o">.</span><span class="vg">new</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span>
-<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">some</span><span class="w"> </span><span class="vg">piece</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">code</span>
-<span class="vg">end</span>
-</pre></div>
-<p>or</p>
-<div class="highlight"><pre><span class="vg">mylambda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">lambda</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span>
-<span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="vg">some</span><span class="w"> </span><span class="vg">piece</span><span class="w"> </span><span class="vg">of</span><span class="w"> </span><span class="vg">code</span>
-<span class="vg">end</span>
-</pre></div>
+
+<p>myproc = Proc.new do |var|
+      # some piece of code
+    end
+or</p>
+
+<p>mylambda = lambda do |var|
+      # some piece of code
+    end</p>
+
 <p>So now you have a block of code assigned to a variable which can be executed at will by a call 
 method.</p>
-<div class="highlight"><pre><span class="vg">myproc</span><span class="o">.</span><span class="vg">call</span>
-</pre></div>
-<p>You can pass arguments to it as follows so that the block variables are assigned these values.</p>
-<div class="highlight"><pre><span class="vg">myproc</span><span class="o">.</span><span class="vg">call</span><span class="p">(</span><span class="il">10</span><span class="p">)</span>
-</pre></div>
-<p>You can assign the proc on some other variable.</p>
-<div class="highlight"><pre><span class="vg">new_proc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">myproc</span>
-</pre></div>
-<p>You can pass the block to some methods</p>
-<div class="highlight"><pre><span class="vg">def</span><span class="w"> </span><span class="vg">foo</span><span class="w"> </span><span class="vg">block</span>
-<span class="w">  </span><span class="vg">block</span><span class="o">.</span><span class="vg">call</span>
-<span class="vg">end</span>
 
-<span class="vg">foo</span><span class="w"> </span><span class="vg">myproc</span>
-</pre></div>
-<p>So if you want to reuse the code and doesn&#39;t worth making a method the you can go with proc or
+<p>myproc.call</p>
+
+<p>You can pass arguments to it as follows so that the block variables are assigned these values.</p>
+
+<p>myproc.call(10)</p>
+
+<p>You can assign the proc on some other variable.</p>
+
+<p>new_proc = myproc</p>
+
+<p>You can pass the block to some methods</p>
+
+<p>def foo block
+      block.call
+    end</p>
+
+<p>foo myproc</p>
+
+<p>So if you want to reuse the code and doesn't worth making a method the you can go with proc or
 lambda. For example I have a class Student.</p>
-<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">Student</span>
-<span class="w">  </span><span class="vg">def</span><span class="w"> </span><span class="vg">initialize</span><span class="p">(</span><span class="vg">name</span><span class="p">)</span>
-<span class="w">    </span><span class="err">@</span><span class="vg">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">name</span>
-<span class="w">  </span><span class="vg">end</span>
-<span class="w">  </span><span class="o">...</span>
-<span class="vg">end</span>
-</pre></div>
+
+<p>class Student
+      def initialize(name)
+        @name = name
+      end
+      ...
+    end</p>
+
 <p>suppose I have 30 students, students = [s1,s2,s3...s30] and I want list of their name in camel
 case then I can use proc to do that neatly.</p>
-<div class="highlight"><pre><span class="vg">camelize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">Proc</span><span class="o">.</span><span class="vg">new</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">|</span><span class="vg">var</span><span class="o">|</span><span class="w"> </span><span class="vg">var</span><span class="o">.</span><span class="vg">name</span><span class="o">.</span><span class="vg">capitalize</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">name</span><span class="o">.</span><span class="vg">present</span><span class="o">?</span><span class="w"> </span><span class="p">}</span>
-<span class="vg">students</span><span class="o">.</span><span class="vg">collect</span><span class="p">(</span><span class="o">&amp;</span><span class="vg">camelize</span><span class="p">)</span>
-</pre></div>
-<p>Thats it here I can avoid a method and still I&#39;m able to reuse the code.</p>
+
+<p>camelize = Proc.new { |var| var.name.capitalize if name.present? }
+    students.collect(&amp;camelize)</p>
+
+<p>Thats it here I can avoid a method and still I'm able to reuse the code.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

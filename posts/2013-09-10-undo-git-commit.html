@@ -1,38 +1,68 @@
-<p>Sometimes you might want to undo the git commits you have done. There could be many reasons for it. You might want to remove the bullshit you have done or fixing typo and keeping the history clean etc. You can easily do these kind of stuff if you are working locally and your commits haven&#39;t pushed to remote repository yet. With a little care you can undo them on remote branch too.</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
+<p>Sometimes you might want to undo the git commits you have done. There could be many reasons for it. You might want to remove the bullshit you have done or fixing typo and keeping the history clean etc. You can easily do these kind of stuff if you are working locally and your commits haven't pushed to remote repository yet. With a little care you can undo them on remote branch too.</p>
 
 <p>Here is a sample git log</p>
-<div class="highlight"><pre><span class="vg">commit</span><span class="w"> </span><span class="il">0</span><span class="vg">bb3a3bfedae58d16b50856de1c933fd5b0092a5</span><span class="w"> </span><span class="p">(</span><span class="il">1</span><span class="p">)</span>
-<span class="nl">Author:</span><span class="w"> </span><span class="vg">Deepak</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">deepak@example</span><span class="o">.</span><span class="vg">com</span><span class="o">&gt;</span>
-<span class="nl">Date:</span><span class="w">   </span><span class="vg">Fri</span><span class="w"> </span><span class="vg">Sep</span><span class="w"> </span><span class="il">6</span><span class="w"> </span><span class="il">14</span><span class="o">:</span><span class="il">08</span><span class="o">:</span><span class="il">30</span><span class="w"> </span><span class="il">2013</span><span class="w"> </span><span class="o">+</span><span class="il">0530</span>
 
-<span class="w">    </span><span class="vg">fix</span><span class="w"> </span><span class="vg">typo</span>
+<p>commit 0bb3a3bfedae58d16b50856de1c933fd5b0092a5 (1)
+    Author: Deepak <a href="mailto:deepak@example.com">deepak@example.com</a>
+    Date:   Fri Sep 6 14:08:30 2013 +0530</p>
 
-<span class="vg">commit</span><span class="w"> </span><span class="vg">fdf982879e686548ecf3e9215dca3b0c772e66ff</span><span class="w"> </span><span class="p">(</span><span class="il">2</span><span class="p">)</span>
-<span class="nl">Author:</span><span class="w"> </span><span class="vg">Deepak</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">deepak@example</span><span class="o">.</span><span class="vg">com</span><span class="o">&gt;</span>
-<span class="nl">Date:</span><span class="w">   </span><span class="vg">Thu</span><span class="w"> </span><span class="vg">Sep</span><span class="w"> </span><span class="il">5</span><span class="w"> </span><span class="il">10</span><span class="o">:</span><span class="il">50</span><span class="o">:</span><span class="il">09</span><span class="w"> </span><span class="il">2013</span><span class="w"> </span><span class="o">+</span><span class="il">0530</span>
+<p>fix typo</p>
 
-<span class="w">    </span><span class="vg">cleanup</span><span class="w"> </span><span class="vg">syntax</span>
+<p>commit fdf982879e686548ecf3e9215dca3b0c772e66ff (2)
+    Author: Deepak <a href="mailto:deepak@example.com">deepak@example.com</a>
+    Date:   Thu Sep 5 10:50:09 2013 +0530</p>
 
-<span class="vg">commit</span><span class="w"> </span><span class="il">962</span><span class="vg">a71ccc3c4906ddf64badc8bbf393364ab26cb</span><span class="w"> </span><span class="p">(</span><span class="il">3</span><span class="p">)</span>
-<span class="nl">Author:</span><span class="w"> </span><span class="vg">Deepak</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">deepak@example</span><span class="o">.</span><span class="vg">com</span><span class="o">&gt;</span>
-<span class="nl">Date:</span><span class="w">   </span><span class="vg">Tue</span><span class="w"> </span><span class="vg">Sep</span><span class="w"> </span><span class="il">3</span><span class="w"> </span><span class="il">15</span><span class="o">:</span><span class="il">29</span><span class="o">:</span><span class="il">58</span><span class="w"> </span><span class="il">2013</span><span class="w"> </span><span class="o">+</span><span class="il">0530</span>
+<p>cleanup syntax</p>
 
-<span class="w">    </span><span class="vg">add</span><span class="w"> </span><span class="vg">error</span><span class="w"> </span><span class="vg">message</span><span class="w"> </span><span class="vg">format</span><span class="w"> </span><span class="vg">in</span><span class="w"> </span><span class="vg">validation</span><span class="w"> </span><span class="vg">response</span>
+<p>commit 962a71ccc3c4906ddf64badc8bbf393364ab26cb (3)
+    Author: Deepak <a href="mailto:deepak@example.com">deepak@example.com</a>
+    Date:   Tue Sep 3 15:29:58 2013 +0530</p>
 
-<span class="vg">commit</span><span class="w"> </span><span class="vg">e378b0dc1927c8b20970127327a6df6aaa209159</span><span class="w"> </span><span class="p">(</span><span class="il">4</span><span class="p">)</span>
-<span class="nl">Author:</span><span class="w"> </span><span class="vg">Deepak</span><span class="w"> </span><span class="o">&lt;</span><span class="vg">deepak@example</span><span class="o">.</span><span class="vg">com</span><span class="o">&gt;</span>
-<span class="nl">Date:</span><span class="w">   </span><span class="vg">Tue</span><span class="w"> </span><span class="vg">Sep</span><span class="w"> </span><span class="il">3</span><span class="w"> </span><span class="il">15</span><span class="o">:</span><span class="il">26</span><span class="o">:</span><span class="il">07</span><span class="w"> </span><span class="il">2013</span><span class="w"> </span><span class="o">+</span><span class="il">0530</span>
-</pre></div>
+<p>add error message format in validation response</p>
+
+<p>commit e378b0dc1927c8b20970127327a6df6aaa209159 (4)
+    Author: Deepak <a href="mailto:deepak@example.com">deepak@example.com</a>
+    Date:   Tue Sep 3 15:26:07 2013 +0530</p>
+
 <p>In the above sample commits you can see the last two commits are unwanted and this will uglify git commit history. What you want to do is to merge the last three commits. To do that just do a soft reset till the 4th commit id.</p>
-<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">reset</span><span class="w"> </span><span class="o">--</span><span class="vg">soft</span><span class="w"> </span><span class="vg">e378b0dc1927c8b20970127327a6df6aaa209159</span>
-</pre></div>
-<p>When doing a soft(--soft) reset git will retain the code changes, incase you don&#39;t want changes till that commit use hard reset(--hard). Do a git diff to view the changes.</p>
-<div class="highlight"><pre><span class="w"> </span><span class="vg">git</span><span class="w"> </span><span class="vg">diff</span><span class="w"> </span><span class="vg">HEAD</span>
-</pre></div>
+
+<p>git reset --soft e378b0dc1927c8b20970127327a6df6aaa209159</p>
+
+<p>When doing a soft(--soft) reset git will retain the code changes, incase you don't want changes till that commit use hard reset(--hard). Do a git diff to view the changes.</p>
+
+<p>git diff HEAD</p>
+
 <p>Now make the necessarry changes you want to make, stage/unstage the changes and create a new meaningful commit.</p>
-<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">commit</span><span class="w"> </span><span class="o">-</span><span class="vg">m</span><span class="w"> </span><span class="s2">&quot;&lt;commit messages&gt;&quot;</span>
-</pre></div>
-<p>What will happen if you have already pushed the commits to remote branch? You cannot just undo the changes on remote branch. But git provides force(&#39;-f&#39;) options which will force git to overwrite history and you can have a neat commit history. To do that push your code using -f switch.</p>
-<div class="highlight"><pre><span class="vg">git</span><span class="w"> </span><span class="vg">push</span><span class="w"> </span><span class="vg">origin</span><span class="w"> </span><span class="vg">branchname</span><span class="w"> </span><span class="o">-</span><span class="vg">f</span>
-</pre></div>
-<p>Any way this method is not recommended because it rewrites your git history, it may cause issues for other people who are having the same branch and they have already pulled the commits you want to undo. But if you are the only person using that branch and you don&#39;t mind deleting those unwanted commit history, then you are good to go with this method.</p>
+
+<p>git commit -m "<commit messages>"</commit></p>
+
+<p>What will happen if you have already pushed the commits to remote branch? You cannot just undo the changes on remote branch. But git provides force('-f') options which will force git to overwrite history and you can have a neat commit history. To do that push your code using -f switch.</p>
+
+<p>git push origin branchname -f</p>
+
+<p>Any way this method is not recommended because it rewrites your git history, it may cause issues for other people who are having the same branch and they have already pulled the commits you want to undo. But if you are the only person using that branch and you don't mind deleting those unwanted commit history, then you are good to go with this method.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

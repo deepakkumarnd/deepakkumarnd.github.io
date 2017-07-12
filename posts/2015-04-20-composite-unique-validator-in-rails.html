@@ -1,3 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>There are situations where we want to create a unique constraint for more than
 one columns. In a database level it can be easily achieved by adding a unique
 index on one or more fields.</p>
@@ -8,14 +28,16 @@ of using rails validations are.</p>
 <ol>
 <li>You can easily modify the validation</li>
 <li>You can provide user friendly messages if any violations occur.</li>
-<li><p>Easy in development mode.</p>
+<li>
+<p>Easy in development mode.</p>
 
 <p>At the same time the disadvantage can come in situations where if you are
 using multiple app servers and two operations results in records which violates
 uniqueness. For example say two users are trying to create user accounts with
 same username from two app instances, both the app instances pass the unique
 validation test and two records with same username will be created in the
-database.</p></li>
+database.</p>
+</li>
 </ol>
 
 <p>In such cases the data integrity should be ensured using database level unique
@@ -26,34 +48,40 @@ level and to add validation in rails app for a user friendly response.</p>
 <p>Lets take an example say we have a User model and Topic model, users can
 subscribe or unsubscribe topics and we store the relationship in a user_topics
 join table.</p>
-<div class="highlight"><pre><span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">User</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
-<span class="w">    </span><span class="o">...</span>
-<span class="w">    </span><span class="vg">has_many</span><span class="w"> </span><span class="o">:</span><span class="vg">topics</span><span class="p">,</span><span class="w"> </span><span class="nl">through:</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span>
-<span class="w">    </span><span class="o">...</span>
-<span class="w">  </span><span class="vg">end</span>
 
-<span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">Topic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
-<span class="w">    </span><span class="o">...</span>
-<span class="w">    </span><span class="vg">has_many</span><span class="w"> </span><span class="o">:</span><span class="vg">users</span><span class="p">,</span><span class="w"> </span><span class="nl">through:</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span>
-<span class="w">    </span><span class="o">...</span>
-<span class="w">  </span><span class="vg">end</span>
+<p>class User &lt; ActiveRecord::Base
+        ...
+        has<em>many :topics, through: :user</em>topics
+        ...
+      end</p>
 
-<span class="w">  </span><span class="vg">class</span><span class="w"> </span><span class="vg">UserTopic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Base</span>
-<span class="w">    </span><span class="vg">belongs_to</span><span class="w"> </span><span class="o">:</span><span class="vg">user</span>
-<span class="w">    </span><span class="vg">belongs_to</span><span class="w"> </span><span class="o">:</span><span class="vg">topic</span>
+<p>class Topic &lt; ActiveRecord::Base
+        ...
+        has<em>many :users, through: :user</em>topics
+        ...
+      end</p>
 
-<span class="w">    </span><span class="vg">validates</span><span class="w"> </span><span class="o">:</span><span class="vg">user_id</span><span class="p">,</span><span class="w"> </span><span class="nl">uniquness:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nl">scope:</span><span class="w"> </span><span class="o">:</span><span class="vg">topic_id</span><span class="p">,</span><span class="w"> </span><span class="nl">message:</span><span class="w"> </span><span class="c1">&#39;You are</span>
-<span class="w">      </span><span class="vg">already</span><span class="w"> </span><span class="vg">following</span><span class="w"> </span><span class="vg">this</span><span class="w"> </span><span class="vg">topic</span><span class="c1">&#39; }</span>
-<span class="w">  </span><span class="vg">end</span>
-</pre></div>
+<p>class UserTopic &lt; ActiveRecord::Base
+        belongs<em>to :user
+        belongs</em>to :topic</p>
+
+<p>validates :user<em>id, uniquness: { scope: :topic</em>id, message: 'You are
+          already following this topic' }
+      end</p>
+
 <p>The validation in UserTopic model ensures only one record is created for a user
 for a particular topic. Now lets write a migration to add a unique constraint in
 database for ensuring the data integrity at database level.</p>
-<div class="highlight"><pre><span class="vg">class</span><span class="w"> </span><span class="vg">AddUniqueContraintToUserTopic</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Migration</span>
-<span class="w">  </span><span class="vg">add_index</span><span class="w"> </span><span class="o">:</span><span class="vg">user_topics</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">:</span><span class="vg">user_id</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">topic_id</span><span class="p">],</span><span class="w"> </span><span class="nl">unique:</span><span class="w"> </span><span class="vg">true</span>
-<span class="vg">end</span>
 
+<p>class AddUniqueContraintToUserTopic &lt; ActiveRecord::Migration
+      add<em>index :user</em>topics, [:user<em>id, :topic</em>id], unique: true
+    end</p>
 
-<span class="err">$</span><span class="w"> </span><span class="vg">rake</span><span class="w"> </span><span class="nl">db:</span><span class="vg">migrate</span>
-</pre></div>
+<p>$ rake db:migrate</p>
+
 <p>By doing so we can ensure the integrity of the database.</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

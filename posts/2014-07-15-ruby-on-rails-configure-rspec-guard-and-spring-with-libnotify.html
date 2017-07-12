@@ -1,59 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
 <p>Tested with Rails 4.0.3, rspec 3.0.2, Gurad 2.6.1</p>
 
 <p>Install <strong>libnotify</strong> in debian or ubuntu for getting screen notifications</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install libnotify-bin
-</pre></div>
+
+<p>$ sudo apt-get install libnotify-bin</p>
+
 <p>In your Gemfile add</p>
-<div class="highlight"><pre><span class="n">group</span> <span class="o">:</span><span class="n">development</span><span class="o">,</span> <span class="o">:</span><span class="n">test</span> <span class="k">do</span>
-    <span class="n">gem</span> <span class="s2">&quot;libnotify&quot;</span>
-    <span class="n">gem</span> <span class="s2">&quot;rspec-rails&quot;</span><span class="o">,</span> <span class="s2">&quot;~&gt; 3.0.0&quot;</span>
-    <span class="n">gem</span> <span class="s2">&quot;spring-commands-rspec&quot;</span>
-    <span class="n">gem</span> <span class="s2">&quot;guard-rspec&quot;</span>
-    <span class="n">gem</span> <span class="s2">&quot;rb-inotify&quot;</span> <span class="k">if</span> <span class="err">`</span><span class="n">uname</span><span class="err">`</span> <span class="o">=~</span> <span class="sr">/Linux/</span>
-<span class="n">end</span>
 
-<span class="n">group</span> <span class="o">:</span><span class="n">test</span> <span class="k">do</span>
-    <span class="n">gem</span> <span class="s2">&quot;factory_girl_rails&quot;</span>
-    <span class="n">gem</span> <span class="s2">&quot;simplecov&quot;</span><span class="o">,</span> <span class="n">require</span><span class="o">:</span> <span class="kc">false</span>
-<span class="n">end</span>
-</pre></div>
+<p>group :development, :test do
+        gem "libnotify"
+        gem "rspec-rails", "~&gt; 3.0.0"
+        gem "spring-commands-rspec"
+        gem "guard-rspec"
+        gem "rb-inotify" if <code>uname</code> =~ /Linux/
+    end</p>
+
+<p>group :test do
+        gem "factory<em>girl</em>rails"
+        gem "simplecov", require: false
+    end</p>
+
 <p>In .rspec add</p>
-<div class="highlight"><pre><span class="o">--</span><span class="vg">color</span>
-<span class="o">--</span><span class="vg">format</span><span class="w"> </span><span class="vg">documentationrun</span>
-</pre></div>
+
+<p>--color
+    --format documentationrun</p>
+
 <p>Go to command line and run</p>
-<div class="highlight"><pre><span class="nv">$ </span>bundle
-<span class="nv">$ </span>rails generate rspec:install
-</pre></div>
+
+<p>$ bundle
+    $ rails generate rspec:install</p>
+
 <p>Edit <strong>spec_helper.rb</strong></p>
-<div class="highlight"><pre><span class="vg">require</span><span class="w"> </span><span class="s2">&quot;rubygems&quot;</span>
-<span class="vg">require</span><span class="w"> </span><span class="s2">&quot;simplecov&quot;</span>
-<span class="vg">SimpleCov</span><span class="o">.</span><span class="vg">start</span>
-<span class="vg">ENV</span><span class="p">[</span><span class="s2">&quot;RAILS_ENV&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">||=</span><span class="w"> </span><span class="s2">&quot;test&quot;</span>
-<span class="vg">require</span><span class="w"> </span><span class="vg">File</span><span class="o">.</span><span class="vg">expand_path</span><span class="p">(</span><span class="s2">&quot;../../config/environment&quot;</span><span class="p">,</span><span class="w"> </span><span class="vg">__FILE__</span><span class="p">)</span>
-<span class="vg">require</span><span class="w"> </span><span class="s2">&quot;rspec/rails&quot;</span>
-<span class="vg">require</span><span class="w"> </span><span class="s2">&quot;pundit/rspec&quot;</span>
 
-<span class="vg">Dir</span><span class="p">[</span><span class="vg">Rails</span><span class="o">.</span><span class="vg">root</span><span class="o">.</span><span class="vg">join</span><span class="p">(</span><span class="s2">&quot;spec/support/**/*.rb&quot;</span><span class="p">)]</span><span class="o">.</span><span class="vg">each</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="o">|</span><span class="vg">f</span><span class="o">|</span><span class="w"> </span><span class="vg">require</span><span class="w"> </span><span class="vg">f</span><span class="w"> </span><span class="p">}</span>
-<span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Migration</span><span class="o">.</span><span class="vg">check_pending!</span><span class="w"> </span><span class="vg">if</span><span class="w"> </span><span class="vg">defined</span><span class="o">?</span><span class="p">(</span><span class="nl">ActiveRecord:</span><span class="o">:</span><span class="vg">Migration</span><span class="p">)</span>
+<p>require "rubygems"
+    require "simplecov"
+    SimpleCov.start
+    ENV["RAILS<em>ENV"] ||= "test"
+    require File.expand</em>path("../../config/environment", <strong>FILE</strong>)
+    require "rspec/rails"
+    require "pundit/rspec"</p>
 
-<span class="vg">RSpec</span><span class="o">.</span><span class="vg">configure</span><span class="w"> </span><span class="vg">do</span><span class="w"> </span><span class="o">|</span><span class="vg">config</span><span class="o">|</span>
-<span class="w">    </span><span class="vg">config</span><span class="o">.</span><span class="vg">fixture_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;#{::Rails.root}/spec/fixtures&quot;</span>
-<span class="w">    </span><span class="vg">config</span><span class="o">.</span><span class="vg">use_transactional_fixtures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="vg">true</span>
-<span class="w">    </span><span class="vg">config</span><span class="o">.</span><span class="vg">order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;random&quot;</span>
-<span class="w">    </span><span class="vg">config</span><span class="o">.</span><span class="vg">include</span><span class="w"> </span><span class="nl">FactoryGirl:</span><span class="o">:</span><span class="nl">Syntax:</span><span class="o">:</span><span class="vg">Methods</span>
-<span class="w">    </span><span class="vg">config</span><span class="o">.</span><span class="vg">include</span><span class="w"> </span><span class="nl">Devise:</span><span class="o">:</span><span class="vg">TestHelpers</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="vg">type</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="o">:</span><span class="vg">controller</span>
-<span class="vg">config</span><span class="o">.</span><span class="vg">infer_spec_type_from_file_location!</span>
+<p>Dir[Rails.root.join("spec/support/*<em>/</em>.rb")].each { |f| require f }
+    ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)</p>
 
-<span class="vg">end</span>
+<p>RSpec.configure do |config|
+        config.fixture<em>path = "#{::Rails.root}/spec/fixtures"
+        config.use</em>transactional<em>fixtures = true
+        config.order = "random"
+        config.include FactoryGirl::Syntax::Methods
+        config.include Devise::TestHelpers, :type =&gt; :controller
+    config.infer</em>spec<em>type</em>from<em>file</em>location!</p>
 
-<span class="err">$</span><span class="w"> </span><span class="vg">guard</span><span class="w"> </span><span class="vg">init</span>
-</pre></div>
-<p>Go to your Guardfile and change line <strong>guard :rspec do</strong> to <strong>guard :rspec, cmd: &quot;bin/spring rspec&quot; do</strong></p>
+<p>end</p>
+
+<p>$ guard init</p>
+
+<p>Go to your Guardfile and change line <strong>guard :rspec do</strong> to <strong>guard :rspec, cmd: "bin/spring rspec" do</strong></p>
 
 <p>Generate stubs to run spring</p>
-<div class="highlight"><pre><span class="nv">$ </span>spring binstub --all
-</pre></div>
+
+<p>$ spring binstub --all</p>
+
 <p>Now you can happily run</p>
-<div class="highlight"><pre><span class="nv">$ </span>guard
-</pre></div>
+
+<p>$ guard</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>

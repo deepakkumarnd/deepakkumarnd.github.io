@@ -1,4 +1,24 @@
-<p>It is common that after a windows installation you won&#39;t be able to boot to your linux machine. This is because windows boot loader just ignores your linux box. But linux has a very advanced boot loader Grub which can detect both your windows and linux operating systems.</p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<link href="/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+<link href="favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="/css/app.css" rel="stylesheet" type="text/css">
+<link href="/css/default.css" rel="stylesheet" type="text/css">
+<script src="/js/app.js" type="text/javascript"></script><title>Document</title>
+</head>
+<body><div class="container">
+<div class="header">
+<div class="name">Deepak Kumar</div>
+<div class="links pull-right">
+<a href="https://twitter.com/42races" target="_blank">Twitter</a><a href="https://twitter.com/42races" target="_blank">Github</a>
+</div>
+</div>
+<div class="page-content">
+<p>It is common that after a windows installation you won't be able to boot to your linux machine. This is because windows boot loader just ignores your linux box. But linux has a very advanced boot loader Grub which can detect both your windows and linux operating systems.</p>
 
 <p>So if you want to reinstall your grub and reaccess linux follow these steps.</p>
 
@@ -7,65 +27,71 @@
 <p>First boot using a live linux CD or USB and open up a terminal.</p>
 
 <h1>Grub1</h1>
-<div class="highlight"><pre><span class="nv">$ </span>sudo grub
-</pre></div>
-<p>now you will get the grub prompt.</p>
-<div class="highlight"><pre><span class="vg">grub</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">find</span><span class="w"> </span><span class="o">/</span><span class="vg">boot</span><span class="o">/</span><span class="vg">grub</span><span class="o">/</span><span class="vg">stage1</span>
-</pre></div>
-<p>this will give some output like (hdx,n) eg: (hd0,2) now set the root device.</p>
-<div class="highlight"><pre><span class="vg">grub</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">root</span><span class="w"> </span><span class="p">(</span><span class="vg">hd0</span><span class="p">,</span><span class="w"> </span><span class="il">2</span><span class="p">)</span>
-</pre></div>
-<p>setup your grub on the disk hd0.</p>
-<div class="highlight"><pre><span class="vg">grub</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">setup</span><span class="w"> </span><span class="vg">hd0</span>
-</pre></div>
-<p>thats it now exit the grub prompt</p>
-<div class="highlight"><pre><span class="vg">grub</span><span class="o">&gt;</span><span class="w"> </span><span class="vg">exit</span>
-</pre></div>
-<p>now reboot.</p>
+
+<p>$ sudo grub
+now you will get the grub prompt.</p>
+
+<p>grub&gt; find /boot/grub/stage1
+this will give some output like (hdx,n) eg: (hd0,2) now set the root device.</p>
+
+<p>grub&gt; root (hd0, 2)
+setup your grub on the disk hd0.</p>
+
+<p>grub&gt; setup hd0
+thats it now exit the grub prompt</p>
+
+<p>grub&gt; exit
+now reboot.</p>
 
 <h1>Grub2</h1>
 
 <h2>method1</h2>
 
-<p>First find out the device in which you have your root file system. Use the command &quot;os-prober&quot; or &quot;blkid&quot; to find out your device name. Assume it is sda2 and let it be an ext4 filesystem here sda is the disk name.</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo blkid
-</pre></div>
-<p>the output will list all the devices with the filesystem info, mount the root filesystem under /mnt</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo mount -t ext4 /dev/sda2 /mnt
-</pre></div>
-<p>If you have your boot directory as a different device say sda3 mount it at /mnt/boot</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo mount -t ext4 /dev/sda3 /mnt/boot
-</pre></div>
-<p>now reinstall grub using the following command.</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo grub-install --root-directory<span class="o">=</span>/mnt /dev/sda
-</pre></div>
-<p>you can test the installation using.</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo grub-install --recheck /dev/sda
-</pre></div>
+<p>First find out the device in which you have your root file system. Use the command "os-prober" or "blkid" to find out your device name. Assume it is sda2 and let it be an ext4 filesystem here sda is the disk name.</p>
+
+<p>$ sudo blkid
+the output will list all the devices with the filesystem info, mount the root filesystem under /mnt</p>
+
+<p>$ sudo mount -t ext4 /dev/sda2 /mnt
+If you have your boot directory as a different device say sda3 mount it at /mnt/boot</p>
+
+<p>$ sudo mount -t ext4 /dev/sda3 /mnt/boot
+now reinstall grub using the following command.</p>
+
+<p>$ sudo grub-install --root-directory=/mnt /dev/sda
+you can test the installation using.</p>
+
+<p>$ sudo grub-install --recheck /dev/sda</p>
+
 <h2>method2</h2>
 
 <p>First method may not work in some cases. So here is a more generic way. Find out your root filesystem device as in method1.</p>
 
 <p>mount the root filesystem(assuming sda2) under mnt</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo mount -t ext4 /dev/sda2 /mnt
-</pre></div>
-<p>mount the boot device(assuming sda3) under /mnt/boot</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo mount -t ext4 /dev/sda3
-</pre></div>
-<p>now bind the system directories like dev, sys, proc and usr under /mnt</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo mount --bind /dev /mnt/dev
-<span class="nv">$ </span>sudo mount --bind /proc /mnt/proc
-<span class="nv">$ </span>sudo mount --bind /sys /mnt/sys
-</pre></div>
-<p>not switch the root file system to /mnt</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo chroot /mnt
-</pre></div>
-<p>update your grub</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo update-grub
-</pre></div>
-<p>Thats it now switch back to the root filesystem and unmount all the devices and reboot, in most cases this method will work.</p>
-<div class="highlight"><pre><span class="nv">$ </span><span class="nb">exit</span>
-<span class="nv">$ </span>sudo umount /mnt/<span class="o">{</span>dev<span class="p">|</span>proc<span class="p">|</span>sys<span class="p">|</span>boot<span class="o">}</span>
-<span class="nv">$ </span>sudo umount /mnt
-<span class="nv">$ </span>sudo reboot
-</pre></div>
+
+<p>$ sudo mount -t ext4 /dev/sda2 /mnt
+mount the boot device(assuming sda3) under /mnt/boot</p>
+
+<p>$ sudo mount -t ext4 /dev/sda3
+now bind the system directories like dev, sys, proc and usr under /mnt</p>
+
+<p>$ sudo mount --bind /dev /mnt/dev
+    $ sudo mount --bind /proc /mnt/proc
+    $ sudo mount --bind /sys /mnt/sys
+not switch the root file system to /mnt</p>
+
+<p>$ sudo chroot /mnt
+update your grub</p>
+
+<p>$ sudo update-grub
+Thats it now switch back to the root filesystem and unmount all the devices and reboot, in most cases this method will work.</p>
+
+<p>$ exit
+    $ sudo umount /mnt/{dev|proc|sys|boot}
+    $ sudo umount /mnt
+    $ sudo reboot</p>
+</div>
+<div class="footer"><div class="copyright">Made with passion using <a href="https://github.com/42races/parrot" target="_blank">Parrot</a>
+</div></div>
+</div></body>
+</html>
