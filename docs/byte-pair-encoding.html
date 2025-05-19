@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Parrot blog</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/">LinkedIn</a>
+    </nav>
+    <h1>Deepak Kumar</h1>
+    <p>My digital garden</p>
+  </header>
+
+  <main>
+    <h2>Byte Pair Encoding</h2>
+
+<p>Lately, I've been diving deep into the world of language models and neural networks, and the journey has been both insightful and exciting. One concept that really caught my attention is Byte Pair Encoding (BPE), a smart tokenization technique used in <code>NLP</code>. Learning how BPE works gave me that exciting moment. It challenged me, and sparked even more curiosity to explore this fascinating domain further.</p>
+
+<p>Byte Pair Encoding (BPE) is a clever method used to break down text into smaller units called tokens, an essential step in building language models and working with NLP (Natural Language Processing).</p>
+
+<p>Interestingly, BPE wasn't originally designed for language tasks. It comes from a 1994 paper on data compression. Yet, this algorithm has found a powerful second life in modern AI, showing how ideas from one field can influence another in unexpected ways.</p>
+
+<p>At its core, BPE works by finding the most common pair of characters in a text and replacing it with a new symbol that doesn't appear in the original. By repeating this process, we compress the text into a shorter version while keeping track of a translation table to reverse the changes. When applied to large amounts of text, this can result in impressive compression, and this same idea is now used to tokenize text efficiently in the field of natural language processing.</p>
+
+<p>BPE is what's known as a <code>subword-level tokenizer</code>, which falls between character-level and word-level tokenizers. This makes it especially useful in NLP, as it can understand and process parts of words (like "eat" in both "eat" and "eating"), helping models better grasp meaning and context.</p>
+
+<p>One key advantage of subword tokenizers like BPE is that they reduce the problem of unknown words, something word-level tokenizers struggle with. Special tokens such as <code>"&lt;unknown&gt;"</code> are to be used in word level tokenizer to deal with unknown tokens. Compared to character-level tokenization, BPE usually results in fewer tokens per sentence, which is more efficient for models to handle.</p>
+
+<p>While writing a BPE tokenizer from scratch can be a great challenge, perfect for an advanced coding interview, there are excellent libraries available today that do the job well. For example OpenAI developed a library called <a href="https://github.com/openai/tiktoken">tiktoken</a>. Still, diving into the logic behind it can be a fun and rewarding learning experience.</p>
+
+<p>Here is a <a href="https://github.com/deepakkumarnd/ToyLLM/blob/main/byte_pair_encoding_handcoding.py">rudimentary implementation</a> that I have done to understand BEP in a better way.</p>
+
+<p>Happy Learning</p>
+
+  </main>
+
+  <footer>
+    Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
+  </footer>
+</body>
+</html>
