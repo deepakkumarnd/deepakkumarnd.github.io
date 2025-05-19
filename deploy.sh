@@ -1,2 +1,2 @@
-cp -r blog/public docs
+rsync -av --delete blog/public/ docs/
 cp CNAME docs/
