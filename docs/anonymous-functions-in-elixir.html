@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Parrot blog</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/">LinkedIn</a>
+    </nav>
+    <h1>Deepak Kumar</h1>
+    <p>My digital garden</p>
+  </header>
+
+  <main>
+    <p>Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.</p>
+
+<p>Creating an anonymous function in elixir</p>
+
+<pre><code>f = fn(x) -&gt; x * x end
+</code></pre>
+
+<p>or in short form</p>
+
+<pre><code>f = &amp;(&amp;1*&amp;1)
+</code></pre>
+
+<p>where &amp;1 will be replaced by the first argument.</p>
+
+<p>Invoking an anonymous function</p>
+
+<pre><code>f.(2)   # 2*2 =&gt; 4
+</code></pre>
+
+<p>Anonymous function can be created out of named functions as well. For example we can make <strong>String.upcase/1</strong> as anonymous. By doing this we can pass them to other functions.</p>
+
+<pre><code>g = &amp;String.upcase(&amp;1)
+
+g.("hello")  # "HELLO"
+</code></pre>
+
+<p>Anonymous functions has many use cases, they can be used in <strong>Enum.map/2</strong> function.</p>
+
+<pre><code>names = ["Deepak", "raghu", "Akram", "Stalin"]
+Enum.map(names, g)  # ["DEEPAK", "RAGHU", "AKRAM", "STALIN]
+</code></pre>
+
+<p>You many use pattern matching in anonymous function, in that case you need to use the same arity.</p>
+
+<pre><code>f = fn
+  (:square, x) -&gt;  x * x
+  (:cube, x) -&gt; x * x * x
+end
+
+f.(:square, 4)   # 16
+f.(:cube, 4)     # 64
+</code></pre>
+
+  </main>
+
+  <footer>
+    Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
+  </footer>
+</body>
+</html>

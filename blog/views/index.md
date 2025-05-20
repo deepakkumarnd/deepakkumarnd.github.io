@@ -6,3 +6,11 @@
 -   _07-May_ ~ [A second look at the original problem hiding behind Astrology](#astrology.md)
 -   _04-May_ ~ [ശീമക്കൊന്ന](#sheemakonna.md)
 -   _01-May_ ~ [Byte Pair Encoding](#byte-pair-encoding.md)
+
+#### 2022
+
+-   _19-Jan_ ~ [Distributed unique counts using HyperLogLog](#unique-counts-using-hyperloglog.md)
+
+#### 2016
+
+-   _05-Jun_ ~ [Anonymous functions in Elixir](#anonymous-functions-in-elixir.md)
