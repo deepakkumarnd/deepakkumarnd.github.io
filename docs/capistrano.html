@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Parrot blog</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/">LinkedIn</a>
+      <a href="https://www.instagram.com/deep_snapster/">Instagram</a>
+    </nav>
+    <h1>Deepak Kumar</h1>
+    <p>My digital garden</p>
+  </header>
+
+  <main>
+    <h2>Deploying ruby applications using Capistrano</h2>
+
+<p>Capistrano is a remote server automation and deployment tool written in Ruby. It is one of the best deployemnt tool available today. Capistrano is generic it can be used to deploy any application remotely.</p>
+
+<h3>Installation</h3>
+
+<pre><code>$ gem install capistrano
+</code></pre>
+
+<p>or you can specify the gem in a Gemfile as follows, in ruby based projects (Rails, Sinatra etc)</p>
+
+<pre><code>group :developemnt do
+  gem 'capistrano'
+end
+</code></pre>
+
+<p>check the version of installed capistrano using <strong>cap</strong> command</p>
+
+<pre><code>$ cap -V                               # or cap --version
+Capistrano Version: 3.0.1 (Rake Version: 10.1.0) ###
+</code></pre>
+
+<p>Capistrano version 3 is <strong>multistaged</strong> by default means you can setup your application to deploy in differnt environments (production, staging etc) without installing additional plugins.</p>
+
+<p>Capistrano comes with a bunch of default task which you can list using.</p>
+
+<pre><code>$ bundle exec cap -vT                  # or simply cap -vT
+</code></pre>
+
+<p>Here I am going to describe deploying a sinatra application to my VPS using capistrano. So lets say I have a sinatra application named 'foobar' which is production ready and needs to be deployed to a VPS. The very basic deployment can be summarised in four steps.</p>
+
+<p><strong>step1 :</strong> Add capistrano gem to Gemfile and run bundle command to install it</p>
+
+<pre><code>group :development do
+  gem 'capistrano'
+end
+
+$ bundle
+</code></pre>
+
+<p><strong>step2 :</strong> Install capistrano in your application</p>
+
+<pre><code>$ bundle exec cap install
+</code></pre>
+
+<p>This will add the following files to your application</p>
+
+<pre><code>Capfile
+config/deploy.rb
+config/deploy/production.rb
+config/deploy/staging.rb
+lib/capistrano/tasks          # directory
+</code></pre>
+
+<p><strong>setp3 :</strong> Edit the deploy.rb file and put the global configuration here</p>
+
+<p>The file deploy.rb is generic to all the environments so edit this file to put general configuration, You can override the configuraion in the corresponding environment files later.</p>
+
+<p>The set command is used to set static configurations.</p>
+
+<pre><code>set :application, 'foobar'                       # application name
+set :repo_url, 'git@example.com:me/foobar.git'   # your repo url
+set :branch, 'master'                            # branch to be deployed
+set :keep_releases, 2                            # keeps only two copies of deployments
+</code></pre>
+
+<p>The <strong>keep_release</strong> option above will keep upto 2 versions and deletes the previous deployments
+If you want to input something while deploying like specifying branch name during deployment you can use <strong>ask</strong> command.</p>
+
+<pre><code>ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+</code></pre>
+
+<p>If you don't input anything the proc will be evaluated and branch will get assigned to the result.
+Set the directory to which you want to deploy your application, and specify the version control used.
+Here I have a deploy user in my VPS.</p>
+
+<pre><code>set :deploy_to, '/home/deploy/apps/foobar'
+set :scm, :git
+</code></pre>
+
+<p>The following options are also available for configuring capistrano output</p>
+
+<pre><code>set :format, :pretty
+set :log_level, :debug
+set :pty, true
+</code></pre>
+
+<p><strong>step4 :</strong> Configure the environment file</p>
+
+<p>Now it is the time to modify the environment file just open your environemnt file say deploy/production.rb.
+Set the stage variable</p>
+
+<pre><code>set :stage, :production
+</code></pre>
+
+<p>Now change the roles</p>
+
+<pre><code>role :app, %w{deploy@&lt;vps_ip_address&gt;}
+role :web, %w{deploy@&lt;vps_ip_address&gt;}
+role :db,  %w{deploy@&lt;vps_ip_address&gt;}
+</code></pre>
+
+<p>You can define as many roles as you need, also each role can have an array of servers as the second argument</p>
+
+<pre><code>eg: role :queue, %w{ queue@server1 queue@server2 ...}
+</code></pre>
+
+<p>When you execute a task on a particular role, the generated command runs in all these servers with that role.
+Here deploy is my deployment user on VPS, Rememmber you need to sign in to VPS and add your ssh key in ~/.ssh/authorizeds_keys in order to deploy your application.
+Done</p>
+
+<p>You can make use of capistrano plugins to easily add tasks such as bundle, asset compilation etc</p>
+
+<p>For using rvm you can use.</p>
+
+<pre><code>require 'capistrano/rvm'
+</code></pre>
+
+<p>You can require the bundle plugin to run the bundle command</p>
+
+<pre><code>require 'capistrano/bundler'
+</code></pre>
+
+<p>If you are using puma server then you can use the puma plugin to start, stop and restart the server.</p>
+
+<pre><code>require 'capistrano/puma'
+</code></pre>
+
+<p>If you are using a rails applicaiton you can use the following tasks too.</p>
+
+<pre><code>require 'capistrano/rails/assets'
+require 'capistrano/rails/migrations'
+</code></pre>
+
+<p>You can now deploy your application by running</p>
+
+<pre><code>cap production deploy
+</code></pre>
+
+  </main>
+
+  <footer>
+    Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
+  </footer>
+</body>
+</html>

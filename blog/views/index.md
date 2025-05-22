@@ -15,3 +15,7 @@
 #### 2016
 
 -   _05-Jun_ ~ [Anonymous functions in Elixir](#anonymous-functions-in-elixir.md)
+
+#### 2014
+
+-   _13-Jan_ ~ [Deploying ruby applications using Capistrano](#capistrano.md)
