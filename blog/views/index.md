@@ -2,6 +2,7 @@
 
 #### 2025
 
+-   _25-May_ ~ [കുടമാഹാത്മ്യം](#kuda.md)
 -   _22-May_ ~ [ആനക്കഥ](#aanakkadha.md)
 -   _18-May_ ~ [Deep diving into fundamentals of neural networks](#nn-fundamentals-deepdive.md)
 -   _07-May_ ~ [A second look at the original problem hiding behind Astrology](#astrology.md)
