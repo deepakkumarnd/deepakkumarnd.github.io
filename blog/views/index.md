@@ -11,7 +11,7 @@
 
 #### 2022
 
--   _19-Jan_ ~ [Distributed unique counts using HyperLogLog](#unique-counts-using-hyperloglog.md)
+-   _19-Jan_ ~ [Getting the distributed unique realtime counts](#unique-counts-using-hyperloglog.md)
 
 #### 2016
 
