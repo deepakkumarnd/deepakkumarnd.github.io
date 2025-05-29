@@ -24,37 +24,37 @@
   </header>
 
   <main>
-    <h2>Deep diving into fundamentals of neural networks</h2>
+    <h2 id="deep-diving-into-fundamentals-of-neural-networks">Deep diving into fundamentals of neural networks</h2>
 
 <p>When I first started learning about neural networks, it felt like magic. I knew that you give the network some input, and it gives you an output. What surprised me was that the network can learn the connection between input and output by itself. It's like the network finds the math formula that turns inputs into the right outputs, without anyone telling it exactly how.</p>
 
-<h3>Few questions</h3>
+<h3 id="few-questions">Few questions</h3>
 
 <p>At first the whole training felt like a trial and error method. I had a lot of questions in mind, most of them probably qualify for a beginner level tech interview in machine learning. But these questions are truly fundamental and require a lot of effort to understand in a self satisfying way.</p>
 
 <p>Some of such questions are the following</p>
 
 <ol>
-<li>What is a neuron ?</li>
-<li>What is the purpose of weights &amp; bias ?</li>
-<li>What is the role of the activation function ?</li>
-<li>What is the reason for using a layer of neurons instead of a single neuron?</li>
-<li>How many neurons should be there in a layer ?</li>
-<li>When should we use multiple hidden layers ?</li>
-<li>How does the back-propagation work ?</li>
+  <li>What is a neuron ?</li>
+  <li>What is the purpose of weights &amp; bias ?</li>
+  <li>What is the role of the activation function ?</li>
+  <li>What is the reason for using a layer of neurons instead of a single neuron?</li>
+  <li>How many neurons should be there in a layer ?</li>
+  <li>When should we use multiple hidden layers ?</li>
+  <li>How does the back-propagation work ?</li>
 </ol>
 
 <p>In this post I am trying to dump my brain on most of those questions. Topics like back-propagation requires another post.</p>
 
-<h3>Starting simple</h3>
+<h3 id="starting-simple">Starting simple</h3>
 
 <p>Out of curiosity, I started exploring neural networks using simple examples like linear equations. That's when many key ideas started to make sense, linear problems are easier to understand. Starting with these basics really helped me see how neural networks work behind the scenes. As a side effect I was able to polish my math knowledge from school on topics such as <em>vectors, linear equations, differentiation, partial derivatives, local minima, maxima and matrix</em>.</p>
 
-<h3>Neuron or perceptron</h3>
+<h3 id="neuron-or-perceptron">Neuron or perceptron</h3>
 
 <p>The smallest unit in a neural network is a neuron. A neuron or more technically called perceptron is a computational unit designed to mimic the biological neuron in our brain. A neuron accepts multiple inputs(X) and produces a single output. The output of a neuron is a linear combination of its inputs with its own properties called <em>weights(W)</em>.</p>
 
-<h3>Linear combination</h3>
+<h3 id="linear-combination">Linear combination</h3>
 
 <p>The key idea here is <strong>linear combination</strong>. In simple terms, a linear combination is the sum of each input (X)multiplied by its weight (W). Then we add a constant called the bias (b) to this sum. The bias is important because the function we are trying to model might not always pass through the origin (zero point). For example, a line often doesn't go through the origin, and the bias helps shift it to the right place.</p>
 
@@ -63,7 +63,7 @@
 <pre><code>Output = w1.x1 + w2.x2 + ⋯ + wn.xn + b
 </code></pre>
 
-<h3>Understanding Neurons Through Simple Math</h3>
+<h3 id="understanding-neurons-through-simple-math">Understanding Neurons Through Simple Math</h3>
 
 <p>Let's start with something familiar. A straight line in 2D space. From basic math, we know a line can be written as.</p>
 
@@ -79,7 +79,7 @@
 
 <p>Once trained, the neuron can accurately output y for any given x. In this 2D case, there's just one weight—one slope.</p>
 
-<h3>What happens with more inputs?</h3>
+<h3 id="what-happens-with-more-inputs">What happens with more inputs?</h3>
 
 <p>If we have two inputs, like x and y, the equation becomes:</p>
 
@@ -93,7 +93,7 @@
 
 <p>Now, we have two slopes m1 in the xz-plane and m2 in the yz-plane. This represents a flat plane in 3D space. As we add more inputs, the equation grows, and we move into higher-dimensional spaces. We can't visualize these, but mathematically, they follow the same idea.</p>
 
-<h3>One Neuron, Many inputs</h3>
+<h3 id="one-neuron-many-inputs">One Neuron, Many inputs</h3>
 
 <p>All these linear relationships can be learned by a single neuron. A neuron combines inputs and weights like this:</p>
 
@@ -102,7 +102,7 @@
 
 <p>During training, the neuron adjusts these weights and bias to match the desired outputs. If the problem is linear, one neuron is all you need.</p>
 
-<h3>Solving using multiple neurons</h3>
+<h3 id="solving-using-multiple-neurons">Solving using multiple neurons</h3>
 
 <p>Interestingly, a single linear combination can often be written as a combination of other linear combinations. This means you can use multiple neurons and even multiple layers (called hidden layers) to solve the same problem. For example, suppose we have a linear function like.</p>
 
@@ -124,7 +124,7 @@ L2 = 3x + 2y + 1
 
 <p>This example shows that even a simple function can be built using multiple smaller parts. That's the basic idea behind neural networks. Stacking and combining small operations to build more complex ones. And this principle holds true even in higher dimensions of linear combination.</p>
 
-<h3>Nonlinearity</h3>
+<h3 id="nonlinearity">Nonlinearity</h3>
 
 <p>But there is a catch, we can model only linear problems in this way ie, when the input and output are related by a straight line. For example, take a nonlinear function like a parabola defined as follows.</p>
 
@@ -133,12 +133,12 @@ L2 = 3x + 2y + 1
 
 <p>In this case, even if we use many neurons and stack multiple layers, we still can't solve the problem using only linear combinations. That's because combining one line with another still gives you another line. No matter how many you add, you won't get a curve. To solve nonlinear problems like this, we need to introduce something extra, a non-linear twist in the network's behavior. This is where activation functions come in.</p>
 
-<h3>Activation function</h3>
+<h3 id="activation-function">Activation function</h3>
 
 <p>Activation functions are often explained as switches that "activate" when the neuron's output passes a certain threshold, inspired by how neurons in the brain fire. But the real reason we use them in neural networks is that
 <em>"they force a linear combination output curved"</em>.</p>
 
-<h3>Universal Approximation Theorem</h3>
+<h3 id="universal-approximation-theorem">Universal Approximation Theorem</h3>
 
 <p>As you dig deeper into how neural networks solve nonlinear problems, you'll eventually come across a key idea known as the Universal Approximation Theorem. This theorem is foundational, it helps answer many of the questions that come up when trying to understand how neural networks can handle complex relationships between inputs and outputs.</p>
 
@@ -169,7 +169,7 @@ That's the heart of the Universal Approximation Theorem, it tells us that, given
 
 <p>As per the theorem a single hidden layer can solve any problem, but it might need a very large number of neurons. This can make calculations slow and inefficient. However, by using multiple layers, we can break the problem into smaller parts and simplify the work. More layers usually help the network learn better with fewer neurons in each layer. But adding too many layers or neurons doesn't always improve the results. <strong>Therefore finding the right number of layers and neurons depends on the problem and requires some experimentation.</strong></p>
 
-<h3>Final note</h3>
+<h3 id="final-note">Final note</h3>
 
 <p>The approach of using neural networks to approximate functions works well when the function is continuous meaning it changes smoothly without sudden jumps. But <em>in the real world, many functions are discontinuous</em>, with sharp breaks or gaps. When there's a discontinuity in a range, one network might struggle to model it accurately because linear combinations with activation functions produce outputs that are smooth and continuous. To handle this, we often need to use separate networks for different parts of the input range where discontinuities occur, or apply special techniques to smooth out those jumps. This might be an interesting topic for another post.</p>
 
@@ -180,5 +180,6 @@ That's the heart of the Universal Approximation Theorem, it tells us that, given
   <footer>
     Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
 </body>
 </html>

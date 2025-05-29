@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Parrot blog</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/">LinkedIn</a>
+      <a href="https://www.instagram.com/deep_snapster/">Instagram</a>
+    </nav>
+    <h1>Deepak Kumar</h1>
+    <p>My digital garden</p>
+  </header>
+
+  <main>
+    <h2 id="loss-optimizers">Loss Optimizers</h2>
+
+<p>Understanding the foundational components of neural networks can make learning this complex subject more engaging. In the early stages of learning, we can even avoid using frameworks like <strong>PyTorch</strong> or <strong>Keras</strong> and build networks from scratch of course with the help of <code>numpy</code>. While the process can be enjoyable, building a multilayer network from scratch without these advanced tools is also quite challenging. However, if someone manages to do it and gradually begins to grasp the underlying concepts, it becomes a highly rewarding and worthwhile investment.</p>
+
+<p>When it comes to training the neural network gradient descent is the goto approach provided that the <strong>cost function</strong> (loss function) has to be continuous and differentiable. Since processing the entire dataset and updating the weights using gradient descent is practically infeasible, people use a stochastic approach using batches of training data and update the weights after processing each of these batches. This approach is famously called <code>stochastic gradient descent</code> or SGD. In this post I am going to discuss the different approaches to stochastic gradient descent. The process of updating weights is a simple mathematical operation happening on all the weights (and biases) in the neural network. But certain problems arise which need clever solutions because the simple concept of tuning the knobs isn't that simple.</p>
+
+<p>The weight updates in a neural network can be represented using the following simple equation.</p>
+
+\[W = W - \text{lr} \cdot \frac{dL}{dW}\]
+
+<p><code>lr</code> - learning rate</p>
+
+<p><code>L</code> - loss function</p>
+
+<p><code>W</code> - weights, represented as a metrics</p>
+
+<p>From a high level the process is very simple. All we need to do is to <strong>minimize</strong> the loss function value, in order to minimize any mathematical differentiable function we just need to travel to a point where the derivative becomes zero. In mathematics this point is called <strong>minima</strong> (local minima). Note that the derivative will be zero even at <strong>maxima</strong> but we are trying to minimize the loss therefore we are not interested in maxima. The loss function values that we use for SGD creates a landscape in the multi dimensional space called loss landscape. There are so many hills and depressions in the landscape with varying depths and heights. Our aim is to reach the deepest point in the loss landscape.</p>
+
+<p><img src="images/loss-landscape.jpg" alt="Loss Landscape" title="Loss Landscape"></p>
+
+<h3 id="the-blind-walker">The blind walker</h3>
+
+<p>Since visualizing a multidimensional space is outside our imagination for the sake of simplicity let's do a thought experiment. Suppose there are only two weights in the network representing a point in the XY plane. Then average loss with respect to the weights for each batch forms a 3D landscape as shown in the image above. Imagine that you are blind walker in such an imaginary landscape with a walking stick. How do you figure out the deepest point in the landscape ? This is a hard problem even for a person with vision. There is no aerial view available to help the person because nobody has explored the landscape before.</p>
+
+<h3 id="fixed-learning-rate">Fixed learning rate</h3>
+
+<p>One way is that the blind walker can use his stick to figure out the uphill or downhill direction with respect to his current position. He can move in the downhill direction with a fixed step size. Eventually he will reach a point where there is no more slope and that is going to be the center of a depression. But the problem is that this is not necessarily the deepest point in the landscape. From that point if he doesn't use a bigger step size and jump out of the pit he will be stuck in that pit and won't be able to move further and explore other parts of the landscape. But if he uses a larger step size he might be jumping forever across the landscape and never reach the bottom of any of the pits in the landscape.</p>
+
+<p>Here you should have understood intuitively that the pits are the local minima of the loss landscape. At the bottom of any pit the slope is zero, that is the derivative at that point will become zero. So from our equation above the second term becomes zero and the weight will not be updated further. Our training will halt at that point with a stagnant loss value. Which simply means that our network learns no further.</p>
+
+<h3 id="decaying-learning-rate">Decaying learning rate</h3>
+
+<p>From the previous scenario it is clear that the step size can't be fixed, it has to be varying, ideally the step size has to be large enough to explore the whole landscape. Then we can explore and get an idea about the whole landscape and slowly reduce the steps to the deepest part of the landscape. In order to achieve this we can introduce a <strong>decaying learning rate</strong> that will start with a higher value (eg: 1.0) and then slowly becomes smaller and smaller as the number of iterations increases.</p>
+
+\[\text{lr} = \frac{\text{lr}_0}{1 + r \cdot \text{iterations}}\]
+
+<p><code>r</code> - hyperparameter determining the rate of decay.</p>
+
+<p><code>lr0</code> - Initial learning with a higher value</p>
+
+<p><code>lr</code> - variable learning rate</p>
+
+<p><code>iterations</code> - number of iterations</p>
+
+<h3 id="momentum-in-learning">Momentum in learning</h3>
+
+<p>With the new varying step size (<code>lr</code>) let's continue our thought experiment we can see that the person has traveled all over the landscape and finally figured the right depth. But there is a problem when there are any sharp edges in the landscape. The direction to follow might change sharply. This can make the path look like a walk of someone so drunk with no sense of direction. Such a walk will make the learning so slow, the walk without a sense of direction slows the blind walker from reaching the goal.</p>
+
+<p>The problem here is that the walker was calculating his next step direction with respect to his current point without considering his past direction at all. What if he uses his past memory of the previous step and makes a move in the future direction ? This means that the person will take into account the momentum of his past and travel in the newly calculated slope. Say we represent his last move by a vector <code>A</code> and the new direction by vector <code>B</code> then by incorporating momentum he will travel in the resultant direction of <code>A + B</code>. This makes the path to the bottom most point much smoother even on sharp terrain.</p>
+
+<p>Mathematically this means that we need to store the previous gradient vector and add the next gradient vector. We can also introduce a hyperparameter called <code>momentum factor</code> that decides the weightage to be given to the past momentum. This can be expressed as follows.</p>
+
+\[W = W - \left( \text{lr} \cdot \frac{dL}{dW} + \beta_1 \cdot M \right)\]
+
+<p>\(\beta_1\) - momentum factor</p>
+
+<p><code>M</code> - Momentum cache containing previous gradient</p>
+
+<p>Here if we give a higher weightage say 0.9 to the momentum factor then we are adjusting the weight giving higher importance to our past knowledge. This approach greatly improves the efficiency of weight updates and results in much smoother convergence of the neural network.</p>
+
+<h3 id="adaptive-learning-rate">Adaptive learning rate</h3>
+
+<p>Even after understanding many aspects of neural networks, I remained curious about how gradient updates actually work. I noticed that weights and biases were being updated uniformly using the same learning rate. This part felt like a black box to me, largely because the learning resources I had previously used didn't go into much detail about how weight updates are performed. However, I later realized that this isn't entirely accurate each weight is updated based on its own gradient value. A large gradient indicates that a small change in the weight can significantly affect the loss function. Conversely, if the gradient is small, a larger change in the weight is needed to have any noticeable impact on the loss. Since the goal is to minimize the loss by adjusting the weights, this distinction is crucial. Intuitively, this suggests that the learning rate should be inversely related to the magnitude of the gradient.</p>
+
+\[\text{lr} \propto \frac{1}{\left| \frac{dL}{dW} \right|}\]
+
+<p>This thought process gave birth to an algorithm called <strong>AdaGrad</strong> (Duchi et al, 2011). AdaGrad introduced a mechanism so that the learning rate will be varied based on the gradient values of loss function with respect to each weight.</p>
+
+<p>Here is how it can be imagined: our blind walker measures the slopes, if the slope is high then he will adjust the step size to be smaller, if the slope is low then he will increase the step size to be higher. Mathematically this can be achieved by modifying the learning rate as follows.</p>
+
+\[\text{lr} = \frac{\text{lr}}{\sqrt{G} + \epsilon}\]
+
+<p>where G is a gradient cache accumulating squares of all the past gradients.</p>
+
+\[G = \sum_{i=1}^t g_i^2\]
+
+<p>\(g_1^2,g_1^2 \dots g_i^2\) are the gradients of the past which we keep on accumulating on a <strong>gradient cache</strong> <code>G</code>.</p>
+
+<p>\(\epsilon\) - a small constant to avoid the denominator becoming zero.</p>
+
+<p>Note that here we are not using any momentum like before. This is a different approach than before. Here when the gradient is higher then <code>G</code> will also be higher and this will result in a small value of <code>lr</code>. If the gradient is small then the value of <code>G</code> will also be lower and this will result in an increase in the learning rate. But there is a small problem here: if the number of iterations increases the value of <code>G</code> will eventually go up and this will result in a smaller and smaller step size on an already decaying learning rate. Therefore at a higher number of iterations we will be facing the same problem of stagnant learning.</p>
+
+<h3 id="rmsprop-an-improvement-over-the-adagrad">RMSProp an improvement over the AdaGrad</h3>
+
+<p><strong>RMSProp</strong> (Tieleman &amp; Hinton, 2012) algorithm is an improvement over the AdaGrad algorithm. This is introduced to tackle the problem that at a higher number of iterations the learning will eventually stop because of smaller learning rates. Let's check how RMSProp solves this problem. RMSProp modifies the way in which gradient cache <code>G</code> in AdaGrad accumulates. The modification is as follows.</p>
+
+\[G = \beta_2 G + (1 - \beta_2) \left(\frac{dL}{dW}\right)^2\]
+
+<p>\(\beta_2\) - Cache decay rate</p>
+
+<p>This modification will force the cache <code>G</code> to grow at a much lower rate therefore the learning rate will be affected at a much slower rate than the AdaGrad algorithm. This enables the learning process continue smoothly.</p>
+
+<h3 id="adam-optimizer">Adam Optimizer</h3>
+
+<p>Finally all these understandings over time lead to the development of a new optimizer called <strong>Adam</strong> (Diederik, Jimmy 2015). The name Adam is derived from <strong>adaptive moment estimation</strong> not from the first bible man Adam. Adam combines the good parts of decay, momentum and AdaGrad algorithms. This has been the goto choice in many examples that I have seen. Once we understand mechanisms explained so far then Adam feels like a very natural tweak. Adam optimizer modifies the weight updates as follows.</p>
+
+\[W = W - \text{lr} \cdot \frac{\text{Momentum Term}}{\sqrt{\text{Cache Term}} + \epsilon}\]
+
+<p>Where</p>
+
+\[\text{Momentum Term} = \frac{(\beta_1 \cdot M + (1 - \beta_1) \cdot \frac{dL}{dW})}{\text{Momentum Correction Term}}\]
+
+\[\text{Cache Term} = \frac{(\beta_2 \cdot G + (1 - \beta_2) \cdot \frac{dL}{dW}^2)}{\text{Cache Correction Term}}\]
+
+\[\text{Momentum Correction Term} = 1 - \beta_1^\text{iterations + 1}\]
+
+\[\text{Cache Correction Term} = 1 - \beta_2^\text{iterations + 1}\]
+
+<p>This looks like a lot of equations but this isn't very difficult if you are able to follow the thought process followed in the post. Adam optimizer is like replacing the walking stick of the blind walker with a handheld device that determines the direction and step size of his next step.</p>
+
+<p>The role of correction terms <code>Momentum Correction Term</code> and <code>Cache Correction Term</code> is insignificant at higher iterations because the value of correction term will become close to 1. But at lower iterations when the <code>Momentum Term</code> and <code>Cache Term</code> are having very small numerator the step size will be very small which is not desirable in the early iterations as mentioned earlier. This is called the <strong>cold start problem</strong>. Correction terms are used to avoid the cold start problem, division by correction term increases the step size in the early iterations of training making significant weight changes in the early iterations.</p>
+
+<p><img src="images/cost-function-comparison.png" alt="Cost function comparison" title="Cost function comparison"></p>
+
+<p>Let's conclude wih a look at the chart comparing the training cost of different strategies mentioned above. We can see that the Adam outperforms all other algorithms making it a much preferred choice.</p>
+
+<p>Happy Learning</p>
+
+  </main>
+
+  <footer>
+    Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+</body>
+</html>
