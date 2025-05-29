@@ -2,6 +2,7 @@
 
 #### 2025
 
+-   _29-May_ ~ [Loss Optimizers](#nn-optimizers.md)
 -   _25-May_ ~ [കുടമാഹാത്മ്യം](#kuda.md)
 -   _22-May_ ~ [ആനക്കഥ](#aanakkadha.md)
 -   _18-May_ ~ [Deep diving into fundamentals of neural networks](#nn-fundamentals-deepdive.md)
