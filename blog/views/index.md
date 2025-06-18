@@ -2,6 +2,7 @@
 
 #### 2025
 
+-   _18-Jun_ ~ [Batch Normalization](#batch-normalization.md)
 -   _01-Jun_ ~ [ടി ഡി രാമകൃഷ്ണന്റെ ദേവനായകി](#devanayaki.md)
 -   _29-May_ ~ [Loss Optimizers](#nn-optimizers.md)
 -   _25-May_ ~ [കുടമാഹാത്മ്യം](#kuda.md)
