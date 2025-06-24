@@ -270,6 +270,18 @@ False
 
 <p>Model training involves iterating over the data in batches and updating the model's weights using gradient descent. Since the updates are performed on mini-batches rather than the entire dataset at once, this approach is called <strong>stochastic gradient descent (SGD)</strong>.</p>
 
+<p>When thinking about which loss function to be used we can clearly see that we have only two labels therefore our problem is a binary classification problem. For binary classification problems <code>Binary Cross Entropy</code> function is a good choice.</p>
+
+\[BCE(p,\hat{p}) = -(p \cdot log(\hat{p}) + (1-p)\cdot log(1-\hat{p}))\]
+
+\[\text{BCE}_\text{avg} = \frac{1}{B} \sum_{i=1}^{B} BCE(p_i,\hat{\text{p}_i})\]
+
+\[p - \text{actual probability ie. 1 or 0}\]
+
+\[\hat{p} - \text{predicted probability}\]
+
+\[B - \text{batch size}\]
+
 <p>In our case, we're using the <code>BCEWithLogitsLoss</code> function, which combines a sigmoid activation with binary cross-entropy loss (BCELoss) in a single, efficient operation. This function is numerically more stable than manually applying a sigmoid followed by BCELoss.</p>
 
 <p>For optimization, we're using the <strong>Adam</strong> optimizer, an adaptive optimization algorithm that combines the benefits of <strong>AdaGrad</strong> and <strong>Momentum</strong>, offering faster convergence.</p>
@@ -342,6 +354,8 @@ print(f"Accuracy {success/total\*100:.2f}")
 <p>You can find all the code used in this post in <a href="https://github.com/deepakkumarnd/mynotebooks/blob/main/Neural%20Network%20From%20Scratch/Detect%20the%20points%20on%20a%20circle%20using%20neural%20network.ipynb">this notebook</a></p>
 
 <p>Happy Learning</p>
+
+\[\]
 
   </main>
 

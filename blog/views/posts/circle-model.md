@@ -230,6 +230,22 @@ Our untrained model predicted that the point (0, 5) could be on our half circle 
 
 Model training involves iterating over the data in batches and updating the model's weights using gradient descent. Since the updates are performed on mini-batches rather than the entire dataset at once, this approach is called **stochastic gradient descent (SGD)**.
 
+When thinking about which loss function to be used we can clearly see that we have only two labels therefore our problem is a binary classification problem. For binary classification problems `Binary Cross Entropy` function is a good choice.
+
+$$
+BCE(p,\hat{p}) = -(p \cdot log(\hat{p}) + (1-p)\cdot log(1-\hat{p}))
+$$
+
+$$
+\text{BCE}_\text{avg} = \frac{1}{B} \sum_{i=1}^{B} BCE(p_i,\hat{\text{p}_i})
+$$
+
+$$ p - \text{actual probability ie. 1 or 0} $$
+
+$$ \hat{p} - \text{predicted probability} $$
+
+$$ B - \text{batch size} $$
+
 In our case, we're using the `BCEWithLogitsLoss` function, which combines a sigmoid activation with binary cross-entropy loss (BCELoss) in a single, efficient operation. This function is numerically more stable than manually applying a sigmoid followed by BCELoss.
 
 For optimization, we're using the **Adam** optimizer, an adaptive optimization algorithm that combines the benefits of **AdaGrad** and **Momentum**, offering faster convergence.
@@ -298,3 +314,6 @@ To improve the model further, I’d need to dive deeper—perhaps by exploring b
 You can find all the code used in this post in [this notebook](https://github.com/deepakkumarnd/mynotebooks/blob/main/Neural%20Network%20From%20Scratch/Detect%20the%20points%20on%20a%20circle%20using%20neural%20network.ipynb)
 
 Happy Learning
+
+$$
+$$
