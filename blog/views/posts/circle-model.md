@@ -171,7 +171,7 @@ The model we're going to build is a simple sequential neural network with a sing
 
 Why 16? Think of it this way, we're roughly dividing the upper half of the circle into 37 segments, 16 from the input layer, 16 from the hidden layer, and 1 final output. Each neuron contributes to modeling a small segment of the curve. With more neurons (and more data), the network could approximate the circle more precisely by learning shorter, more detailed line segments.
 
-Based on the value outputted by the model we can decide whether the point is on the circle or not. We are using `ReLU()` as the activation function on input and the hidden layer for the non linear transformation.
+Based on the value outputted by the model we can decide whether the point is on the circle or not. We are using `ReLU()` as the activation function on input and the hidden layer for the non linear transformation. Note that we are not using any activation function such as `Sigmoid` at the output layer, therefore the model does not directly output the probability. This is done because we will be using `BCEWithLogitsLoss` loss function during the model training. `BCEWithLogitsLoss` works directly on the model output.
 
     class CircleModel(nn.Module):
         def __init__(self):
