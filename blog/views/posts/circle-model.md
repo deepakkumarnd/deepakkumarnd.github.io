@@ -289,7 +289,7 @@ You can see the loss is much better compared to the previous case. Now lets eval
 
     # Accuracy 88.72
 
-On my laptop I have achieved an accuracy of **88.72%** on the training dataset. When we tested the model on the full set of generated points (`samples`), the accuracy improved to approximately **94%**.
+On my laptop I have achieved an accuracy of **88.72%** on the training dataset. When I tested the model on the full set of generated points (`samples`), the accuracy improved to approximately **94%**.
 
 I believe there's still room for improvement, particularly on the training set. One possible reason for the lower training accuracy is the imbalance in point distribution, if you examine the `training_sample`, you'll notice that there are fewer points near the edges of the half-circle compared to the denser region in the middle. This uneven distribution may have limited the model's ability to learn the boundary behavior effectively.
 

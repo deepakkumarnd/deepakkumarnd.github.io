@@ -333,7 +333,7 @@ print(f"Accuracy {success/total\*100:.2f}")
 # Accuracy 88.72
 </code></pre>
 
-<p>On my laptop I have achieved an accuracy of <strong>88.72%</strong> on the training dataset. When we tested the model on the full set of generated points (<code>samples</code>), the accuracy improved to approximately <strong>94%</strong>.</p>
+<p>On my laptop I have achieved an accuracy of <strong>88.72%</strong> on the training dataset. When I tested the model on the full set of generated points (<code>samples</code>), the accuracy improved to approximately <strong>94%</strong>.</p>
 
 <p>I believe there's still room for improvement, particularly on the training set. One possible reason for the lower training accuracy is the imbalance in point distribution, if you examine the <code>training_sample</code>, you'll notice that there are fewer points near the edges of the half-circle compared to the denser region in the middle. This uneven distribution may have limited the model's ability to learn the boundary behavior effectively.</p>
 
