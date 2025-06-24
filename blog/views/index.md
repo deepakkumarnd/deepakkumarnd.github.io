@@ -2,6 +2,7 @@
 
 #### 2025
 
+-   _24-Jun_ ~ [Neural Network Learns a Half-Circle](#circle-model.md)
 -   _18-Jun_ ~ [Batch Normalization](#batch-normalization.md)
 -   _01-Jun_ ~ [ടി ഡി രാമകൃഷ്ണന്റെ ദേവനായകി](#devanayaki.md)
 -   _29-May_ ~ [Loss Optimizers](#nn-optimizers.md)
