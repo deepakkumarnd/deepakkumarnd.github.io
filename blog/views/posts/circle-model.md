@@ -26,6 +26,8 @@ Therefore, let's try building a neural network to model the circle. Since a circ
 
 From this point onward, I'll assume that the reader is comfortable with the basics of `Python`, **neural networks**, the `PyTorch` library, and `NumPy`. Without familiarity with these tools and concepts, the coming sections may be difficult to follow.
 
+You can find all the code used in this post in [this notebook](https://github.com/deepakkumarnd/mynotebooks/blob/main/Neural%20Network%20From%20Scratch/Detect%20the%20points%20on%20a%20circle%20using%20neural%20network.ipynb)
+
 ### Preparing the training data
 
 The first step in any neural network problem is preparing the training data. Let's begin by defining a few parameters for generating this data. Let's consider points that are very close to the half-circle as being on the half-circle. In other words, we'll add a bit of noise to simulate real world conditions where data is rarely perfect or exact.
@@ -292,5 +294,7 @@ On my laptop I have achieved an accuracy of **88.72%** on the training dataset. 
 I believe there's still room for improvement, particularly on the training set. One possible reason for the lower training accuracy is the imbalance in point distribution, if you examine the `training_sample`, you'll notice that there are fewer points near the edges of the half-circle compared to the denser region in the middle. This uneven distribution may have limited the model's ability to learn the boundary behavior effectively.
 
 To improve the model further, I’d need to dive deeper—perhaps by exploring better sampling strategies or tuning the architecture. But for now, I'm happy with my learning progress and will call it a day.
+
+You can find all the code used in this post in [this notebook](https://github.com/deepakkumarnd/mynotebooks/blob/main/Neural%20Network%20From%20Scratch/Detect%20the%20points%20on%20a%20circle%20using%20neural%20network.ipynb)
 
 Happy Learning
