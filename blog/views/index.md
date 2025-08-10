@@ -2,6 +2,7 @@
 
 #### 2025
 
+-   _09-Aug_ ~ [Reinforcement Learning (Part 1)](#reinforcement-learning-1.md)
 -   _26-Jul_ ~ [തുല്യത എന്ന സാങ്കല്പിക ആധുനിക മൂല്യം](#equality.md)
 -   _24-Jun_ ~ [Neural Network Learns a Half-Circle](#circle-model.md)
 -   _18-Jun_ ~ [Batch Normalization](#batch-normalization.md)
