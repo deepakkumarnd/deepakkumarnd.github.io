@@ -1,0 +1,54 @@
+GIT
+  remote: git@github.com:deepakkumarnd/parrot.git
+  revision: 66826cc48b66d176b436a9afa2cc88f134f2ec92
+  specs:
+    parrot (0.2.4)
+      kramdown
+      logger
+      nokogiri
+      observer
+      sassc
+      tilt
+      watchr
+      webrick
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.17.4-arm64-darwin)
+    kramdown (2.5.2)
+      rexml (>= 3.4.4)
+    logger (1.7.0)
+    nokogiri (1.19.4-arm64-darwin)
+      racc (~> 1.4)
+    observer (0.1.2)
+    racc (1.8.1)
+    rexml (3.4.4)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    tilt (2.9.0)
+    watchr (0.7)
+    webrick (1.9.2)
+
+PLATFORMS
+  arm64-darwin
+
+DEPENDENCIES
+  parrot!
+
+CHECKSUMS
+  ffi (1.17.4-arm64-darwin) sha256=19071aaf1419251b0a46852abf960e77330a3b334d13a4ab51d58b31a937001b
+  kramdown (2.5.2) sha256=1ba542204c66b6f9111ff00dcc26075b95b220b07f2905d8261740c82f7f02fa
+  logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
+  nokogiri (1.19.4-arm64-darwin) sha256=a46db9853286e6597b36ebc6953817d15acf3a299583eb3f89fdc6f91dd63527
+  observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
+  parrot (0.2.4)
+  racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
+  rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
+  sassc (2.4.0) sha256=4c60a2b0a3b36685c83b80d5789401c2f678c1652e3288315a1551d811d9f83e
+  tilt (2.9.0) sha256=da5735d0280bba96e9a91041bb14aee435ccad5c17b0fa519249ae543d9aa3a5
+  watchr (0.7) sha256=c3a81d544dda23c476992132ab47718aa978fe0b528cc42d6ef08a1e973514ff
+  webrick (1.9.2) sha256=beb4a15fc474defed24a3bda4ffd88a490d517c9e4e6118c3edce59e45864131
+
+BUNDLED WITH
+  4.0.16
