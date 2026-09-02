@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Parrot blog</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/">LinkedIn</a>
+      <a href="https://www.instagram.com/deep_snapster/">Instagram</a>
+    </nav>
+    <h1>Deepak Kumar</h1>
+    <p>My digital garden</p>
+  </header>
+  
+  <main>
+    <h2 id="greatest-common-divider">Greatest Common Divider</h2>
+
+<p>In mathematics GCD of two positive integers <code>a</code> and <code>b</code> is the highest number that can divide both <code>a</code> and <code>b</code>.</p>
+
+<p>Let's look at how is GCD is calculated using an example. Take two numbers a and b as 15 and 5 our goal is to find the 
+GCD of 15 and 5. The calculation is as follows.</p>
+
+<ul>
+  <li>Step1 - Divide <code>a</code> by <code>b</code> and take the reminder <code>r</code>, ie: <code>r = a % b</code>.</li>
+  <li>Step2 - Shift the row to left so that <code>a</code> becomes <code>b</code> and <code>b</code> becomes <code>r</code>.</li>
+</ul>
+
+<p>Repeat the steps untill <code>b</code> becomes zero, once b becomes zero our answer will be the value of <code>a</code> which is 5 in this particular example.</p>
+
+<p>Take a look at the table below for a better understanding.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">a</th>
+      <th style="text-align: center">b</th>
+      <th style="text-align: center">r</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">15</td>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">10</td>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">0</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">0</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The above mentioned method is called <code>Euclid</code>'s algorithm. Lets now implement the code so that we can run it and test.</p>
+
+<pre><code>// Typescript
+
+function gcd(a: number, b: number): number {
+    if (b === 0) return a;
+    
+    return gcd(b, a % b);
+}
+</code></pre>
+
+<h5 id="footnotes">Footnotes</h5>
+
+<p>Greater common divider is also known as Highest Common Factor or HCF. GCD is a relatively new term popularised by americal 
+influence in computing.</p>
+
+  </main>
+
+  <footer>
+    Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a> and <a href="https://simplecss.org/" target="_blank">Simple CSS</a>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+</body>
+</html>

@@ -22,11 +22,13 @@
     <h1>Deepak Kumar</h1>
     <p>My digital garden</p>
   </header>
-
+  
   <main>
-    <p>Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.</p>
+    <h2 id="anonymous-functions-in-elixir">Anonymous functions in elixir</h2>
 
-<p>Creating an anonymous function in elixir</p>
+<p>Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.</p>
+
+<h3 id="creating-an-anonymous-function-in-elixir">Creating an anonymous function in elixir</h3>
 
 <pre><code>f = fn(x) -&gt; x * x end
 </code></pre>
@@ -38,7 +40,7 @@
 
 <p>where &amp;1 will be replaced by the first argument.</p>
 
-<p>Invoking an anonymous function</p>
+<h3 id="invoking-an-anonymous-function">Invoking an anonymous function</h3>
 
 <pre><code>f.(2)   # 2*2 =&gt; 4
 </code></pre>
@@ -70,7 +72,7 @@ f.(:cube, 4)     # 64
   </main>
 
   <footer>
-    Made with love using <a href="https://github.com/deepakkumarnd/parrot">Parrot</a>
+    Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a> and <a href="https://simplecss.org/" target="_blank">Simple CSS</a>
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
 </body>
