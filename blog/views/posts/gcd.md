@@ -19,11 +19,9 @@ Take a look at the table below for a better understanding.
 | 5 | 0 |  |
 
 The above mentioned method is called `Euclid`'s algorithm. Lets now implement the code so that we can run it and test.
-    
-    // Typescript
-    
-    function gcd(a: number, b: number): number {
-        if (b === 0) return a;
+
+    int gcd(int a, int b) {
+        if (b == 0) return a;
         
         return gcd(b, a % b);
     }
