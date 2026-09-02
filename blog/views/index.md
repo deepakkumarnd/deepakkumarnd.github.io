@@ -26,3 +26,7 @@
 #### 2014
 
 -   _13-Jan_ ~ [Deploying ruby applications using Capistrano](#capistrano.md)
+
+#### 2012
+
+-   _1-Jan_ ~ [Greatest common divider](#gcd.md)

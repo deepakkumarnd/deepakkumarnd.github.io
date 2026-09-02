@@ -1,6 +1,8 @@
+## Anonymous functions in elixir
+
 Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.
 
-Creating an anonymous function in elixir
+### Creating an anonymous function in elixir
 
     f = fn(x) -> x * x end
 
@@ -10,7 +12,7 @@ or in short form
 
 where &1 will be replaced by the first argument.
 
-Invoking an anonymous function
+### Invoking an anonymous function
 
     f.(2)   # 2*2 => 4
 
