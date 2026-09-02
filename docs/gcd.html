@@ -69,10 +69,8 @@ GCD of 15 and 5. The calculation is as follows.</p>
 
 <p>The above mentioned method is called <code>Euclid</code>'s algorithm. Lets now implement the code so that we can run it and test.</p>
 
-<pre><code>// Typescript
-
-function gcd(a: number, b: number): number {
-    if (b === 0) return a;
+<pre><code>int gcd(int a, int b) {
+    if (b == 0) return a;
     
     return gcd(b, a % b);
 }
