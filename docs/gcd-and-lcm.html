@@ -24,12 +24,19 @@
   </header>
   
   <main>
-    <h2 id="greatest-common-divider">Greatest Common Divider</h2>
+    <h2 id="gcd-and-lcm">GCD and LCM</h2>
+
+<p>GCD and LCM are two important topics that no one miss during school math. When I started learning programming these two programs were
+there in almost all the reference books as a next level hello world. If I remember correctly even Knuth started with GCD in his 
+revered Art of Computer Programming book. They are even asked as interview questions. These programs are quite simple but they are truly 
+beautiful and powerful and one can refer to them at any point of time.</p>
+
+<h3 id="greatest-common-divider-gcd">Greatest Common Divider (GCD)</h3>
 
 <p>In mathematics GCD of two positive integers <code>a</code> and <code>b</code> is the highest number that can divide both <code>a</code> and <code>b</code>.</p>
 
-<p>Let's look at how is GCD is calculated using an example. Take two numbers a and b as 15 and 5 our goal is to find the 
-GCD of 15 and 5. The calculation is as follows.</p>
+<p>Let's look at how is GCD is calculated using an example. Take two numbers a and b as 15 and 10 our goal is to find the 
+GCD of 15 and 10. The calculation is as follows.</p>
 
 <ul>
   <li>Step1 - Divide <code>a</code> by <code>b</code> and take the reminder <code>r</code>, ie: <code>r = a % b</code>.</li>
@@ -75,6 +82,60 @@ GCD of 15 and 5. The calculation is as follows.</p>
     return gcd(b, a % b);
 }
 </code></pre>
+
+<p>The code is self explanatory, the recursive call to gcd makes this program truly follow the natural thinking.</p>
+
+<h3 id="least-common-multiplier-lcm">Least Common Multiplier (LCM)</h3>
+
+<p>When it comes to LCM of two integers <code>a</code> and <code>b</code> it is defined as the smallest number that can be divided using both a and b. We calculate
+LCM by factorising the numbers to their smallest factors.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">5</td>
+      <td style="text-align: center">15</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">3</td>
+      <td style="text-align: center">3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">2</td>
+      <td style="text-align: center">1</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Now our LCM would be a multipel of these factors 5x3x2 = 30</p>
+
+<p>Interestingly LCM and GCD are related as follows.</p>
+
+\[\text{LCM}(a, b) = \frac{a \cdot b}{\text{GCD}(a, b)}\]
+
+<p>Therefore implementing LCM is as easy as follows</p>
+
+<pre><code>int lcm(int a, int b) {
+    return (a * b) / gcd(a, b)
+}
+</code></pre>
+
+<p>Look at how <code>lcm</code> is beautifully composed using our earlier <code>gcd</code>, here both <code>gcd</code> and <code>lcm</code> are pure reusable functions and have no side effects.</p>
 
 <h5 id="footnotes">Footnotes</h5>
 
