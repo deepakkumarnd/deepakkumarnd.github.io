@@ -20,27 +20,31 @@ A JWT can contain information, known as claims, that a server can validate witho
 
 Now lets look at how to generate JWT and its structure. Here is an example code in typescript that generates a JWT. Before generating JWT you need to generate a `JWT_SECRET` (a cryptographic key) as follows I am using `bun` to generate this key.
 
-    $ bun -e "console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"
+```sh
+$ bun -e "console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"
+```
 
 Now use the generated `JWT_SECRET` as an environment variable. The following code will generate a JWT with our `JWT_SECRET` as signin key with an expiry of five minutes.
 
-    import { SignJWT } from "jose"
+```typescript
+import { SignJWT } from "jose"
 
-    const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
+const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
 
-    async function generateAccessToken(userId: string) {
-        return await new SignJWT({
-            sub: userId,
-        })
-            .setProtectedHeader({ alg: "HS256" })
-            .setIssuedAt()
-            .setExpirationTime("15m")
-            .sign(secret)
-    }
+async function generateAccessToken(userId: string) {
+    return await new SignJWT({
+        sub: userId,
+    })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("15m")
+        .sign(secret)
+}
 
-    const token = await generateAccessToken("user-123456")
+const token = await generateAccessToken("user-123456")
 
-    console.log(token)
+console.log(token)
+```
 
 The resulting token is of the following format with three parts to it.
 
@@ -52,29 +56,34 @@ The resulting token is of the following format with three parts to it.
 
 You may go to https://www.jwt.io/ or https://jwt.ms/ and copy paste the JWT and decode the token.  You will see the decoded token as follows.
 
-    {
-        "alg": "HS256"
-    }.{
-        "sub": "user-123456",
-        "iat": 1788353504,
-        "exp": 1788354404
-    }.[Signature]
+```json
+{
+    "alg": "HS256"
+}.{
+    "sub": "user-123456",
+    "iat": 1788353504,
+    "exp": 1788354404
+}.[Signature]
+```
 
 As you can see above anybody who can access JWT can decode it, which is why it is advised not to keep any sensitive information in the JWT. Once the token is generated it can be validated as follows.
 
-    function verifyAccessToken(token: string) {
-        try {
-            const { payload } = await jwtVerify(token, process.env.JWT_SECRET!, {
-                algorithms: ["HS256"],
-            })
+```typescript
+function verifyAccessToken(token: string) {
+    try {
+        const { payload } = await jwtVerify(token, process.env.JWT_SECRET!, {
+            algorithms: ["HS256"],
+        })
 
-            return payload
-        } catch {
-            return null
-        }
+        return payload
+    } catch {
+        return null
     }
+}
 
-    const decoded = await verifyAccessToken(token)) // returns null or decoded payload
+// returns null or decoded payload
+const decoded = await verifyAccessToken(token))
+```
 
 When the server can validate the JWT and make authorization decisions without maintaining server side session state for that token, the authentication mechanism can operate in a `stateless` manner. However, JWT itself is not inherently stateless; a highly secure system can still maintain server-side state for purposes such as `token revocation`, `session management`, or `refresh-token tracking`.
 

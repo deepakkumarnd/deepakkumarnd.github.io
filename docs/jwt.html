@@ -46,29 +46,29 @@
 
 <p>Now lets look at how to generate JWT and its structure. Here is an example code in typescript that generates a JWT. Before generating JWT you need to generate a <code>JWT_SECRET</code> (a cryptographic key) as follows I am using <code>bun</code> to generate this key.</p>
 
-<pre><code>$ bun -e "console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"
-</code></pre>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bun <span class="nt">-e</span> <span class="s2">"console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"</span>
+</code></pre></div></div>
 
 <p>Now use the generated <code>JWT_SECRET</code> as an environment variable. The following code will generate a JWT with our <code>JWT_SECRET</code> as signin key with an expiry of five minutes.</p>
 
-<pre><code>import { SignJWT } from "jose"
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">SignJWT</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">jose</span><span class="dl">"</span>
 
-const secret = new TextEncoder().encode(process.env.JWT_SECRET!)
+<span class="kd">const</span> <span class="nx">secret</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TextEncoder</span><span class="p">().</span><span class="nf">encode</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="o">!</span><span class="p">)</span>
 
-async function generateAccessToken(userId: string) {
-    return await new SignJWT({
-        sub: userId,
-    })
-        .setProtectedHeader({ alg: "HS256" })
-        .setIssuedAt()
-        .setExpirationTime("15m")
-        .sign(secret)
-}
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">generateAccessToken</span><span class="p">(</span><span class="nx">userId</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">await</span> <span class="k">new</span> <span class="nc">SignJWT</span><span class="p">({</span>
+        <span class="na">sub</span><span class="p">:</span> <span class="nx">userId</span><span class="p">,</span>
+    <span class="p">})</span>
+        <span class="p">.</span><span class="nf">setProtectedHeader</span><span class="p">({</span> <span class="na">alg</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HS256</span><span class="dl">"</span> <span class="p">})</span>
+        <span class="p">.</span><span class="nf">setIssuedAt</span><span class="p">()</span>
+        <span class="p">.</span><span class="nf">setExpirationTime</span><span class="p">(</span><span class="dl">"</span><span class="s2">15m</span><span class="dl">"</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">sign</span><span class="p">(</span><span class="nx">secret</span><span class="p">)</span>
+<span class="p">}</span>
 
-const token = await generateAccessToken("user-123456")
+<span class="kd">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">generateAccessToken</span><span class="p">(</span><span class="dl">"</span><span class="s2">user-123456</span><span class="dl">"</span><span class="p">)</span>
 
-console.log(token)
-</code></pre>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">token</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The resulting token is of the following format with three parts to it.</p>
 
@@ -81,31 +81,32 @@ console.log(token)
 
 <p>You may go to https://www.jwt.io/ or https://jwt.ms/ and copy paste the JWT and decode the token.  You will see the decoded token as follows.</p>
 
-<pre><code>{
-    "alg": "HS256"
-}.{
-    "sub": "user-123456",
-    "iat": 1788353504,
-    "exp": 1788354404
-}.[Signature]
-</code></pre>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
+</span><span class="p">}</span><span class="err">.</span><span class="p">{</span><span class="w">
+    </span><span class="nl">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user-123456"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1788353504</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"exp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1788354404</span><span class="w">
+</span><span class="p">}</span><span class="err">.</span><span class="p">[</span><span class="err">Signature</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
 
 <p>As you can see above anybody who can access JWT can decode it, which is why it is advised not to keep any sensitive information in the JWT. Once the token is generated it can be validated as follows.</p>
 
-<pre><code>function verifyAccessToken(token: string) {
-    try {
-        const { payload } = await jwtVerify(token, process.env.JWT_SECRET!, {
-            algorithms: ["HS256"],
-        })
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">verifyAccessToken</span><span class="p">(</span><span class="nx">token</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="p">{</span> <span class="nx">payload</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">jwtVerify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="o">!</span><span class="p">,</span> <span class="p">{</span>
+            <span class="na">algorithms</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">HS256</span><span class="dl">"</span><span class="p">],</span>
+        <span class="p">})</span>
 
-        return payload
-    } catch {
-        return null
-    }
-}
+        <span class="k">return</span> <span class="nx">payload</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kc">null</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
-const decoded = await verifyAccessToken(token)) // returns null or decoded payload
-</code></pre>
+<span class="c1">// returns null or decoded payload</span>
+<span class="kd">const</span> <span class="nx">decoded</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">verifyAccessToken</span><span class="p">(</span><span class="nx">token</span><span class="p">))</span>
+</code></pre></div></div>
 
 <p>When the server can validate the JWT and make authorization decisions without maintaining server side session state for that token, the authentication mechanism can operate in a <code>stateless</code> manner. However, JWT itself is not inherently stateless; a highly secure system can still maintain server-side state for purposes such as <code>token revocation</code>, <code>session management</code>, or <code>refresh-token tracking</code>.</p>
 
@@ -167,10 +168,6 @@ Server can now invalidate the entire family of refresh tokens generated by the u
   <footer>
       <div>
         Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a>, styled using <a href="https://simplecss.org/" target="_blank">Simple CSS</a>
-      </div>
-      
-      <div>
-        <a href="about.html">About me</a>
       </div>
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
