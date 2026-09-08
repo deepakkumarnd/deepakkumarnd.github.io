@@ -2,6 +2,7 @@
 
 #### 2026
 
+-   _08_Sep_ ~ [N-Bandits problem](#n-bandits-problem.md)
 -   _09-Aug_ ~ [How secure is JWT Token](#jwt.md)
 
 #### 2025
