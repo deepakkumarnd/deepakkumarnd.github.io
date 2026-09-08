@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="Deepak Kumar">
+  <meta name="description" content="Deepak Kumar's personal writings">
+
+  <meta property="og:title" content="Deepak Kumar">
+  <meta property="og:description" content="Deepak Kumar's personal writings - Tech, Thoughts &amp; Experiences">
+  <meta property="og:url" content="https://deepsnapster.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Deepak Kumar">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+  <title>Deepak Kumar</title>
+</head>
+<body>
+  <header>
+    <h2>Deepak Kumar</h2>
+    <nav>
+      <a href="/">Index</a>
+      <a href="https://github.com/deepakkumarnd" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/deepakkumarnd/" target="_blank">LinkedIn</a>
+      <a href="https://www.instagram.com/deepsnapster/" target="_blank">Instagram</a>
+    </nav>
+  </header>
+  
+  <main>
+    <h2 id="n-bandits-problem">N-Bandits problem</h2>
+
+<p>While studying reinforcement learning, I came across the well-known n-armed bandit problem. What I find interesting is how closely it relates to real-life decisions. In life, we constantly make choices and try to get the best possible reward from them. For example, we might choose which stock to invest in for the next five years, decide which restaurant to try, or select the best players for a team.</p>
+
+<p>Many of these decisions happen almost automatically. We usually stick with options we already know and trust, but sometimes we take a chance and try something new. This balance between choosing what we know and exploring new options is at the heart of the n-armed bandit problem.</p>
+
+<p>To understand this better, imagine you have moved to a new city and want to explore the different types of food available. You might start by checking restaurant ratings online and then visiting some of them. Based on your experience, you form your own opinion and rating of each restaurant. Sometimes, instead of choosing a highly rated restaurant, you may randomly try a new one. Occasionally, you might discover an even better option.</p>
+
+<p>In the beginning, you are likely to explore a lot because you don't know which restaurants are good. But a year later, you would have tried many restaurants and probably figured out your favourites. Over time, you will mostly choose the restaurants you already know are good. This is called exploitation ie. making use of the best choices you have discovered so far.</p>
+
+<p>However, you may still occasionally try a new restaurant, such as one that recently opened around the corner. This is called exploration ie. trying something new in the hope of finding an even better option. This <strong>balance between exploration and exploitation</strong> is the key idea behind the <strong>n-armed bandit</strong> problem.</p>
+
+<blockquote>
+  <p>The n-armed bandit problem is simply a formalization of scenarios like this. When we have to make the same type of decision repeatedly, we tend to learn from our experiences and gradually choose the options that give us better results.</p>
+</blockquote>
+
+<p>The key idea behind the problem is that we need to balance exploration and exploitation. Exploration means trying new options to see if we can find something better. Exploitation means choosing the best option we have discovered so far.</p>
+
+<p>In simple terms, <strong>always exploring is inefficient, while always exploiting can cause us to miss better options</strong>. The challenge is to find the right balance between the two so that we can maximize our rewards over time.</p>
+
+<p>At first, this may seem like a sensible idea, but we can also test it experimentally. The same idea is widely used in reinforcement learning, where a computer needs to decide which action is likely to give the best reward. For example, it can be used to decide the best move in a game or which option is likely to give the highest return over time.</p>
+
+<p>When we choose the option that has performed best based on what we already know, we are following a <strong>greedy approach</strong>. In other words, we exploit the best choice we have found so far. However, if we continue to explore other options, we may discover one that performs even better. This is the <strong>non-greedy</strong> approach. By balancing exploration with exploitation, we have a better chance of finding the best choice over the long term.</p>
+
+<p><a href="https://github.com/deepakkumarnd/mynotebooks/blob/main/Reinforcement%20learning/n%20armed%20bandits%20testbed.ipynb">Here</a> is an implementation of the concept. While running the program the trials optimize over time to maximum yields.</p>
+
+
+  </main>
+
+  <footer>
+      <div>
+        Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a>, styled using <a href="https://github.com/DigitallyTailored/Classless.css" target="_blank">Classless</a>
+      </div>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+</body>
+</html>
