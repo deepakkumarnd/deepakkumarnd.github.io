@@ -1,3 +1,4 @@
+header .site-header{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap}header .site-identity{display:flex;align-items:center;gap:0.75rem}header .site-identity a{display:inline-flex}header .site-identity .avatar{width:40px;height:40px;object-fit:cover;flex-shrink:0}header .site-identity h2{margin:0}header .site-navigation{display:flex;flex-wrap:wrap;gap:1rem}
 
 .highlighter-rouge table td { padding: 5px; }
 .highlighter-rouge table pre { margin: 0; }
