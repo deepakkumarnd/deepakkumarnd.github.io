@@ -1,4 +1,10 @@
-## Deploying ruby applications using Capistrano
+<!--
+title: Deploying ruby applications using Capistrano
+date: 13/01/2014
+lang: en
+-->
+
+# Deploying ruby applications using Capistrano
 
 Capistrano is a remote server automation and deployment tool written in Ruby. It is one of the best deployemnt tool available today. Capistrano is generic it can be used to deploy any application remotely.
 

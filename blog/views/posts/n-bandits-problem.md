@@ -1,4 +1,10 @@
-## N-Bandits problem
+<!--
+title: N-Bandits problem
+date: 08/09/2026
+lang: en
+-->
+
+# N-Bandits problem
 
 While studying reinforcement learning, I came across the well-known n-armed bandit problem. What I find interesting is how closely it relates to real-life decisions. In life, we constantly make choices and try to get the best possible reward from them. For example, we might choose which stock to invest in for the next five years, decide which restaurant to try, or select the best players for a team.
 

@@ -1,4 +1,10 @@
-## Anonymous functions in elixir
+<!--
+title: Anonymous functions in elixir
+date: 05/06/2016
+lang: en
+-->
+
+# Anonymous functions in elixir
 
 Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.
 

@@ -1,4 +1,10 @@
-## How Secure Is JWT Token
+<!--
+title: How Secure Is JWT Token
+date: 09/08/2026
+lang: en
+-->
+
+# How Secure Is JWT Token
 
 JSON Web Token (JWT) is fundamentally a compact string representation of claims, commonly containing a JSON payload. When a JWT is digitally signed, its authenticity and integrity can be verified using a cryptographic signing key.
 

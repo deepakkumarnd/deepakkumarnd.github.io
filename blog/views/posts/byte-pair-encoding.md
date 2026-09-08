@@ -1,4 +1,10 @@
-## Byte Pair Encoding
+<!--
+title: Byte Pair Encoding
+date: 01/05/2025
+lang: en
+-->
+
+# Byte Pair Encoding
 
 Lately, I've been diving deep into the world of language models and neural networks, and the journey has been both insightful and exciting. One concept that really caught my attention is Byte Pair Encoding (BPE), a smart tokenization technique used in `NLP`. Learning how BPE works gave me that exciting moment. It challenged me, and sparked even more curiosity to explore this fascinating domain further.
 

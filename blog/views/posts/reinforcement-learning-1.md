@@ -1,4 +1,10 @@
-## Reinforcement Learning (Part 1)
+<!--
+title: Reinforcement Learning (Part 1)
+date: 09/08/2025
+lang: en
+-->
+
+# Reinforcement Learning (Part 1)
 
 The idea of learning by interacting with the environment is something fundamental in nature for example a child learning to say words or trying to walk and become successful at it over time. Learning by interacting with the environment is driven by some end goals, or we can say that the goal drives the learning progress. Such learning is called trial and error learning or more formally reinforcement learning.
 

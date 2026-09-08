@@ -1,4 +1,10 @@
-## Neural Network Learns a Half-Circle
+<!--
+title: Neural Network Learns a Half-Circle
+date: 24/06/2025
+lang: en
+-->
+
+# Neural Network Learns a Half-Circle
 
 Theories truly come alive when we apply them to real world problems. The greater the scale and complexity of a challenge, the more engaging and demanding it becomes. On the other hand, tackling simpler problems with newly acquired tools often makes the learning process smoother and more intuitive.
 

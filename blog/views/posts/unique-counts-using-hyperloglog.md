@@ -1,4 +1,10 @@
-## Getting the distributed unique realtime counts
+<!--
+title: Getting the distributed unique realtime counts
+date: 19/01/2022
+lang: en
+-->
+
+# Getting the distributed unique realtime counts
 
 How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a transaction or unique number of ads getting served ?
 

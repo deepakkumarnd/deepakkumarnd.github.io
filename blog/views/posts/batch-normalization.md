@@ -1,4 +1,10 @@
-## Batch normalization
+<!--
+title: Batch normalization
+date: 18/06/2025
+lang: en
+-->
+
+# Batch normalization
 
 In a deep neural network, inputs pass through multiple hidden layers from left to right to produce the output. We use stochastic gradient descent (SGD) as an effective method to train these networks. During training, the gradient of the loss function with respect to the network's weights is computed using the chain rule of differentiation, flowing backward through the network from the output layer to the input layer.
 

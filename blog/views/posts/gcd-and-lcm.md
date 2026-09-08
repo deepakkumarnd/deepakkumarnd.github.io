@@ -1,4 +1,10 @@
-## GCD and LCM
+<!--
+title: GCD and LCM
+date: 01/01/2012
+lang: en
+-->
+
+# GCD and LCM
 
 GCD and LCM are two important topics that no one miss during school math. When I started learning programming these two programs were
 there in almost all the reference books as a next level hello world. If I remember correctly even Knuth started with GCD in his 

@@ -1,4 +1,10 @@
-## Loss Optimizers
+<!--
+title: Loss Optimizers
+date: 29/05/2025
+lang: en
+-->
+
+# Loss Optimizers
 
 Understanding the foundational components of neural networks can make learning this complex subject more engaging. In the early stages of learning, we can even avoid using frameworks like **PyTorch** or **Keras** and build networks from scratch of course with the help of `numpy`. While the process can be enjoyable, building a multilayer network from scratch without these advanced tools is also quite challenging. However, if someone manages to do it and gradually begins to grasp the underlying concepts, it becomes a highly rewarding and worthwhile investment.
 

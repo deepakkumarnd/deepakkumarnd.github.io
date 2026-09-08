@@ -1,4 +1,10 @@
-## Deep diving into fundamentals of neural networks
+<!--
+title: Deep diving into fundamentals of neural networks
+date: 18/05/2025
+lang: en
+-->
+
+# Deep diving into fundamentals of neural networks
 
 When I first started learning about neural networks, it felt like magic. I knew that you give the network some input, and it gives you an output. What surprised me was that the network can learn the connection between input and output by itself. It's like the network finds the math formula that turns inputs into the right outputs, without anyone telling it exactly how.
 

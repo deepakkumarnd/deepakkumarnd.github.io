@@ -1,4 +1,10 @@
-## A second look at the original problem hiding behind Astrology
+<!--
+title: A second look at the original problem hiding behind Astrology
+date: 07/05/2025
+lang: en
+-->
+
+# A second look at the original problem hiding behind Astrology
 
 Today, the world is home to over 7 billion people, each with diverse beliefs about life, the earth, and God. Some believe that life is guided by karma, where a continuous cycle of birth and rebirth occurs until all karmic actions and their effects are balanced. Others believe that life is a one-time experience, where actions are a blend of sin and virtue. Still others hold the belief in a single judgment day, where all deeds will be accounted for. There are of course other beliefs and non-beliefs as well.
 
