@@ -6,14 +6,20 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="author" content="Deepak Kumar">
-  <meta name="description" content="Deepak Kumar's personal writings">
+  <meta name="description" content="How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…">
 
-  <meta property="og:title" content="Deepak Kumar">
-  <meta property="og:description" content="Deepak Kumar's personal writings - Tech, Thoughts &amp; Experiences">
-  <meta property="og:url" content="https://deepsnapster.com/">
-  <meta property="og:type" content="website">
+  <meta property="og:title" content="Getting the distributed unique realtime counts">
+  <meta property="og:description" content="How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…">
+  <meta property="og:url" content="https://deepsnapster.com/unique-counts-using-hyperloglog.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://deepsnapster.com/unique-counts-using-hyperloglog.html">
   <meta property="og:site_name" content="Deepak Kumar">
-  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <meta property="og:image" content="https://deepsnapster.com/images/avatar.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:description" content="How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css">
   <link rel="stylesheet" href="app.css">
   <script src="app.js"></script>
@@ -27,7 +33,30 @@
     gtag('config', 'G-ZW6PHT9ZN6');
   </script>
 
-  <title>Deepak Kumar</title>
+  <title>Getting the distributed unique realtime counts</title>
+<meta property="article:published_time" content="2022-01-19">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "url": "https://deepsnapster.com/unique-counts-using-hyperloglog.html",
+  "headline": "Getting the distributed unique realtime counts",
+  "mainEntityOfPage": "https://deepsnapster.com/unique-counts-using-hyperloglog.html",
+  "inLanguage": "en",
+  "datePublished": "2022-01-19",
+  "dateModified": "2022-01-19",
+  "description": "How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…",
+  "image": "https://deepsnapster.com/images/avatar.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Deepak Kumar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Deepak Kumar"
+  }
+}</script>
 </head>
 <body>
   <header>
@@ -41,7 +70,13 @@
   </header>
   
   <main>
-    <h2 id="getting-the-distributed-unique-realtime-counts">Getting the distributed unique realtime counts</h2>
+    <!--
+title: Getting the distributed unique realtime counts
+date: 19/01/2022
+lang: en
+-->
+
+<h1 id="getting-the-distributed-unique-realtime-counts">Getting the distributed unique realtime counts</h1>
 
 <p>How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a transaction or unique number of ads getting served ?</p>
 
@@ -72,9 +107,9 @@
   </main>
 
   <footer>
-      <div>
+      <small>
         Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a>, styled using <a href="https://github.com/DigitallyTailored/Classless.css" target="_blank">Classless</a>
-      </div>
+      </small>
   </footer>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
 </body>

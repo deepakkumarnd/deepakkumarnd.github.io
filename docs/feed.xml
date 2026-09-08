@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Deepak Kumar</title>
+    <link>https://deepsnapster.com/</link>
+    <description>Deepak Kumar's personal writings</description>
+    <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>N-Bandits problem</title>
+      <link>https://deepsnapster.com/n-bandits-problem.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/n-bandits-problem.html</guid>
+      <pubDate>Tue, 08 Sep 2026 00:00:00 -0000</pubDate>
+      <description>While studying reinforcement learning, I came across the well-known n-armed bandit problem. What I find interesting is how closely it relates to real-life…</description>
+    </item>
+    <item>
+      <title>How Secure Is JWT Token</title>
+      <link>https://deepsnapster.com/jwt.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/jwt.html</guid>
+      <pubDate>Sun, 09 Aug 2026 00:00:00 -0000</pubDate>
+      <description>JSON Web Token (JWT) is fundamentally a compact string representation of claims, commonly containing a JSON payload. When a JWT is digitally signed, its…</description>
+    </item>
+    <item>
+      <title>Reinforcement Learning (Part 1)</title>
+      <link>https://deepsnapster.com/reinforcement-learning-1.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/reinforcement-learning-1.html</guid>
+      <pubDate>Sat, 09 Aug 2025 00:00:00 -0000</pubDate>
+      <description>The idea of learning by interacting with the environment is something fundamental in nature for example a child learning to say words or trying to walk…</description>
+    </item>
+    <item>
+      <title>തുല്യത എന്ന സാങ്കല്പിക ആധുനിക മൂല്യം</title>
+      <link>https://deepsnapster.com/equality.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/equality.html</guid>
+      <pubDate>Sat, 26 Jul 2025 00:00:00 -0000</pubDate>
+      <description>ഇന്ത്യൻ ഭരണഘടനയുടെ part - 3 യിൽ (മൗലിക അവകാശങ്ങൾ) തുല്യത എന്ന ആധുനിക മൂല്യത്തെ ഒരു അവകാശമായി ലളിതമെങ്കിലും ആഴത്തിലുള്ള അഞ്ചു പ്രധാന വാചകങ്ങൾ കൊണ്ട്…</description>
+    </item>
+    <item>
+      <title>Neural Network Learns a Half-Circle</title>
+      <link>https://deepsnapster.com/circle-model.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/circle-model.html</guid>
+      <pubDate>Tue, 24 Jun 2025 00:00:00 -0000</pubDate>
+      <description>Theories truly come alive when we apply them to real world problems. The greater the scale and complexity of a challenge, the more engaging and demanding…</description>
+    </item>
+    <item>
+      <title>Batch normalization</title>
+      <link>https://deepsnapster.com/batch-normalization.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/batch-normalization.html</guid>
+      <pubDate>Wed, 18 Jun 2025 00:00:00 -0000</pubDate>
+      <description>In a deep neural network, inputs pass through multiple hidden layers from left to right to produce the output. We use stochastic gradient descent (SGD) as…</description>
+    </item>
+    <item>
+      <title>ടി ഡി രാമകൃഷ്ണന്റെ ദേവനായകി</title>
+      <link>https://deepsnapster.com/devanayaki.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/devanayaki.html</guid>
+      <pubDate>Sun, 01 Jun 2025 00:00:00 -0000</pubDate>
+      <description>മിത്തും ചരിത്രവും ഇടകലർന്ന രചനാ ശൈലി പിൻതുടരുന്ന ഒരു എഴുത്തുകാരനാണ് ടി ഡി രാമകൃഷ്ണന്റെ. അദ്ദേഹത്തിന്റെ രണ്ടു നോവലുകൾ ഞാൻ വായിക്കുകയുണ്ടായി ആദ്യം വായിച്ചത്…</description>
+    </item>
+    <item>
+      <title>Loss Optimizers</title>
+      <link>https://deepsnapster.com/nn-optimizers.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/nn-optimizers.html</guid>
+      <pubDate>Thu, 29 May 2025 00:00:00 -0000</pubDate>
+      <description>Understanding the foundational components of neural networks can make learning this complex subject more engaging. In the early stages of learning, we can…</description>
+    </item>
+    <item>
+      <title>കുടമാഹാത്മ്യം</title>
+      <link>https://deepsnapster.com/kuda.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/kuda.html</guid>
+      <pubDate>Sun, 25 May 2025 00:00:00 -0000</pubDate>
+      <description>ഇന്ന് നല്ല മഴയാണല്ലോ കുടയില്ലാതെ പുറത്തിറങ്ങിയാൽ ആകെ നനഞ്ഞു ചീയും, എന്നാൽ പിന്നെ ഇന്നത്തെ വിഷയം കുടയെപ്പറ്റി ആകട്ടെ. ഈ കുടയെപ്പറ്റി എന്താ ഇത്ര പറയാൻ ? ഒരു…</description>
+    </item>
+    <item>
+      <title>ആനക്കഥ</title>
+      <link>https://deepsnapster.com/aanakkadha.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/aanakkadha.html</guid>
+      <pubDate>Thu, 22 May 2025 00:00:00 -0000</pubDate>
+      <description>പണ്ടൊരിക്കൽ വയനാട്ടിൽ വച്ചു നടന്ന ഒരു കഥയാണ്, ഞാനും എന്റെ രണ്ടു കസിന്സും ഉച്ചയ്ക്ക് ശേഷം നാടൊക്കെ ചുറ്റിക്കാണാൻ വേണ്ടി ഇറങ്ങി. നല്ല വെയിൽ ഉണ്ടെങ്കിലും വഴി…</description>
+    </item>
+    <item>
+      <title>Deep diving into fundamentals of neural networks</title>
+      <link>https://deepsnapster.com/nn-fundamentals-deepdive.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/nn-fundamentals-deepdive.html</guid>
+      <pubDate>Sun, 18 May 2025 00:00:00 -0000</pubDate>
+      <description>When I first started learning about neural networks, it felt like magic. I knew that you give the network some input, and it gives you an output. What…</description>
+    </item>
+    <item>
+      <title>A second look at the original problem hiding behind Astrology</title>
+      <link>https://deepsnapster.com/astrology.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/astrology.html</guid>
+      <pubDate>Wed, 07 May 2025 00:00:00 -0000</pubDate>
+      <description>Today, the world is home to over 7 billion people, each with diverse beliefs about life, the earth, and God. Some believe that life is guided by karma,…</description>
+    </item>
+    <item>
+      <title>ശീമക്കൊന്ന</title>
+      <link>https://deepsnapster.com/sheemakonna.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/sheemakonna.html</guid>
+      <pubDate>Sun, 04 May 2025 00:00:00 -0000</pubDate>
+      <description>കേരളത്തിൽ എല്ലായിടത്തും കാണപ്പെടുന്ന ഒരു ചെടി അല്ലെങ്കിൽ ഒരു മരം ആണ് ശീമക്കൊന്ന. വേലി കെട്ടാനും, നൈട്രജൻ സമ്പുഷ്ടമായ പച്ചില വളമായും, പച്ച ചാണകവുമായി…</description>
+    </item>
+    <item>
+      <title>Byte Pair Encoding</title>
+      <link>https://deepsnapster.com/byte-pair-encoding.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/byte-pair-encoding.html</guid>
+      <pubDate>Thu, 01 May 2025 00:00:00 -0000</pubDate>
+      <description>Lately, I've been diving deep into the world of language models and neural networks, and the journey has been both insightful and exciting. One concept…</description>
+    </item>
+    <item>
+      <title>Getting the distributed unique realtime counts</title>
+      <link>https://deepsnapster.com/unique-counts-using-hyperloglog.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/unique-counts-using-hyperloglog.html</guid>
+      <pubDate>Wed, 19 Jan 2022 00:00:00 -0000</pubDate>
+      <description>How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…</description>
+    </item>
+    <item>
+      <title>Anonymous functions in elixir</title>
+      <link>https://deepsnapster.com/anonymous-functions-in-elixir.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/anonymous-functions-in-elixir.html</guid>
+      <pubDate>Sun, 05 Jun 2016 00:00:00 -0000</pubDate>
+      <description>Anonymous functions are first class values in Elixir, they can be passed as arguments to other functions and also can be returned as a value.</description>
+    </item>
+    <item>
+      <title>Deploying ruby applications using Capistrano</title>
+      <link>https://deepsnapster.com/capistrano.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/capistrano.html</guid>
+      <pubDate>Mon, 13 Jan 2014 00:00:00 -0000</pubDate>
+      <description>Capistrano is a remote server automation and deployment tool written in Ruby. It is one of the best deployemnt tool available today. Capistrano is generic…</description>
+    </item>
+    <item>
+      <title>GCD and LCM</title>
+      <link>https://deepsnapster.com/gcd-and-lcm.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/gcd-and-lcm.html</guid>
+      <pubDate>Sun, 01 Jan 2012 00:00:00 -0000</pubDate>
+      <description>GCD and LCM are two important topics that no one miss during school math. When I started learning programming these two programs were there in almost all…</description>
+    </item>
+  </channel>
+</rss>
