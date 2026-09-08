@@ -1,1 +1,37 @@
 // Write your custom css here
+
+// Header: avatar + name on the left, nav on the right, spaced apart.
+header .site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+header .site-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  a {
+    display: inline-flex;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    margin: 0;
+  }
+}
+
+header .site-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
