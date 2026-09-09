@@ -2,6 +2,7 @@
 
 #### 2026
 
+- [Why Not Ask AI?](#why-not-ask-ai.md) — 2026-09-09
 -   _08_Sep_ ~ [N-Bandits problem](#n-bandits-problem.md)
 -   _09-Aug_ ~ [How secure is JWT Token](#jwt.md)
 
