@@ -63,9 +63,11 @@ $$
 
 Therefore implementing LCM is as easy as follows 
 
-    int lcm(int a, int b) {
-        return (a * b) / gcd(a, b)
-    }
+```c
+int lcm(int a, int b) {
+    return (a * b) / gcd(a, b)
+}
+```
 
 Look at how `lcm` is beautifully composed using our earlier `gcd`, here both `gcd` and `lcm` are pure reusable functions and have no side effects.
 

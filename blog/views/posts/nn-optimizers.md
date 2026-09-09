@@ -24,7 +24,7 @@ $$
 
 From a high level the process is very simple. All we need to do is to **minimize** the loss function value, in order to minimize any mathematical differentiable function we just need to travel to a point where the derivative becomes zero. In mathematics this point is called **minima** (local minima). Note that the derivative will be zero even at **maxima** but we are trying to minimize the loss therefore we are not interested in maxima. The loss function values that we use for SGD creates a landscape in the multi dimensional space called loss landscape. There are so many hills and depressions in the landscape with varying depths and heights. Our aim is to reach the deepest point in the loss landscape.
 
-![Loss Landscape](images/loss-landscape.jpg "Loss Landscape")
+![Loss Landscape](images/loss-landscape.jpg "Loss Landscape"){: width="400" }
 
 ### The blind walker
 
@@ -140,7 +140,7 @@ This looks like a lot of equations but this isn't very difficult if you are able
 
 The role of correction terms `Momentum Correction Term` and `Cache Correction Term` is insignificant at higher iterations because the value of correction term will become close to 1. But at lower iterations when the `Momentum Term` and `Cache Term` are having very small numerator the step size will be very small which is not desirable in the early iterations as mentioned earlier. This is called the **cold start problem**. Correction terms are used to avoid the cold start problem, division by correction term increases the step size in the early iterations of training making significant weight changes in the early iterations.
 
-![Cost function comparison](images/cost-function-comparison.png "Cost function comparison")
+![Cost function comparison](images/cost-function-comparison.png "Cost function comparison"){: width="640" }
 
 Let's conclude wih a look at the chart comparing the training cost of different strategies mentioned above. We can see that the Adam outperforms all other algorithms making it a much preferred choice.
 

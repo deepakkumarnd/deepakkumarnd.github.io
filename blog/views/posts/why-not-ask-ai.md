@@ -6,17 +6,17 @@ lang: en
 
 # Why Not Ask AI?
 
-## The Rapid Acceleration
+### The Rapid Acceleration
 
 For the past four years, the world has been captivated by AI. Venture capital is chasing AI startups, social feeds are filled with constant updates, and newsletters bombard our inboxes daily. Incremental optimizations to foundational models and frequent fine-tuned updates are released at a relentless pace, introducing tools that were unimaginable until recently. AI empowers smart engineers to become even more productive while eliminating repetitive tasks much like heavy machinery replaces manual labor while keeping the operator in control. Few-shot learning, persistent memory, skills, tools, and mechanisms such as KV-cache transfer are coming together to make AI systems increasingly capable and cheaper of performing tasks at a superhuman level.
 
-## A Shift in Perspective
+### A Shift in Perspective
 
 This era recalls the editor, programming language, browser, and framework wars of the past decade. However, while I actively participated in those earlier tech shifts, the current AI movement feels fundamentally different. Its sheer velocity is overwhelming, resembling a massive ship approaching the shore that quickly expands beyond one's field of view before there is time to fully process or explore it. Although I utilize tools like Claude and Codex on a daily basis, I feel far more comfortable as a consumer of AI rather than trying to grasp its inner workings.
 
 Depending on whom you ask, AI can be described as a multivariable function that predicts the next token, a deep neural network, or even an artificial brain. But beyond how we define AI, conversational interfaces are fundamentally disrupting the way we interact with software. Why search through menus for an option when you can simply type or speak what you want? As a result, established tools are increasingly taking a back seat. Traditional web search can now be replaced by asking a question directly, and even things like slide decks, reports, and other forms of content can be generated effortlessly through a simple prompt.
 
-## Impact on Creativity and the Mind
+### Impact on Creativity and the Mind
 
 The traditional craft of coding now faces an uncertain future, raising broader questions about what lies ahead for other creative and intellectual fields writing, editing, storytelling, graphic design, video production, and beyond. Instead of working through iterative two-week creation cycles, we can now generate dozens of possibilities almost instantaneously. The bottleneck is shifting from creating options to choosing, refining, and directing them. Whether audiences will be able to distinguish the work of an original creator from that of a skilled imitator remains uncertain. 
 
