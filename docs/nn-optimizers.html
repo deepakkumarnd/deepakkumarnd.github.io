@@ -100,7 +100,7 @@ lang: en
 
 <p>From a high level the process is very simple. All we need to do is to <strong>minimize</strong> the loss function value, in order to minimize any mathematical differentiable function we just need to travel to a point where the derivative becomes zero. In mathematics this point is called <strong>minima</strong> (local minima). Note that the derivative will be zero even at <strong>maxima</strong> but we are trying to minimize the loss therefore we are not interested in maxima. The loss function values that we use for SGD creates a landscape in the multi dimensional space called loss landscape. There are so many hills and depressions in the landscape with varying depths and heights. Our aim is to reach the deepest point in the loss landscape.</p>
 
-<p><img src="images/loss-landscape.jpg" alt="Loss Landscape" title="Loss Landscape"></p>
+<p><img src="images/loss-landscape.jpg" alt="Loss Landscape" title="Loss Landscape" width="400"></p>
 
 <h3 id="the-blind-walker">The blind walker</h3>
 
@@ -194,7 +194,7 @@ lang: en
 
 <p>The role of correction terms <code>Momentum Correction Term</code> and <code>Cache Correction Term</code> is insignificant at higher iterations because the value of correction term will become close to 1. But at lower iterations when the <code>Momentum Term</code> and <code>Cache Term</code> are having very small numerator the step size will be very small which is not desirable in the early iterations as mentioned earlier. This is called the <strong>cold start problem</strong>. Correction terms are used to avoid the cold start problem, division by correction term increases the step size in the early iterations of training making significant weight changes in the early iterations.</p>
 
-<p><img src="images/cost-function-comparison.png" alt="Cost function comparison" title="Cost function comparison"></p>
+<p><img src="images/cost-function-comparison.png" alt="Cost function comparison" title="Cost function comparison" width="640"></p>
 
 <p>Let's conclude wih a look at the chart comparing the training cost of different strategies mentioned above. We can see that the Adam outperforms all other algorithms making it a much preferred choice.</p>
 

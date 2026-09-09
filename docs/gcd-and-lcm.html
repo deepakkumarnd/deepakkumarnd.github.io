@@ -188,10 +188,10 @@ LCM by factorising the numbers to their smallest factors.</p>
 
 <p>Therefore implementing LCM is as easy as follows</p>
 
-<pre><code>int lcm(int a, int b) {
-    return (a * b) / gcd(a, b)
-}
-</code></pre>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">lcm</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p>Look at how <code>lcm</code> is beautifully composed using our earlier <code>gcd</code>, here both <code>gcd</code> and <code>lcm</code> are pure reusable functions and have no side effects.</p>
 
