@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://deepsnapster.com/</loc>
-    <lastmod>2026-09-09</lastmod>
+    <lastmod>2026-09-14</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/aanakkadha.html</loc>
     <lastmod>2025-05-22</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/ai-in-creative-process.html</loc>
+    <lastmod>2026-09-14</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/anonymous-functions-in-elixir.html</loc>
