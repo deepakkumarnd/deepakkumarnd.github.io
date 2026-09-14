@@ -2,6 +2,7 @@
 
 #### 2026
 
+-   _14-Sep_ ~ [AI in creative process](#ai-in-creative-process.md)
 -   _09-Sep_ ~ [Why Not Ask AI?](#why-not-ask-ai.md)
 -   _08-Sep_ ~ [N-Bandits problem](#n-bandits-problem.md)
 -   _09-Aug_ ~ [How secure is JWT Token](#jwt.md)
