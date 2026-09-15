@@ -31,6 +31,10 @@ post_listing:
   # Link the whole line instead:
   #   list_format: "[{post_date} ~ {post_title}]({post_link})"
   list_format: "{post_date} ~ [{post_title}]({post_link})"
+  per_page: 15
+  newer_link_text: "← Newer posts"
+  older_link_text: "Older posts →"
+
 
 # How to format a post's header `date` wherever it's shown via the
 # {post_date} token — as opposed to a bare strftime pattern like {%d/%m/%Y},
