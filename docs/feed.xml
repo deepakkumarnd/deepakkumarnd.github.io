@@ -6,6 +6,20 @@
     <description>Deepak Kumar's personal writings</description>
     <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Journey to eventual consistency</title>
+      <link>https://deepsnapster.com/journey-to-eventual-consistency.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/journey-to-eventual-consistency.html</guid>
+      <pubDate>Tue, 22 Sep 2026 00:00:00 -0000</pubDate>
+      <description>Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…</description>
+    </item>
+    <item>
+      <title>Palindromes for fun</title>
+      <link>https://deepsnapster.com/palindromes-for-fun.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/palindromes-for-fun.html</guid>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 -0000</pubDate>
+      <description>Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue Malayalam is…</description>
+    </item>
+    <item>
       <title>AI in creative process</title>
       <link>https://deepsnapster.com/ai-in-creative-process.html</link>
       <guid isPermaLink="true">https://deepsnapster.com/ai-in-creative-process.html</guid>

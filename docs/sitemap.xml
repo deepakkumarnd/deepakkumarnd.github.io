@@ -2,19 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://deepsnapster.com/</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-22</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/index2.html</loc>
-    <lastmod>2026-09-14</lastmod>
-  </url>
-  <url>
-    <loc>https://deepsnapster.com/index3.html</loc>
-    <lastmod>2026-09-14</lastmod>
-  </url>
-  <url>
-    <loc>https://deepsnapster.com/index4.html</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-22</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/aanakkadha.html</loc>
@@ -61,6 +53,10 @@
     <lastmod>2012-01-01</lastmod>
   </url>
   <url>
+    <loc>https://deepsnapster.com/journey-to-eventual-consistency.html</loc>
+    <lastmod>2026-09-22</lastmod>
+  </url>
+  <url>
     <loc>https://deepsnapster.com/jwt.html</loc>
     <lastmod>2026-08-09</lastmod>
   </url>
@@ -79,6 +75,10 @@
   <url>
     <loc>https://deepsnapster.com/nn-optimizers.html</loc>
     <lastmod>2025-05-29</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/palindromes-for-fun.html</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/reinforcement-learning-1.html</loc>

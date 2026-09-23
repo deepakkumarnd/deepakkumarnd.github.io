@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="Deepak Kumar">
+  <meta name="description" content="Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…">
+
+  <meta property="og:title" content="Journey to eventual consistency">
+  <meta property="og:description" content="Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…">
+  <meta property="og:url" content="https://deepsnapster.com/journey-to-eventual-consistency.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://deepsnapster.com/journey-to-eventual-consistency.html">
+  <meta property="og:site_name" content="Deepak Kumar">
+  <meta property="og:image" content="https://deepsnapster.com/images/avatar.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:description" content="Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZW6PHT9ZN6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZW6PHT9ZN6');
+  </script>
+
+  <title>Journey to eventual consistency</title>
+<meta property="article:published_time" content="2026-09-22">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "url": "https://deepsnapster.com/journey-to-eventual-consistency.html",
+  "headline": "Journey to eventual consistency",
+  "mainEntityOfPage": "https://deepsnapster.com/journey-to-eventual-consistency.html",
+  "inLanguage": "en",
+  "datePublished": "2026-09-22",
+  "dateModified": "2026-09-22",
+  "description": "Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…",
+  "image": "https://deepsnapster.com/images/avatar.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Deepak Kumar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Deepak Kumar"
+  }
+}</script>
+</head>
+<body>
+  <header>
+    <div class="site-header">
+      <div class="site-identity">
+        <a href="/">
+          <img class="avatar" src="images/avatar.jpg" width="40" height="40" alt="Deepak Kumar">
+        </a>
+        <h2>Deepak Kumar</h2>
+      </div>
+      
+      <nav class="site-navigation">
+        <a href="https://github.com/deepakkumarnd" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/deepakkumarnd/" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/deepsnapster/" target="_blank">Instagram</a>
+      </nav>
+    </div>
+  </header>
+  
+  <main><p class="back-link"><a href="index.html">← Back to all posts</a></p>
+    <!--
+title: Journey to eventual consistency
+date: 22/09/2026
+lang: en
+tags: Database, NoSQL, Consistency
+category: Engineering
+-->
+
+<h1 id="journey-to-eventual-consistency">Journey to eventual consistency</h1>
+
+<p><em>22/09/2026</em></p>
+
+<p>Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application. In our case lets go with an <a href="https://www.mongodb.com/resources/products/capabilities/acid-compliance"><strong>ACID</strong></a> compliant relational database such as <a href="https://www.postgresql.org/"><strong>Postgresql</strong></a>.</p>
+
+<blockquote>
+  <p>Relational databases are a popular choice because tables and relationship between tables are a good fit in many of the scenarios, developers and architects are very much familiar with relational databases, there are a lot of high quality free libraries available.</p>
+</blockquote>
+
+<p>In our example we are happy with our decision because a single instance of relational database can do a lot of heavy lifting and ensure consistent state of our application data. Over time the business grows and I/O operations increases and application starts facing performance issues sometimes  downtimes due to memory pressure, slow queries etc.</p>
+
+<p>Since the application is stateless it can be scaled relatively easily by increasing the number of app instances but the database becomes a bottleneck and single point of failure in our system. Therefore in order to reduce the load on the database server we have decided to use read replicas, with read replicas the writes will go to master and master replicates the data to slave replicas. Master ensures the data it commitetd to all the slave instances and then sends the response back to client, this of course add some delays to writes but if our system is read heavy compares to writes then the impact is somewhat negligible. The reads will directly go to replicas therefore our system can now handle heavy reads and moderate writes.</p>
+
+<pre><code class="language-text">    Reads
+        + Read from one of the available replica
+
+    Writes 
+        + Write to master
+        + Master writes to replicas in parallel
+        + Retries on write failures
+        + Master waits for write confirmation from all the replicas
+        + Responds to client
+</code></pre>
+
+<p>Our database is still ACID compliant with better availability and faster read response at the cost slower writes.</p>
+
+<p>The journey continues, the business grew more and reads grew much more, keep on adding new replicas doesn't feel like a a good idea anymore. <a href="https://www.mongodb.com/resources/basics/horizontal-vs-vertical-scaling"><strong>Vertical scaling</strong></a> of database instances did help to some extend but that won't be feasible long term solution considering costs. Till this point our system is.</p>
+
+<ul>
+  <li>Strong consistent</li>
+  <li>Supports joins</li>
+</ul>
+
+<p>In order to handle more I/O operations especially reads in a cost effective way we need to figure out other engineering solutions. One immediate step taken is to use a <a href="https://en.wikipedia.org/wiki/Cache_(computing)"><strong>read through cache</strong></a> mechanisms.</p>
+
+<blockquote>
+  <p>Read through cache is an in memory key value store that sits between database and application. It stores recently accessed data with an expiry so that they can be served instantly.</p>
+</blockquote>
+
+<p>Since there are no I/O in theory the cache is much more faster than a database and can handle huge scale. For the purpose of caching we could use <a href="https://redis.io/"><strong>Redis</strong></a> or <a href="https://memcached.org/"><strong>Memcached</strong></a>. The application first try to read from cache, if the desired data is not found in the cache a database read will fetch the data and the data will be cached. Caches can also be used to store the result of an expensive computation, thereby we could optimize performance of our app instances. But sometimes this can be a dangerous choice because at times there is a possibility of a <a href="https://en.wikipedia.org/wiki/Cache_stampede"><strong>cache stampade</strong></a> without a cache lock and wait protection on expiry.</p>
+
+<pre><code class="language-text">    Reads
+        + Read from cache and return
+        + Read from database on a cache miss
+            + Save the record on cache
+</code></pre>
+
+<blockquote>
+  <p>A cache stampade occurs when a cache entry for an expensive computation expires. If recomputing takes say couple of seconds, at high concurrency when hundreds or even thousands of clients will request for the expired data on multiple app instances during this 2 seconds window. This triggers a large number of expensive computation on multiple app instances multiple times that eventually result in a downtime or affect availability of your system.</p>
+</blockquote>
+
+<p>But there is a bigger probelem introduced by caching, <strong>our system is no longer guarantees consistency</strong> because we may have one version of a record in database and different version in cache, it is upto the engineering team to invalidate the cache so that the users will get updated versiion on a cache miss.</p>
+
+<blockquote>
+  <p>How does the version mismatch happen ? The database may be updated manually via a migration or even by a background job. In such a scenario, we need to invalidate the cache.</p>
+</blockquote>
+
+<p>How do we ensure the system always serve the latest data to our users ? Unlike before we need to put in additional engineering effort to make our system consistent eventually. <em>At this point our system transition from a strong consistent system to eventual consistent system.</em></p>
+
+<ul>
+  <li>Eventually consistent</li>
+  <li>Supports joins</li>
+</ul>
+
+<p>Once we tackles the engineering complexities introduced by caching we can reap the benefits of our efforts. Our system will be much more available, fast and can serve much more load with high throughput. This of course would result in a better and faster user experience and should positively impact the business. The business will boom the application becomes much more popular and millions of users would benefit from it. <em>But with growging concurrent user base our writes kept on increasing and a single master may not be capable of handling all those load</em>. Additionally all the slave instances are also taking writes with higher order of number of writes, the slave instance would also face extra pressure.</p>
+
+<p>At this point a different strategy is what we need, we need a <a href="https://www.geeksforgeeks.org/system-design/data-partitioning-techniques/"><strong>data partitioning</strong></a> so that for each of the partition there can be a master slave replicas. With partition we can distribute writes to multiple master nodes. Such a setup is called <a href="https://www.geeksforgeeks.org/dbms/what-is-sharding/"><strong>shrading</strong></a>.</p>
+
+<blockquote>
+  <p>In shrading there would be multiple master nodes, for each master nodes there would be slave nodes. While read-write operations application identifies the shrad using a shrading key and connect to that shrad for reads and writes.</p>
+</blockquote>
+
+<p>A shrading key can be anything that can partitions data. For example for our user records we could use two shrads in which all users with an even database id will go to shrad 1 and all users with an odd database id will go to shrad 2, but if you want to increase the number of partition in future you would need to change the strategy and that might need copying data to newly added partition based on the new strategy.</p>
+
+<p>Another strategy can be creating data partitions based on year of birth of users so that users with same age group who may interact each other more go into the same partition. Such strategy may improve end user experience because all the data related to that user sits together in the same shrad which makes the data read faster. Additionally adding a new partition does not requires moving data around in this case. <em>Therefore choosing the right shrading strategy has to be a well thought decision.</em></p>
+
+<p>The moment you implement shrading you realise that <strong>database joins are not possible anymore</strong>. Why ? Because tables are now distributed in different partitions, each partition has no idea about other partitions, they are independent. Even taking a count of total number of users would need to consult all partitions getting user counts from them and add up to get the final user count. Even relational schema won't be feasible  because relation may spread across shrads. Engineering needs to rewrite all those join queries and any queries that touches multiple partitions. At this point our system became.</p>
+
+<ul>
+  <li>Eventually consistent</li>
+  <li>No join supported</li>
+  <li>Hard to support relations.</li>
+</ul>
+
+<blockquote>
+  <p>We may even have to let go of the strong consistency per shrad, and the shrad itself could be eventually consistent. A relational model may not even work.</p>
+</blockquote>
+
+<pre><code class="language-text">    Reads
+        + Read from cache
+        + Cache miss
+            + Compute shrad key and identify the shrad
+            + Read from replica of the shrad
+            + Cache the result
+
+    Writes 
+        + Compute shrad key and identify the shrad
+        + Write to shrad master
+        + Master writes to replicas in parallel asynchronously
+        + Retries on write failures
+        + Master waits quoram write confirmation, not from all the replicas
+        + Invalidate cache
+        + Responds to client
+</code></pre>
+
+<blockquote>
+  <p>All these leads to a different database approach from our earlier choice of ACID compliant relational database. At massive scale system should be optimised for high throughput and availability, system can't guarantee strong consistency, support joins, relations. Storage data as row becomes a concern because we still need to allocate space for empty data attributes in a row.</p>
+</blockquote>
+
+<ul>
+  <li>Eventually consistent</li>
+  <li>No support for joins</li>
+  <li>No relations based on foreign key</li>
+  <li>Data needs to be stored as columns or documents.</li>
+  <li>Can effortlessly take huge number of read/writes</li>
+</ul>
+
+<p>Sounds familiar ? They are the descriptions of a <a href="https://en.wikipedia.org/wiki/NoSQL"><strong>NoSQL</strong></a> database system. NoSQL solutions are built exactly for such workloads. There are many solutions optimised for real use cases. <a href="https://cassandra.apache.org/_/index.html"><strong>Cassandra</strong></a> a column based database which can take reads and writes on all the partitions. <a href="https://www.mongodb.com/"><strong>MongoDB</strong></a> a document based database that has built in support for shrading and replication.</p>
+
+<p>The choice depends on the type of data and scale we are dealing with, certainly for messaging and financial transactions consistency can't be compromised. Imagine getting an important DM from your girfriend/boyfriend bit late than the expected timeframe. How about a descriptancy in your account balance after salary day ?</p>
+
+<p>It was a long post, probably my first long post on this topic. The key takeaway is that choosing a database system should always depend on the nature of the problem you are solving. <em>There are no silver bullets, usually what works is a combinations of choices.</em> It is absolutely fine to use different solutions for different subproblems within the same product. For example, you might use a strongly consistent database for financial transactions while using a NoSQL database for other use cases. As engineers, we should be open to exploring different technologies and strategies based on the situation. At the same time, we need to be thoughtful and mindful about the trade-offs behind our choices.</p>
+
+<p>Happy learning</p>
+
+  </main>
+
+  <footer>
+      <small>
+        Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a>, styled using <a href="https://github.com/DigitallyTailored/Classless.css" target="_blank">Classless</a>
+      </small>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+</body>
+</html>
