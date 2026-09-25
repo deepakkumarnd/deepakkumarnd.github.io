@@ -39,3 +39,8 @@ header .site-navigation {
 .back-link {
   margin-top: 16px;
 }
+
+main {
+  max-width: 768px;
+  p { text-align: justify; }
+}
