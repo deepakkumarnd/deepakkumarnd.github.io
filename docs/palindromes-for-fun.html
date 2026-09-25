@@ -87,17 +87,25 @@ draft: true
 
 <p><em>20/09/2026</em></p>
 
-<p>Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue <strong>Malayalam</strong> is an excellent example of palindrome. There are many such words in english language 'eye', 'mom', 'racecar', 'rotator', 'kayak', 'civic' etc etc. Interestingly in biology there are many DNA, RNA sequences which are palindromes, musicians makes use of notes in palindrome styles, there are interesting dates such as February 2nd 2020 which can be written as a palindrome 02022020. Programming problems around palindromes makes it an excellent interview questions in a coding round in tech interviews.</p>
+<p>Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue <code>Malayalam</code> is an excellent example of palindrome. There are many such words in English language <code>eye</code>, <code>mom</code>, <code>racecar</code>, <code>rotator</code>, <code>kayak</code>, <code>civic</code> etc etc.</p>
 
-<p>Sometimes back I have solved a leetcode questions identifying the longest palindrome in a given string. I was familiar with palindrome since my school days so it was straightforward for me to solve it.</p>
+<p>Interestingly in biology there are many DNA, RNA sequences which are palindromes, musicians knowingly or unknowingly makes use of notes in palindrome styles, there are interesting dates such as <code>February 2nd 2020</code> which can be written as a palindrome <code>02022020</code>. Programming problems around palindromes makes it an excellent interview questions in tech interviews.</p>
 
-<blockquote>
-  <p>The problem only needed the longest palindrome therefore my approach was to start with maximum length <strong>L</strong> and check if the string is palindrome then reduce the length and look for palindrome with length <strong>L-1</strong> and so on until I find a palindrom or reach the lowest possible single letter palindrom.</p>
-</blockquote>
+<p>Sometimes back I have solved a leetcode question identifying the longest palindrome substring in a given string. I was familiar with palindrome since my school days so it was a piece of cake for me to solve it.</p>
 
-<p>The solution looked neat and the solution worked for all my test inputs. Here is the solution.</p>
+<p>The problem only needed the longest palindrome therefore my approach was to start with maximum length.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">,</span> <span class="n">end_pos</span><span class="p">)</span>
+<pre><code class="language-text">  Step1: Start with maximum length L of the string S
+  Step2: Check if the string is palindrome by contracting to center from bith ends.
+    1: If palindrom was found then that is our longest one, print it and exit.
+    2: If not found then reduce L by 1 and check all substrings of S of length L-1
+  Step1: Repeat step 2 for all the new set if string of L-1
+</code></pre>
+
+<p>I coded the solution in my favourite programming language Ruby. The solution looked neat and the solution worked for all my test inputs. Here is the solution.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 0</span>
+<span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">,</span> <span class="n">end_pos</span><span class="p">)</span>
   <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">start_pos</span> <span class="o">&gt;</span> <span class="n">end_pos</span>
 
   <span class="k">while</span> <span class="n">start_pos</span> <span class="o">&lt;=</span> <span class="n">end_pos</span>
@@ -121,87 +129,141 @@ draft: true
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>But when I submitted the solution I got a timeout error saying that the program is taking more than the expected time. I lookd at the input that caused the timeout it was a huge string of single character <code>a</code>. I tried the same input which got the timeout in leetcode in my local machine. They were absolutely correct, the program never finished and took forever on my Mac and I had to kill the program with <strong>Ctrl+C</strong> and I realised that my solution was very poor in terms of time complexity it is of \(O(n^3)\), the early exist didn't help at all in the worst case scenarios.</p>
+<p>But when I submitted the solution to leetcode I got a timeout error saying that the program is taking more than the expected time. I lookd at the input that caused the timeout it was a huge string of single character <code>a</code>. I tried the same input and I got stuck in a never ending loop. They were absolutely correct, the program never finished and took forever on my Mac and I had to kill the program with <strong>Ctrl+C</strong> and I realised that my solution was very poor in terms of time complexity it is of \(O(n^3)\), the early exits didn't help at all in the worst case scenarios.</p>
 
 <p>Now I got into all sorts of optimizations thinking on how to improve the time complexity. I knew that I was doing a lot of repeated comparison so my initial thought was to optimize the comparisons. To be honest I firmly believed that I am a very good programmer and I can optimize this problem my self without any help from internet. Therefore I kept on thinking and this time I had a different thinking.</p>
 
 <blockquote>
-  <p>All the palindromes starts small and grows to its maximum length.</p>
+  <p>All the palindromes starts small and grows to its maximum length. Therefore go from the smallest single letter ones and expand around and track the growing ones and abandom the non growing ones till I find the largest.</p>
 </blockquote>
 
-<p>Therefore I started from an initial possible list of single letter palindromes for odd palindromes and two letter for even palindromes (having two consecutive same letters). Then I expand around these list to next higher length and I will have a lesser number of possible palindromes. As I advance further the possible palindromes list shrinks and the latest non empty list would have the longest palindrom string. From my past solution I have realised that I was doing a lot of duplicate comparisons. So for the same center I thought of storing the positions of the palindromes upto the discovered length so that I don't need to compare the same positions again for a higher lengthed palindrome with the same mid point.</p>
+<p>Therefore I started from an initial possible list of single letter palindromes for odd palindromes and two letter for even palindromes (having two consecutive same letters). Then I expand around these list to next higher length and I will have a lesser number of possible palindromes. As I advance further the possible palindromes list shrinks and the latest non empty list would have the longest palindrom string. From my past solution I have realised that I was doing a lot of duplicate comparisons. So for the same center I thought of storing the positions of the palindromes upto the discovered length so that I don't need to redo comparisons for a longer palindrome with the same mid point.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 1</span>
+<span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;=</span> <span class="mi">1</span>
 
-    <span class="n">possible_palindromes</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">verified_cache</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">odd: </span><span class="p">{},</span> <span class="ss">even: </span><span class="p">{}</span> <span class="p">}</span>
+  <span class="n">possible_palindromes</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">verified_cache</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">odd: </span><span class="p">{},</span> <span class="ss">even: </span><span class="p">{}</span> <span class="p">}</span>
 
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">len</span><span class="o">|</span>
-      <span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="o">|</span>
-        <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">push</span><span class="p">([</span><span class="n">mid</span><span class="p">,</span> <span class="n">len</span><span class="p">])</span> <span class="k">if</span> <span class="n">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+  <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">len</span><span class="o">|</span>
+    <span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">len</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+        <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">push</span><span class="p">([</span><span class="n">mid</span><span class="p">,</span> <span class="n">len</span><span class="p">])</span>
       <span class="k">end</span>
     <span class="k">end</span>
-
-    <span class="p">(</span><span class="mi">3</span><span class="o">..</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span>
-      <span class="n">possibles</span> <span class="o">=</span> <span class="p">[]</span>
-      <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span><span class="o">|</span>
-        <span class="n">possibles</span><span class="p">.</span><span class="nf">push</span><span class="p">([</span><span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="n">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
-      <span class="k">end</span>
-
-      <span class="k">break</span> <span class="k">if</span> <span class="n">possibles</span><span class="p">.</span><span class="nf">empty?</span>
-
-      <span class="n">possible_palindromes</span> <span class="o">=</span> <span class="n">possibles</span>
-    <span class="k">end</span>
-
-    <span class="n">mid</span><span class="p">,</span> <span class="n">max_length</span> <span class="o">=</span> <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">last</span>
-
-    <span class="n">diff</span> <span class="o">=</span> <span class="n">max_length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="n">max_length</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">max_length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">s</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="n">mid</span> <span class="o">-</span> <span class="n">diff</span><span class="p">,</span> <span class="n">max_length</span><span class="p">)</span>
   <span class="k">end</span>
 
-  <span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="n">full_length</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span>
-      <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">].</span><span class="nf">max</span><span class="p">,</span>
-       <span class="p">[</span><span class="n">mid</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">full_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nf">min</span><span class="p">]</span>
+  <span class="p">(</span><span class="mi">3</span><span class="o">..</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span>
+    <span class="n">possibles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+        <span class="n">possibles</span><span class="p">.</span><span class="nf">push</span><span class="p">([</span><span class="n">mid</span><span class="p">,</span> <span class="n">current_len</span> <span class="o">+</span> <span class="mi">2</span><span class="p">])</span> 
+      <span class="k">end</span>  
+    <span class="k">end</span>
+
+    <span class="k">break</span> <span class="k">if</span> <span class="n">possibles</span><span class="p">.</span><span class="nf">empty?</span>
+
+    <span class="n">possible_palindromes</span> <span class="o">=</span> <span class="n">possibles</span>
+  <span class="k">end</span>
+
+  <span class="n">mid</span><span class="p">,</span> <span class="n">max_length</span> <span class="o">=</span> <span class="n">possible_palindromes</span><span class="p">.</span><span class="nf">last</span>
+
+  <span class="n">diff</span> <span class="o">=</span> <span class="n">max_length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="n">max_length</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">:</span> <span class="n">max_length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="n">mid</span> <span class="o">-</span> <span class="n">diff</span><span class="p">,</span> <span class="n">max_length</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">get_bounds</span><span class="p">(</span><span class="n">full_length</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">].</span><span class="nf">max</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">mid</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">full_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nf">min</span><span class="p">]</span>
+  <span class="k">else</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="nf">max</span><span class="p">,</span>
+      <span class="p">[</span><span class="n">mid</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">full_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nf">min</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="ss">:odd</span> <span class="p">:</span> <span class="ss">:even</span>
+  <span class="c1"># The substring till length - 2 is already a palindrome</span>
+  <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span>
+    <span class="k">if</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="nf">key?</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span>
+      <span class="n">left_verified</span><span class="p">,</span> <span class="n">right_verified</span> <span class="o">=</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span>
+      <span class="p">[</span><span class="n">left_verified</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right_verified</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span>
-      <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">].</span><span class="nf">max</span><span class="p">,</span>
-       <span class="p">[</span><span class="n">mid</span> <span class="o">+</span> <span class="n">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">full_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">].</span><span class="nf">min</span><span class="p">]</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
-    <span class="n">key</span> <span class="o">=</span> <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="ss">:odd</span> <span class="p">:</span> <span class="ss">:even</span>
-    <span class="c1"># The substring till length - 2 is already a palindrome</span>
-    <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span>
-      <span class="k">if</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="nf">key?</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span>
-        <span class="n">left_verified</span><span class="p">,</span> <span class="n">right_verified</span> <span class="o">=</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span>
-        <span class="p">[</span><span class="n">left_verified</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right_verified</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-      <span class="k">else</span>
-        <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span><span class="p">]</span> <span class="p">:</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-      <span class="k">end</span>
-
-    <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">get_bounds</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
-
-    <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">lower_bound</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;=</span> <span class="n">upper_bound</span>
-      <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-
-      <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">]</span>
-
-      <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
-      <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span><span class="p">]</span> <span class="p">:</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
     <span class="k">end</span>
 
-    <span class="n">length</span> <span class="o">==</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="n">lower_bound</span><span class="p">,</span> <span class="n">upper_bound</span> <span class="o">=</span> <span class="n">get_bounds</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+
+  <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">lower_bound</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;=</span> <span class="n">upper_bound</span>
+    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">]</span>
+
+    <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">end</span>
+
+  <span class="n">length</span> <span class="o">==</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>The solution looks very complicated, it makes use of a cache <code>verified_cache</code> to store the positions of already discovered palindromes centered around a mid position. This reduced comparison substantially and the solution worked after submission for all the test inputs. The time complexity came down to \(O(n^2)\), space complexity increased from \(O(1)\) to \(O(n)\) which is understandable. But something was wrong I wasn't very happy about the optimised version. First of all it looked so complex and didn't want to take a second look at it. Another issue is that my submission ranked at the bottom, which means my \(O(n^2)\) is still way slower than other \(O(n^2)\) solution.</p>
+<p>The solution looked very complicated, it makes use of a cache <code>verified_cache</code> to store the positions of already discovered palindromes centered around a mid position. This reduced repeated comparisons substantially and the solution worked after submission for all the test inputs. The time complexity came down to \(O(n^2)\), but space complexity increased from \(O(1)\) to \(O(n)\) which is understandable.</p>
 
-<p>Now I let my ego go and researched about the problem, I found that there was a well known solution called <strong>manacher's algorithm</strong> that solves my problem. To my surprise Manacher made it \(O(n)\), which means finding palindromes in a string is superfast with manacher's algorithm. I got a sense of what the algorithm is about and implemented a solution based on that. This is still not the exact manacher's algorithm implementation.</p>
+<p>But still something felt wrong I wasn't very happy about the optimised version. Firstly it looked so complex and I didn't want to take a second look at it, secondly it took me couple of hours to write this so certainly not suitable for an interview puzzle third problem was that my submission ranked at the bottom, which means my \(O(n^2)\) is still way slower than other \(O(n^2)\) solution. By this time I got very much obsessed with this problem. Therefore I did some modification to the version 0 and combined with version 1 which resulted in the following version.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 2</span>
+<span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">,</span> <span class="n">end_pos</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+  <span class="n">length</span> <span class="o">=</span> <span class="n">end_pos</span> <span class="o">-</span> <span class="n">start_pos</span> <span class="o">+</span> <span class="mi">1</span>
+  <span class="n">key</span> <span class="o">=</span> <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="ss">:odd</span> <span class="p">:</span> <span class="ss">:even</span>
+
+  <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">start_pos</span> <span class="o">+</span> <span class="n">end_pos</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+  <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="k">if</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">].</span><span class="nf">key?</span><span class="p">(</span><span class="n">mid</span><span class="p">)</span>
+                  <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span>
+                  <span class="p">[</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">else</span>
+                  <span class="n">length</span><span class="p">.</span><span class="nf">odd?</span> <span class="p">?</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span><span class="p">]</span> <span class="p">:</span> <span class="p">[</span><span class="n">mid</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="k">end</span>
+
+  <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;=</span> <span class="n">start_pos</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;=</span> <span class="n">end_pos</span>
+    <span class="k">return</span> <span class="kp">false</span> <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">]</span> <span class="o">!=</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]</span>
+
+    <span class="n">verified_cache</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="n">mid</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">]</span>
+    <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="kp">true</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">empty?</span> <span class="o">||</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">==</span> <span class="mi">1</span>
+
+  <span class="n">verified_cache</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">odd: </span><span class="p">{},</span> <span class="ss">even: </span><span class="p">{}</span> <span class="p">}</span>
+  <span class="n">longest</span> <span class="o">=</span> <span class="s1">''</span>
+
+  <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">length</span><span class="o">|</span>
+    <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">-</span> <span class="n">length</span><span class="p">)).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">start</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">start</span> <span class="o">+</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
+        <span class="n">longest</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">longest</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now I let go of my ego and researched about the problem, I found that there was a well known solution called <strong>manacher's algorithm</strong> that solves my problem. My eyes nearly popped out to know that Manacher made it \(O(n)\), which means finding palindromes in a string is superfast with manacher's algorithm. I read about it and got a sense of what the algorithm is about and implemented a solution based on that. The following is not manacher's algorithm implementation I borrowed few ideas from it. Firstly instead of returning boolean I changed it to returning the length of palindrome secondly I used the idea of adding <code>#</code> to get rid of handling of even lengthed palindromes. The core idea shifted to manacher's method.</p>
+
+<blockquote>
+  <p>Go from left to right expand around each char to find palindromes.</p>
+</blockquote>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 3</span>
+<span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
   <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span>
   <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span>
 
@@ -216,6 +278,8 @@ draft: true
 <span class="k">end</span>
 
 <span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="c1"># convert string to an odd lengthed string and</span>
+  <span class="c1"># make possible palindromes to be odd lengthed.</span>
   <span class="n">s</span> <span class="o">=</span> <span class="s1">'#'</span> <span class="o">+</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">''</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">'#'</span><span class="p">)</span> <span class="o">+</span> <span class="s1">'#'</span>
   <span class="n">longest</span> <span class="o">=</span> <span class="s1">''</span>
 
@@ -228,13 +292,107 @@ draft: true
   <span class="n">longest</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div></div>
-<p>Simple and elegent solution, it is a pleasure to look at it. In worst case this is still an \(O(n^2)\) in terms of time complexity but it is much faster than both of my previous solutions. Three major changes in the thought process are.</p>
 
-<blockquote>
-  <p>Go from from left to right expand around each char and figure out longest palindrome.</p>
-</blockquote>
+<p>Looks better isn't it ? How about using an array to store the radius of palindromes with each position of the padded string as center ? By doing this simple looking change we basically end up discovering all the palindrome substrings in the given string without using any extra spaces for storing each discovered palindrome substrings.</p>
 
-<p>Firstly prepend and append <strong>#</strong>, so that we simplify looping and handling of the start and end of string positions. Next convert every possible palindromes to odd length by adding <strong>#</strong> in between each letters and get rid of complications due to even lengthed palindroms. For example the even lengthed palindrom <strong>aa</strong> becomes odd lengthed <strong>a#a</strong> and it is a palindrome centered around #.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 4</span>
+<span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+  <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span>
+    <span class="k">break</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+
+    <span class="vi">@rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="vi">@rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+  <span class="n">s</span> <span class="o">=</span> <span class="s2">"#</span><span class="si">#{</span><span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">''</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">'#'</span><span class="p">)</span><span class="si">}</span><span class="s2">#"</span>
+  <span class="c1"># keep the radiuses of palindromes for each position</span>
+  <span class="vi">@rads</span> <span class="o">=</span> <span class="no">Array</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span>
+
+  <span class="n">max_center</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="o">|</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+    <span class="n">max_center</span> <span class="o">=</span> <span class="n">mid</span> <span class="k">if</span> <span class="n">radius</span> <span class="o">&gt;</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="c1"># take the maximum slice</span>
+  <span class="n">s</span><span class="p">[(</span><span class="n">max_center</span> <span class="o">-</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">])</span><span class="o">..</span><span class="p">(</span><span class="n">max_center</span> <span class="o">+</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">])]</span>
+    <span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Looks clever and simple isn't it ? In worst case this is still an \(O(n^2)\) in terms of time complexity but it is much faster than all my previous versions. Now lets run a benchmark and compare all these versions.</p>
+
+<pre><code class="language-text">Version v0       25.659960   0.135666  25.795626 ( 26.039852)
+Version v1        0.357933   0.000952   0.358885 (  0.358902)
+Version v2        0.636836   0.004177   0.641013 (  0.641028)
+Version v3        0.196977   0.000633   0.197610 (  0.197613)
+Version v4        0.102647   0.000118   0.102765 (  0.102767)
+</code></pre>
+<p>This post would be worthless if I don't dissect the clever tricks used in <a href="https://en.wikipedia.org/wiki/Longest_palindromic_substring">manacher's algorithm</a>. This algorithm was created by computer scientist <strong>Glenn K Manacher</strong> in <strong>1975</strong>. The first clever trick is to converts the given string to an odd lengthed string by padding with <code>#</code> or any other special symbol. Let's check what happens when you add padding to a string <code>eye</code>.</p>
+
+<pre><code class="language-text">e y e     =&gt; odd length of 3
+e # y # e =&gt; odd length of 5
+</code></pre>
+
+<p>You can notice that the string remains odd lengthed palindrom around the same mid character <code>y</code>.</p>
+
+<p>Now lets take an even lengthed string 'aa'</p>
+
+<pre><code class="language-text">a a       =&gt; even length of 2
+a # a # a =&gt; odd length of 5
+</code></pre>
+
+<p>Here the even lengthed <code>aa</code> got converted into an odd lengthed string which is still a palindrome around the middle <code>#</code>. By padding with <code>#</code> we can apply the algorithm to check palindrome for both odd and even lengthed strings alike.</p>
+
+<p>The second clever tricks is to use an array to track the radius of palindromes centered around a particular position. A zero initialized position array <code>P</code> with a length equal to the length of padded string is used. Each value in the array is the length of radius of palindrome around that position.</p>
+
+<pre><code class="language-text">     -------------------
+S = | e | # | y | # | e |
+     -------------------
+P = | 0 | 0 | 2 | 0 | 0 |
+     -------------------
+
+     -------------------------------------------------------------------
+S = | m | # | a | # | l | # | a | # | y | # | a | # | l | # | a | # | m |
+     -------------------------------------------------------------------
+P = | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 8 | 0 | 1 | 0 | 3 | 0 | 1 | 0 | 0 |
+     -------------------------------------------------------------------
+</code></pre>
+
+<p>The most interesting advantage of this is that in a single go we can find all the palindrome substrings. For any given any position slice the padded string by radius value around the given position and remove the padding <code>#</code> characters, that would be a palindrom substring centered around that position.</p>
+
+<p>But there exists a hidden problem for non palindrome strings that end with a palindrome substring. We may end up with a wrong result for inputs such as <code>abb</code>. Take the string <code>abb</code>, the longest palindrom substring ubdoubtably is <code>bb</code>.</p>
+
+<pre><code class="language-text">     -------------------
+S = | a | # | b | # | b |
+     -------------------
+P = | 0 | 0 | 1 | 1 | 0 |
+     -------------------
+</code></pre>
+
+<p>We have two high radius positions with value 1. If we go with the first highest radius at position 2 then we will end up with palindrom sub string <code>#b#</code> which results in <code>b</code> as our answer. But if we go with the position 3 we will have palindrom sub string <code>b#b</code> and we will have <code>bb</code> as our correct answer. Therefore it is important to pick pattern centered around <code>#</code> when it comes to such ending patterns. But there is an easy workaround so that we need not have to worry about whether we pick the correct palindrome or not. Simply prepend and append <code>#</code> to the padded string. So our string becomes <code>#a#b#b#</code>, which is still an odd lengthed string.</p>
+
+<pre><code class="language-text">     ---------------------------
+S = | # | a | # | b | # | b | # |
+     ---------------------------
+P = | 0 | 1 | 0 | 1 | 2 | 1 | # |
+     ---------------------------
+</code></pre>
+
+<p>Now the winner is clear we can just pick the right palindrome by selecting the first highest value in the array <code>P</code>.</p>
+
+<p>Now there is a third clever trick that avoids a lot of duplicate comparisons and makes this an \(O(n)\) algorithm.</p>
 
   </main>
 
