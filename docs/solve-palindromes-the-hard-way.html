@@ -8,11 +8,11 @@
   <meta name="author" content="Deepak Kumar">
   <meta name="description" content="Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue Malayalam is…">
 
-  <meta property="og:title" content="Palindromes for fun">
+  <meta property="og:title" content="Solve the palindromes the hard way">
   <meta property="og:description" content="Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue Malayalam is…">
-  <meta property="og:url" content="https://deepsnapster.com/palindromes-for-fun.html">
+  <meta property="og:url" content="https://deepsnapster.com/solve-palindromes-the-hard-way.html">
   <meta property="og:type" content="article">
-  <link rel="canonical" href="https://deepsnapster.com/palindromes-for-fun.html">
+  <link rel="canonical" href="https://deepsnapster.com/solve-palindromes-the-hard-way.html">
   <meta property="og:site_name" content="Deepak Kumar">
   <meta property="og:image" content="https://deepsnapster.com/images/avatar.jpg">
   <meta name="twitter:card" content="summary">
@@ -32,16 +32,16 @@
     gtag('config', 'G-ZW6PHT9ZN6');
   </script>
 
-  <title>Palindromes for fun</title>
+  <title>Solve the palindromes the hard way</title>
 <meta property="article:published_time" content="2026-09-20">
 <meta property="og:image:width" content="400">
 <meta property="og:image:height" content="400">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "url": "https://deepsnapster.com/palindromes-for-fun.html",
-  "headline": "Palindromes for fun",
-  "mainEntityOfPage": "https://deepsnapster.com/palindromes-for-fun.html",
+  "url": "https://deepsnapster.com/solve-palindromes-the-hard-way.html",
+  "headline": "Solve the palindromes the hard way",
+  "mainEntityOfPage": "https://deepsnapster.com/solve-palindromes-the-hard-way.html",
   "inLanguage": "en",
   "datePublished": "2026-09-20",
   "dateModified": "2026-09-20",
@@ -77,13 +77,14 @@
   
   <main><p class="back-link"><a href="index.html">← Back to all posts</a></p>
     <!--
-title: Palindromes for fun
+title: Solve the palindromes the hard way
 date: 20/09/2026
 lang: en
-draft: true
+category: Programming
+tags: Algorithms, Manachers, Palindrome
 -->
 
-<h1 id="palindromes-for-fun-draft">Palindromes for fun [Draft]</h1>
+<h1 id="solve-the-palindromes-the-hard-way">Solve the palindromes the hard way</h1>
 
 <p><em>20/09/2026</em></p>
 
@@ -211,7 +212,7 @@ draft: true
 
 <p>The solution looked very complicated, it makes use of a cache <code>verified_cache</code> to store the positions of already discovered palindromes centered around a mid position. This reduced repeated comparisons substantially and the solution worked after submission for all the test inputs. The time complexity came down to \(O(n^2)\), but space complexity increased from \(O(1)\) to \(O(n)\) which is understandable.</p>
 
-<p>But still something felt wrong I wasn't very happy about the optimised version. Firstly it looked so complex and I didn't want to take a second look at it, secondly it took me couple of hours to write this so certainly not suitable for an interview puzzle third problem was that my submission ranked at the bottom, which means my \(O(n^2)\) is still way slower than other \(O(n^2)\) solution. By this time I got very much obsessed with this problem. Therefore I did some modification to the version 0 and combined with version 1 which resulted in the following version.</p>
+<p>But still something felt wrong I wasn't very happy about the optimised version. Firstly it looked so complex and I didn't want to take a second look at it, secondly it took me couple of hours to write this so certainly not suitable for an interview puzzle third problem was that my submission ranked at the bottom, which means my \(O(n^2)\) is still way slower than other \(O(n^2)\) solution. By this time I got very much obsessed with this problem. Therefore I did some modification to the version 0 and combined with version 1 which resulted in the following better readable but poor performant version.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 2</span>
 <span class="k">def</span> <span class="nf">palindrome?</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">start_pos</span><span class="p">,</span> <span class="n">end_pos</span><span class="p">,</span> <span class="n">verified_cache</span><span class="p">)</span>
@@ -296,42 +297,47 @@ draft: true
 <p>Looks better isn't it ? How about using an array to store the radius of palindromes with each position of the padded string as center ? By doing this simple looking change we basically end up discovering all the palindrome substrings in the given string without using any extra spaces for storing each discovered palindrome substrings.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 4</span>
-<span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">padded_input</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">pad</span> <span class="o">=</span> <span class="s1">'#'</span>
+  <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">''</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="n">pad</span><span class="p">)</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="n">pad</span><span class="si">}#{</span><span class="n">s</span><span class="si">}#{</span><span class="n">pad</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">rads</span><span class="p">)</span>
   <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
   <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
 
-  <span class="k">while</span> <span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">right</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span>
-    <span class="k">break</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">!=</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
-
-    <span class="vi">@rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-
+  <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">))</span>
+    <span class="n">rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
     <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">end</span>
 
-  <span class="vi">@rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
+  <span class="n">rads</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
 <span class="k">end</span>
 
 <span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;=</span> <span class="mi">1</span>
 
-  <span class="n">s</span> <span class="o">=</span> <span class="s2">"#</span><span class="si">#{</span><span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">''</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">'#'</span><span class="p">)</span><span class="si">}</span><span class="s2">#"</span>
-  <span class="c1"># keep the radiuses of palindromes for each position</span>
-  <span class="vi">@rads</span> <span class="o">=</span> <span class="no">Array</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span>
+  <span class="n">s</span> <span class="o">=</span> <span class="n">padded_input</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-  <span class="n">max_center</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="n">rads</span> <span class="o">=</span> <span class="no">Array</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span>
 
-  <span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">mid</span><span class="o">|</span>
-    <span class="n">radius</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">mid</span><span class="p">)</span>
-    <span class="n">max_center</span> <span class="o">=</span> <span class="n">mid</span> <span class="k">if</span> <span class="n">radius</span> <span class="o">&gt;</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">]</span>
+  <span class="n">longest_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pos</span><span class="o">|</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">rads</span><span class="p">)</span>
+    <span class="n">longest_pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="k">if</span> <span class="n">radius</span> <span class="o">&gt;</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">]</span>
   <span class="k">end</span>
 
-  <span class="c1"># take the maximum slice</span>
-  <span class="n">s</span><span class="p">[(</span><span class="n">max_center</span> <span class="o">-</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">])</span><span class="o">..</span><span class="p">(</span><span class="n">max_center</span> <span class="o">+</span> <span class="vi">@rads</span><span class="p">[</span><span class="n">max_center</span><span class="p">])]</span>
-    <span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+  <span class="n">unpad</span><span class="p">(</span><span class="n">s</span><span class="p">[(</span><span class="n">longest_pos</span> <span class="o">-</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">])</span><span class="o">..</span><span class="p">(</span><span class="n">longest_pos</span> <span class="o">+</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">])])</span>
 <span class="k">end</span>
 </code></pre></div></div>
-<p>Looks clever and simple isn't it ? In worst case this is still an \(O(n^2)\) in terms of time complexity but it is much faster than all my previous versions. Now lets run a benchmark and compare all these versions.</p>
+<p>Looks clever and simple isn't it ? In worst case this is still an \(O(n^2)\) in terms of time complexity but it is much faster than all my previous versions. Now let's run a benchmark and compare all these versions.</p>
 
 <pre><code class="language-text">Version v0       25.659960   0.135666  25.795626 ( 26.039852)
 Version v1        0.357933   0.000952   0.358885 (  0.358902)
@@ -339,6 +345,9 @@ Version v2        0.636836   0.004177   0.641013 (  0.641028)
 Version v3        0.196977   0.000633   0.197610 (  0.197613)
 Version v4        0.102647   0.000118   0.102765 (  0.102767)
 </code></pre>
+
+<h2 id="manachers-algorithms">Manacher's algorithms</h2>
+
 <p>This post would be worthless if I don't dissect the clever tricks used in <a href="https://en.wikipedia.org/wiki/Longest_palindromic_substring">manacher's algorithm</a>. This algorithm was created by computer scientist <strong>Glenn K Manacher</strong> in <strong>1975</strong>. The first clever trick is to converts the given string to an odd lengthed string by padding with <code>#</code> or any other special symbol. Let's check what happens when you add padding to a string <code>eye</code>.</p>
 
 <pre><code class="language-text">e y e     =&gt; odd length of 3
@@ -347,7 +356,7 @@ e # y # e =&gt; odd length of 5
 
 <p>You can notice that the string remains odd lengthed palindrom around the same mid character <code>y</code>.</p>
 
-<p>Now lets take an even lengthed string 'aa'</p>
+<p>Now let's take an even lengthed string 'aa'</p>
 
 <pre><code class="language-text">a a       =&gt; even length of 2
 a # a # a =&gt; odd length of 5
@@ -392,7 +401,115 @@ P = | 0 | 1 | 0 | 1 | 2 | 1 | # |
 
 <p>Now the winner is clear we can just pick the right palindrome by selecting the first highest value in the array <code>P</code>.</p>
 
-<p>Now there is a third clever trick that avoids a lot of duplicate comparisons and makes this an \(O(n)\) algorithm.</p>
+<p>Now there is a third clever trick that avoids a lot of duplicate comparisons and makes this an \(O(n)\) algorithm. Manacher used a mirroring technique by which we can avoid a lot of comparisons. The idea is as follows when we found a palindorm substring then we from its center to the right boundary is a mirror image of its left side. Therefore if we move to the next position from the center position and expand we need not have to expand from the next character we can skip many comparisons within the boundary. This is something bit hard to grasp, at least it wasn't easy for me to fully digest I actually took couple of days. Therefore I will try to explain in simplest way possible.</p>
+
+<p>To better get the idea let's take the following example</p>
+
+<pre><code class="language-text">                         |
+                         |
+    ---+-----------------+-----------------+---
+S = ...| a | e |...| a | e |...| a | e | a |...
+     ------------------------------------------
+P = ...| 0 | 2 |...| 3 | r |...| _ | _ | _ |...
+    ---+-----------------+-----------------+---
+         r   j       i   C   I       J   R
+                         |
+                         |
+                        Mirror
+</code></pre>
+
+<p>Here the sub string <code>ae...aea...ea</code> is a palindrom around the letter <code>e</code>. When we began the process from position <code>0</code> the value of <code>C</code> and <code>R</code> will be initialized to <code>0</code>. As we proceed to right we have detected a palindrom with radius 1 at position <code>j</code>, later at <code>C</code> we have detected another palindrom with <code>radius = r</code> and a right boundary <code>R</code>. Next we need to move to the next position <code>I</code> and expand around, but we know something about palindrome.</p>
+
+<blockquote>
+  <p>In a palindrome the right side is a mirror image of left side.</p>
+</blockquote>
+
+<p>Look at the mirror position at our center <code>C</code> with a right boundary <code>R</code>. Move to next position <code>I</code> and try to expland from there. We can clearly see that <code>I</code> is within the right boundary <code>R</code> ie. <code>(I&lt; R)</code> and <code>I</code> is far away from the boundary R. therefore if we take the mirror position <code>i</code> then because of mirror symmetry the value of <code>P[I]</code> would be at least that of <code>P[i]</code> which is 3. Means we have covered three positions around <code>I</code> and skipped three comparison by copying value of <code>P[i]</code> to <code>P[I]</code>. Now we could expand around further in the old way with <code>P[I] = 3</code>. The same logic applies to positions after <code>I</code> and we would save a lot of comparisons.</p>
+
+<p>Now let's move to <code>J</code>, the mirror value is <code>P[j]</code>, but we cannot blindly copy the value from mirror position to P[J] because <code>J</code> is closer to <code>R</code>. If we copy the value 2 from <code>P[j]</code> that implies that we have covered 2 positions around <code>J</code> and crossed the boundary. But our mirror ends at <code>R</code> and we only know upto the right boundary of the mirror. Therefore <strong>mirror value is limited by the distance from the right boundary</strong>. We need to take the minimum of mirror value and distance from boundary as value of <code>P[J]</code>. So <code>min(P[j], R-J)</code> ie 1 would be our value at <code>P[J]</code> instead of 2.</p>
+
+<p>In the previous case the <code>I + P[i]</code> was well within the boundary <code>R</code> and <code>R - I</code> was definitely greater than mirror value <code>P[i]</code>. So <code>min(P[i], R - I)</code> would be <code>P[i]</code>.</p>
+
+<p>Once <code>P[J]</code> is set expand further around the new position <code>J</code> we may cross over the right boundary <code>R</code> during the expansion, if we cross over after full expansion around <code>J</code> change the value of the right boundary to higher value and shift center <code>C</code> to current position <code>J</code>.</p>
+
+<p>Finally on reaching at the right boundary <code>R</code> our mirror end then we will need to perform the normal expand operation starting from the position <code>R</code>. So center <code>C</code> and right boundary <code>R</code> will be set to the current position.</p>
+
+<p>Enough of the explanation let's look at the code.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Version 5 - Manachers algorithm</span>
+<span class="k">def</span> <span class="nf">longest_palindrome</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="c1"># rubocop:disable Metrics/AbcSize</span>
+  <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+  <span class="n">s</span> <span class="o">=</span> <span class="n">padded_input</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+  <span class="n">rads</span> <span class="o">=</span> <span class="no">Array</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">}</span>
+  <span class="n">center</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">right_boundary</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="n">longest_pos</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="p">(</span><span class="mi">1</span><span class="o">...</span><span class="n">s</span><span class="p">.</span><span class="nf">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">pos</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="n">right_boundary</span>
+      <span class="n">mirror_pos</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">center</span> <span class="o">-</span> <span class="n">pos</span>
+      <span class="n">rads</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">rads</span><span class="p">[</span><span class="n">mirror_pos</span><span class="p">],</span> <span class="n">right_boundary</span> <span class="o">-</span> <span class="n">pos</span><span class="p">].</span><span class="nf">min</span>
+    <span class="k">else</span>
+      <span class="n">center</span> <span class="o">=</span> <span class="n">pos</span>
+      <span class="n">right_boundary</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="k">end</span>
+
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">rads</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">radius</span> <span class="o">&gt;</span> <span class="n">right_boundary</span>
+      <span class="n">right_boundary</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">radius</span>
+      <span class="n">center</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="k">end</span>
+
+    <span class="n">longest_pos</span> <span class="o">=</span> <span class="n">pos</span> <span class="k">if</span> <span class="n">radius</span> <span class="o">&gt;</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="n">unpad</span><span class="p">(</span><span class="n">s</span><span class="p">[(</span><span class="n">longest_pos</span> <span class="o">-</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">])</span><span class="o">..</span><span class="p">(</span><span class="n">longest_pos</span> <span class="o">+</span> <span class="n">rads</span><span class="p">[</span><span class="n">longest_pos</span><span class="p">])])</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">padded_input</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">pad</span> <span class="o">=</span> <span class="s1">'#'</span>
+  <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">''</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="n">pad</span><span class="p">)</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="n">pad</span><span class="si">}#{</span><span class="n">s</span><span class="si">}#{</span><span class="n">pad</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">unpad</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">gsub</span><span class="p">(</span><span class="s1">'#'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">rads</span><span class="p">)</span>
+  <span class="n">left</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">rads</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="n">right</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">rads</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">right</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="nf">getbyte</span><span class="p">(</span><span class="n">right</span><span class="p">))</span>
+    <span class="n">rads</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">left</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="n">right</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+
+  <span class="n">rads</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Now take a look at the benchmark, the manacher's algorithm implementations is 100 times faster than my fastest version mind blowing isn't it ? That mirror optimization is like a nitro booster to the version 4 and that is the only change between version 4 and version 5.</p>
+
+<pre><code class="language-text">                      user     system      total        real
+Version v0       25.188437   0.133858  25.322295 ( 25.498048)
+Version v1        0.369134   0.001866   0.371000 (  0.398301)
+Version v2        0.644181   0.004304   0.648485 (  0.668061)
+Version v3        0.198444   0.000601   0.199045 (  0.199072)
+Version v4        0.105792   0.000480   0.106272 (  0.130387)
+Version v5        0.001027   0.000005   0.001032 (  0.001032)
+</code></pre>
+
+<p>Guess what happened after submitting the version 5 on leetcode.</p>
+
+<p><img src="images/palindrome.png" alt="Palindrome Leetcode Submission" title="Palindrome" width="620"></p>
+
+<p>Happy learning</p>
 
   </main>
 

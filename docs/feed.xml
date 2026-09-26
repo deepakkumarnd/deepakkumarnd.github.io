@@ -6,6 +6,13 @@
     <description>Deepak Kumar's personal writings</description>
     <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Private constants in ruby</title>
+      <link>https://deepsnapster.com/private-constants-in-ruby.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/private-constants-in-ruby.html</guid>
+      <pubDate>Fri, 25 Sep 2026 00:00:00 -0000</pubDate>
+      <description>In Ruby programming language constants are special variables that should not be reassigned. There is no special syntax for defining constants in ruby, a…</description>
+    </item>
+    <item>
       <title>Journey to eventual consistency</title>
       <link>https://deepsnapster.com/journey-to-eventual-consistency.html</link>
       <guid isPermaLink="true">https://deepsnapster.com/journey-to-eventual-consistency.html</guid>
@@ -13,9 +20,9 @@
       <description>Let's look at an example of building a web application. We begin with a the framework of our choice and uses an appropriate database for our application.…</description>
     </item>
     <item>
-      <title>Palindromes for fun</title>
-      <link>https://deepsnapster.com/palindromes-for-fun.html</link>
-      <guid isPermaLink="true">https://deepsnapster.com/palindromes-for-fun.html</guid>
+      <title>Solve the palindromes the hard way</title>
+      <link>https://deepsnapster.com/solve-palindromes-the-hard-way.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/solve-palindromes-the-hard-way.html</guid>
       <pubDate>Sun, 20 Sep 2026 00:00:00 -0000</pubDate>
       <description>Palindromes are interesting sequence of characters, they read the same in both forward and backward direction. For example my mother tongue Malayalam is…</description>
     </item>
