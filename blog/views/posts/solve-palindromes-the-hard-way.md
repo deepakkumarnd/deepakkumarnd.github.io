@@ -1,11 +1,12 @@
 <!--
-title: Palindromes for fun
+title: Solve the palindromes the hard way
 date: 20/09/2026
 lang: en
-draft: true
+category: Programming
+tags: Algorithms, Manachers, Palindrome
 -->
 
-# Palindromes for fun [Draft]
+# Solve the palindromes the hard way
 
 _{post_date}_
 
@@ -134,7 +135,7 @@ end
 
 The solution looked very complicated, it makes use of a cache `verified_cache` to store the positions of already discovered palindromes centered around a mid position. This reduced repeated comparisons substantially and the solution worked after submission for all the test inputs. The time complexity came down to $$ O(n^2) $$, but space complexity increased from $$ O(1) $$ to $$ O(n) $$ which is understandable. 
 
-But still something felt wrong I wasn't very happy about the optimised version. Firstly it looked so complex and I didn't want to take a second look at it, secondly it took me couple of hours to write this so certainly not suitable for an interview puzzle third problem was that my submission ranked at the bottom, which means my $$ O(n^2) $$ is still way slower than other $$ O(n^2) $$ solution. By this time I got very much obsessed with this problem. Therefore I did some modification to the version 0 and combined with version 1 which resulted in the following version.
+But still something felt wrong I wasn't very happy about the optimised version. Firstly it looked so complex and I didn't want to take a second look at it, secondly it took me couple of hours to write this so certainly not suitable for an interview puzzle third problem was that my submission ranked at the bottom, which means my $$ O(n^2) $$ is still way slower than other $$ O(n^2) $$ solution. By this time I got very much obsessed with this problem. Therefore I did some modification to the version 0 and combined with version 1 which resulted in the following better readable but poor performant version.
 
 ```ruby
 # Version 2
@@ -220,42 +221,47 @@ Looks better isn't it ? How about using an array to store the radius of palindro
 
 ```ruby
 # Version 4
-def expand(s, mid)
+def padded_input(s)
+  pad = '#'
+  s = s.split('').join(pad)
+  "#{pad}#{s}#{pad}"
+end
+
+def unpad(s)
+  s.gsub('#', '')
+end
+
+def expand(s, mid, rads)
   left = mid - 1
   right = mid + 1
 
-  while left > 0 && right < s.length
-    break if s.getbyte(left) != s.getbyte(right)
-
-    @rads[mid] += 1
-
+  while (left > 0) && (right < s.length) && (s.getbyte(left) == s.getbyte(right))
+    rads[mid] += 1
     left -= 1
     right += 1
   end
 
-  @rads[mid]
+  rads[mid]
 end
 
 def longest_palindrome(s)
   return s if s.length <= 1
 
-  s = "##{s.split('').join('#')}#"
-  # keep the radiuses of palindromes for each position
-  @rads = Array.new(s.length) { 0 }
+  s = padded_input(s)
 
-  max_center = 1
+  rads = Array.new(s.length) { 0 }
 
-  (1...s.length).each do |mid|
-    radius = expand(s, mid)
-    max_center = mid if radius > @rads[max_center]
+  longest_pos = 0
+
+  (1...s.length - 1).each do |pos|
+    radius = expand(s, pos, rads)
+    longest_pos = pos if radius > rads[longest_pos]
   end
 
-  # take the maximum slice
-  s[(max_center - @rads[max_center])..(max_center + @rads[max_center])]
-    .gsub('#', '')
+  unpad(s[(longest_pos - rads[longest_pos])..(longest_pos + rads[longest_pos])])
 end
 ```
-Looks clever and simple isn't it ? In worst case this is still an $$ O(n^2) $$ in terms of time complexity but it is much faster than all my previous versions. Now lets run a benchmark and compare all these versions.
+Looks clever and simple isn't it ? In worst case this is still an $$ O(n^2) $$ in terms of time complexity but it is much faster than all my previous versions. Now let's run a benchmark and compare all these versions.
 
 ```text
 Version v0       25.659960   0.135666  25.795626 ( 26.039852)
@@ -264,6 +270,9 @@ Version v2        0.636836   0.004177   0.641013 (  0.641028)
 Version v3        0.196977   0.000633   0.197610 (  0.197613)
 Version v4        0.102647   0.000118   0.102765 (  0.102767)
 ```
+
+## Manacher's algorithms
+
 This post would be worthless if I don't dissect the clever tricks used in [manacher's algorithm](https://en.wikipedia.org/wiki/Longest_palindromic_substring). This algorithm was created by computer scientist **Glenn K Manacher** in **1975**. The first clever trick is to converts the given string to an odd lengthed string by padding with `#` or any other special symbol. Let's check what happens when you add padding to a string `eye`.
 
 ```text
@@ -273,7 +282,7 @@ e # y # e => odd length of 5
 
 You can notice that the string remains odd lengthed palindrom around the same mid character `y`.
 
-Now lets take an even lengthed string 'aa'
+Now let's take an even lengthed string 'aa'
 
 ```text
 a a       => even length of 2
@@ -322,4 +331,113 @@ P = | 0 | 1 | 0 | 1 | 2 | 1 | # |
 
 Now the winner is clear we can just pick the right palindrome by selecting the first highest value in the array `P`.
 
-Now there is a third clever trick that avoids a lot of duplicate comparisons and makes this an $$ O(n) $$ algorithm.
+Now there is a third clever trick that avoids a lot of duplicate comparisons and makes this an $$ O(n) $$ algorithm. Manacher used a mirroring technique by which we can avoid a lot of comparisons. The idea is as follows when we found a palindorm substring then we from its center to the right boundary is a mirror image of its left side. Therefore if we move to the next position from the center position and expand we need not have to expand from the next character we can skip many comparisons within the boundary. This is something bit hard to grasp, at least it wasn't easy for me to fully digest I actually took couple of days. Therefore I will try to explain in simplest way possible.
+
+To better get the idea let's take the following example 
+
+```text
+                         |
+                         |
+    ---+-----------------+-----------------+---
+S = ...| a | e |...| a | e |...| a | e | a |...
+     ------------------------------------------
+P = ...| 0 | 2 |...| 3 | r |...| _ | _ | _ |...
+    ---+-----------------+-----------------+---
+         r   j       i   C   I       J   R
+                         |
+                         |
+                        Mirror
+```
+
+Here the sub string `ae...aea...ea` is a palindrom around the letter `e`. When we began the process from position `0` the value of `C` and `R` will be initialized to `0`. As we proceed to right we have detected a palindrom with radius 1 at position `j`, later at `C` we have detected another palindrom with `radius = r` and a right boundary `R`. Next we need to move to the next position `I` and expand around, but we know something about palindrome.
+
+> In a palindrome the right side is a mirror image of left side. 
+
+Look at the mirror position at our center `C` with a right boundary `R`. Move to next position `I` and try to expland from there. We can clearly see that `I` is within the right boundary `R` ie. `(I< R)` and `I` is far away from the boundary R. therefore if we take the mirror position `i` then because of mirror symmetry the value of `P[I]` would be at least that of `P[i]` which is 3. Means we have covered three positions around `I` and skipped three comparison by copying value of `P[i]` to `P[I]`. Now we could expand around further in the old way with `P[I] = 3`. The same logic applies to positions after `I` and we would save a lot of comparisons.
+
+Now let's move to `J`, the mirror value is `P[j]`, but we cannot blindly copy the value from mirror position to P[J] because `J` is closer to `R`. If we copy the value 2 from `P[j]` that implies that we have covered 2 positions around `J` and crossed the boundary. But our mirror ends at `R` and we only know upto the right boundary of the mirror. Therefore **mirror value is limited by the distance from the right boundary**. We need to take the minimum of mirror value and distance from boundary as value of `P[J]`. So `min(P[j], R-J)` ie 1 would be our value at `P[J]` instead of 2. 
+
+In the previous case the `I + P[i]` was well within the boundary `R` and `R - I` was definitely greater than mirror value `P[i]`. So `min(P[i], R - I)` would be `P[i]`.
+
+Once `P[J]` is set expand further around the new position `J` we may cross over the right boundary `R` during the expansion, if we cross over after full expansion around `J` change the value of the right boundary to higher value and shift center `C` to current position `J`. 
+
+Finally on reaching at the right boundary `R` our mirror end then we will need to perform the normal expand operation starting from the position `R`. So center `C` and right boundary `R` will be set to the current position.
+
+Enough of the explanation let's look at the code.
+
+```ruby
+# Version 5 - Manachers algorithm
+def longest_palindrome(s) # rubocop:disable Metrics/AbcSize
+  return s if s.length <= 1
+
+  s = padded_input(s)
+
+  rads = Array.new(s.length) { 0 }
+  center = 0
+  right_boundary = 0
+
+  longest_pos = 0
+
+  (1...s.length - 1).each do |pos|
+    if pos < right_boundary
+      mirror_pos = 2 * center - pos
+      rads[pos] = [rads[mirror_pos], right_boundary - pos].min
+    else
+      center = pos
+      right_boundary = pos
+    end
+
+    radius = expand(s, pos, rads)
+
+    if pos + radius > right_boundary
+      right_boundary = pos + radius
+      center = pos
+    end
+
+    longest_pos = pos if radius > rads[longest_pos]
+  end
+
+  unpad(s[(longest_pos - rads[longest_pos])..(longest_pos + rads[longest_pos])])
+end
+
+def padded_input(s)
+  pad = '#'
+  s = s.split('').join(pad)
+  "#{pad}#{s}#{pad}"
+end
+
+def unpad(s)
+  s.gsub('#', '')
+end
+
+def expand(s, pos, rads)
+  left = pos - rads[pos] - 1
+  right = pos + rads[pos] + 1
+
+  while (left >= 0) && (right < s.length) && (s.getbyte(left) == s.getbyte(right))
+    rads[pos] += 1
+    left -= 1
+    right += 1
+  end
+
+  rads[pos]
+end
+```
+
+Now take a look at the benchmark, the manacher's algorithm implementations is 100 times faster than my fastest version mind blowing isn't it ? That mirror optimization is like a nitro booster to the version 4 and that is the only change between version 4 and version 5.
+
+```text
+                      user     system      total        real
+Version v0       25.188437   0.133858  25.322295 ( 25.498048)
+Version v1        0.369134   0.001866   0.371000 (  0.398301)
+Version v2        0.644181   0.004304   0.648485 (  0.668061)
+Version v3        0.198444   0.000601   0.199045 (  0.199072)
+Version v4        0.105792   0.000480   0.106272 (  0.130387)
+Version v5        0.001027   0.000005   0.001032 (  0.001032)
+```
+
+Guess what happened after submitting the version 5 on leetcode.
+
+![Palindrome Leetcode Submission](images/palindrome.png "Palindrome"){: width="620" }
+
+Happy learning
