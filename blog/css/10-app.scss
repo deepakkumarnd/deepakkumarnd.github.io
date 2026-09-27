@@ -43,4 +43,8 @@ header .site-navigation {
 main {
   max-width: 768px;
   p { text-align: justify; }
+  h1 { line-height: 1.5; }
+  h3 {
+    font-family: cursive;
+  }
 }

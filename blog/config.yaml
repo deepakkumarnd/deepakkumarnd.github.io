@@ -3,7 +3,7 @@
 # the listing is always built from the posts themselves, newest first.
 post_listing:
   # The index page's <h1>. Set to "" to omit the heading entirely.
-  list_title: "My posts"
+  list_title: "Stories, Technology and Philosophy"
 
   # How to group posts in the listing.
   #   none  - a single flat list
