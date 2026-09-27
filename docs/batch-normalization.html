@@ -82,7 +82,7 @@ date: 18/06/2025
 lang: en
 -->
 
-<h1 id="batch-normalization">Batch normalization</h1>
+<h1>Batch normalization</h1>
 
 <p>In a deep neural network, inputs pass through multiple hidden layers from left to right to produce the output. We use stochastic gradient descent (SGD) as an effective method to train these networks. During training, the gradient of the loss function with respect to the network's weights is computed using the chain rule of differentiation, flowing backward through the network from the output layer to the input layer.</p>
 
@@ -96,7 +96,7 @@ lang: en
 
 <p>The learning rate here is not a constant value, it comes from an optimizer like <code>ADAM</code> optimizer. Therefore we will be able to update each weight in a non uniform way.</p>
 
-<h3 id="internal-covariate-shift">Internal Covariate Shift</h3>
+<h3>Internal Covariate Shift</h3>
 
 <p>When weights are updated each layer produces outputs of varying distribution. This varying distribution is known by the term <code>Internal Covariate Shift</code>. Research shows that network convergence is much better when the distribution remains the same, because networks don't have additional effort in capturing different distributions even for the same input representation..</p>
 
@@ -122,7 +122,7 @@ lang: en
 
 <p>The trainer now recognizes that by scaling all the training cards to a fixed card size kids can learn much faster because they don't have the additional effort of scaling in their brain to identify the pattern.</p>
 
-<h3 id="normalization">Normalization</h3>
+<h3>Normalization</h3>
 
 <p>This is what happens when we use normalization, we fix the input distribution to have zero mean and a variance of one. Such a distribution is called <code>normal distribution</code>. With this the network doesn't have additional effort in learning different distributions in addition to learning features of the inputs. Therefore when we apply normalization to each input the number of iterations to train the network goes down substantially.</p>
 
@@ -130,7 +130,7 @@ lang: en
 
 <p>To avoid this problem a normalization can be applied to inputs at each layer. Therefore each input representing the same result with varying distribution will be represented in a normalized way. This will drastically bring down the training effort and time because fewer iterations are required compared to the non normalized inputs.</p>
 
-<h3 id="identity-transformation">Identity transformation</h3>
+<h3>Identity transformation</h3>
 
 <p>However, there's an important detail to note, normalization alters the inputs, which means the transformed data may no longer fully represent the original inputs. To address this, an <code>Identity Transformation</code> is applied to the normalized data. This ensures that the model can still recover the original input distribution if needed. Here's how it works.</p>
 

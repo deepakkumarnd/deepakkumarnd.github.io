@@ -82,7 +82,7 @@ date: 29/05/2025
 lang: en
 -->
 
-<h1 id="loss-optimizers">Loss Optimizers</h1>
+<h1>Loss Optimizers</h1>
 
 <p>Understanding the foundational components of neural networks can make learning this complex subject more engaging. In the early stages of learning, we can even avoid using frameworks like <strong>PyTorch</strong> or <strong>Keras</strong> and build networks from scratch of course with the help of <code>numpy</code>. While the process can be enjoyable, building a multilayer network from scratch without these advanced tools is also quite challenging. However, if someone manages to do it and gradually begins to grasp the underlying concepts, it becomes a highly rewarding and worthwhile investment.</p>
 
@@ -102,17 +102,17 @@ lang: en
 
 <p><img src="images/loss-landscape.jpg" alt="Loss Landscape" title="Loss Landscape" width="400"></p>
 
-<h3 id="the-blind-walker">The blind walker</h3>
+<h3>The blind walker</h3>
 
 <p>Since visualizing a multidimensional space is outside our imagination for the sake of simplicity let's do a thought experiment. Suppose there are only two weights in the network representing a point in the XY plane. Then average loss with respect to the weights for each batch forms a 3D landscape as shown in the image above. Imagine that you are blind walker in such an imaginary landscape with a walking stick. How do you figure out the deepest point in the landscape ? This is a hard problem even for a person with vision. There is no aerial view available to help the person because nobody has explored the landscape before.</p>
 
-<h3 id="fixed-learning-rate">Fixed learning rate</h3>
+<h3>Fixed learning rate</h3>
 
 <p>One way is that the blind walker can use his stick to figure out the uphill or downhill direction with respect to his current position. He can move in the downhill direction with a fixed step size. Eventually he will reach a point where there is no more slope and that is going to be the center of a depression. But the problem is that this is not necessarily the deepest point in the landscape. From that point if he doesn't use a bigger step size and jump out of the pit he will be stuck in that pit and won't be able to move further and explore other parts of the landscape. But if he uses a larger step size he might be jumping forever across the landscape and never reach the bottom of any of the pits in the landscape.</p>
 
 <p>Here you should have understood intuitively that the pits are the local minima of the loss landscape. At the bottom of any pit the slope is zero, that is the derivative at that point will become zero. So from our equation above the second term becomes zero and the weight will not be updated further. Our training will halt at that point with a stagnant loss value. Which simply means that our network learns no further.</p>
 
-<h3 id="decaying-learning-rate">Decaying learning rate</h3>
+<h3>Decaying learning rate</h3>
 
 <p>From the previous scenario it is clear that the step size can't be fixed, it has to be varying, ideally the step size has to be large enough to explore the whole landscape. Then we can explore and get an idea about the whole landscape and slowly reduce the steps to the deepest part of the landscape. In order to achieve this we can introduce a <strong>decaying learning rate</strong> that will start with a higher value (eg: 1.0) and then slowly becomes smaller and smaller as the number of iterations increases.</p>
 
@@ -126,7 +126,7 @@ lang: en
 
 <p><code>iterations</code> - number of iterations</p>
 
-<h3 id="momentum-in-learning">Momentum in learning</h3>
+<h3>Momentum in learning</h3>
 
 <p>With the new varying step size (<code>lr</code>) let's continue our thought experiment we can see that the person has traveled all over the landscape and finally figured the right depth. But there is a problem when there are any sharp edges in the landscape. The direction to follow might change sharply. This can make the path look like a walk of someone so drunk with no sense of direction. Such a walk will make the learning so slow, the walk without a sense of direction slows the blind walker from reaching the goal.</p>
 
@@ -142,7 +142,7 @@ lang: en
 
 <p>Here if we give a higher weightage say 0.9 to the momentum factor then we are adjusting the weight giving higher importance to our past knowledge. This approach greatly improves the efficiency of weight updates and results in much smoother convergence of the neural network.</p>
 
-<h3 id="adaptive-learning-rate">Adaptive learning rate</h3>
+<h3>Adaptive learning rate</h3>
 
 <p>Even after understanding many aspects of neural networks, I remained curious about how gradient updates actually work. I noticed that weights and biases were being updated uniformly using the same learning rate. This part felt like a black box to me, largely because the learning resources I had previously used didn't go into much detail about how weight updates are performed. However, I later realized that this isn't entirely accurate each weight is updated based on its own gradient value. A large gradient indicates that a small change in the weight can significantly affect the loss function. Conversely, if the gradient is small, a larger change in the weight is needed to have any noticeable impact on the loss. Since the goal is to minimize the loss by adjusting the weights, this distinction is crucial. Intuitively, this suggests that the learning rate should be inversely related to the magnitude of the gradient.</p>
 
@@ -164,7 +164,7 @@ lang: en
 
 <p>Note that here we are not using any momentum like before. This is a different approach than before. Here when the gradient is higher then <code>G</code> will also be higher and this will result in a small value of <code>lr</code>. If the gradient is small then the value of <code>G</code> will also be lower and this will result in an increase in the learning rate. But there is a small problem here: if the number of iterations increases the value of <code>G</code> will eventually go up and this will result in a smaller and smaller step size on an already decaying learning rate. Therefore at a higher number of iterations we will be facing the same problem of stagnant learning.</p>
 
-<h3 id="rmsprop-an-improvement-over-the-adagrad">RMSProp an improvement over the AdaGrad</h3>
+<h3>RMSProp an improvement over the AdaGrad</h3>
 
 <p><strong>RMSProp</strong> (Tieleman &amp; Hinton, 2012) algorithm is an improvement over the AdaGrad algorithm. This is introduced to tackle the problem that at a higher number of iterations the learning will eventually stop because of smaller learning rates. Let's check how RMSProp solves this problem. RMSProp modifies the way in which gradient cache <code>G</code> in AdaGrad accumulates. The modification is as follows.</p>
 
@@ -174,7 +174,7 @@ lang: en
 
 <p>This modification will force the cache <code>G</code> to grow at a much lower rate therefore the learning rate will be affected at a much slower rate than the AdaGrad algorithm. This enables the learning process continue smoothly.</p>
 
-<h3 id="adam-optimizer">Adam Optimizer</h3>
+<h3>Adam Optimizer</h3>
 
 <p>Finally all these understandings over time lead to the development of a new optimizer called <strong>Adam</strong> (Diederik, Jimmy 2015). The name Adam is derived from <strong>adaptive moment estimation</strong> not from the first bible man Adam. Adam combines the good parts of decay, momentum and AdaGrad algorithms. This has been the goto choice in many examples that I have seen. Once we understand mechanisms explained so far then Adam feels like a very natural tweak. Adam optimizer modifies the weight updates as follows.</p>
 

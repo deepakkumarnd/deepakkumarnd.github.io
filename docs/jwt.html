@@ -82,7 +82,7 @@ date: 09/08/2026
 lang: en
 -->
 
-<h1 id="how-secure-is-jwt-token">How Secure Is JWT Token</h1>
+<h1>How Secure Is JWT Token</h1>
 
 <p>JSON Web Token (JWT) is fundamentally a compact string representation of claims, commonly containing a JSON payload. When a JWT is digitally signed, its authenticity and integrity can be verified using a cryptographic signing key.</p>
 
@@ -183,7 +183,7 @@ lang: en
 
 <p>In a normal scenario with a properly configured HTTPS connection, capturing an access token through a traditional man-in-the-middle attack is extremely difficult because TLS protects the communication between the client and server.</p>
 
-<h3 id="what-happens-if-an-attacker-obtains-the-access-token-">What happens if an attacker obtains the access token ?</h3>
+<h3>What happens if an attacker obtains the access token ?</h3>
 
 <p>If attacker obtains access token through some other means for example, a compromised device, a malicious browser extension, leaked server logs, XSS, or a compromised TLS endpoint then it is a serious situation. Attacker can use it to impersonate the user and access the resources authorized by that token. In a typical stateless JWT-based authentication system, the token remains valid until it expires, unless the server has an additional mechanism for revoking or rejecting it.</p>
 
@@ -191,7 +191,7 @@ lang: en
 
 <p>But once the stolen access token expires, it can no longer be used to authenticate requests. This is one of the primary security benefits of keeping access tokens short-lived: it limits the amount of time an attacker can abuse a stolen token.</p>
 
-<h3 id="what-happens-if-an-attacker-obtains-the-refresh-token">What happens if an attacker obtains the refresh token?</h3>
+<h3>What happens if an attacker obtains the refresh token?</h3>
 
 <p>This is a more serious situation. Unlike a short-lived access token, a refresh token is specifically intended to obtain new access tokens. If an attacker obtains a valid refresh token, they can present it to the legitimate refresh endpoint and potentially obtain new access tokens, allowing them to continue impersonating the user even after the original access token has expired.</p>
 

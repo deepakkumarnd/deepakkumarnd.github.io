@@ -84,7 +84,7 @@ tags: Programming, Ruby
 category: Programming
 -->
 
-<h1 id="private-constants-in-ruby">Private constants in ruby</h1>
+<h1>Private constants in ruby</h1>
 
 <p><em>25/09/2026</em></p>
 
@@ -108,7 +108,7 @@ irb<span class="o">(</span>main<span class="o">)</span>:026&gt; NAME.concat<span
 
 <p>Therefore it is upto the developer to use constant sensibily. A class name such as <code>Tiger</code> or module name such as <code>Carnivorous</code> also starts with a capital letter, yes they are treated as constants in ruby. Just like constants they can be reassigned. If you reassign <code>Tiger</code> as <code>Cow</code> then of course <code>Tiger</code> becomes a <code>Cow</code> and that is not going to be funny.</p>
 
-<h2 id="visibility-of-a-constant">Visibility of a constant</h2>
+<h2>Visibility of a constant</h2>
 
 <p>If you define a constant it is accessible publicly, more like a global variable. You can access deeply nested constants using the scope operator. You can list down all the constants defined within a class or module by calling the method <code>constants</code>.</p>
 
@@ -142,7 +142,7 @@ irb<span class="o">(</span>main<span class="o">)</span>:016&gt; Animal::Tiger::T
 <span class="o">=&gt;</span> <span class="s2">"wild"</span>
 </code></pre></div></div>
 
-<h2 id="private-constants">Private constants</h2>
+<h2>Private constants</h2>
 
 <p>From the above examples it is very clear that your constant are accessible ourside the scope. But some of the constants such as <code>OUTPUT_FORMAT</code> does not make sense outside its scope. What if you want to define constants privately ? Starting with ruby 1.9.3 ruby introduced <a href="https://www.rubydoc.info/stdlib/core/Module:private_constant">Module.private_constant</a> method that lets you make constants private. In the above example if you don't want to expose the behavioural modules and <code>OUTPUT_FORMAT</code> then you can make them private as follows.</p>
 
