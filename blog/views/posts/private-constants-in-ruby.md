@@ -6,7 +6,7 @@ tags: Programming, Ruby
 category: Programming
 -->
 
-# Private constants in ruby
+# {post_title}
 
 _{post_date}_
 
