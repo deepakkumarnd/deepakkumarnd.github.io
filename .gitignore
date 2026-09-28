@@ -11,3 +11,4 @@ Thumbs.db
 build/
 .sass-cache/
 */public/*
+blog/parrot
