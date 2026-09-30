@@ -27,6 +27,7 @@ header .site-identity {
 
   h2 {
     margin: 0;
+    font-family:'Courier New', Courier, monospace;
   }
 }
 
@@ -46,5 +47,21 @@ main {
   h1 { line-height: 1.5; }
   h3 {
     font-family: cursive;
+  }
+}
+
+.post-tags {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+
+  .tag {
+    display: inline-block;
+    padding: 0.1rem 0.2rem;
+    border-color: var(--primary-dark);
+    font-weight:200;
+    font-size: medium;
+    color: var(--info-light);
+    text-transform: uppercase;
   }
 }

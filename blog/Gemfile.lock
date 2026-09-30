@@ -1,6 +1,6 @@
 GIT
   remote: git@github.com:deepakkumarnd/parrot.git
-  revision: acf079f6046a3a9f37f869216b44bcb66b4646f1
+  revision: 18ab1589e18871375cc147a347eccdf07f22a8d8
   specs:
     parrot (0.2.4)
       kramdown
