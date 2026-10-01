@@ -2,6 +2,8 @@
 title: Reinforcement Learning (Part 1)
 date: 09/08/2025
 lang: en
+category: Machine Learning
+tags: Reinforcement Learning, Agents, Rewards
 -->
 
 # Reinforcement Learning (Part 1)

@@ -2,6 +2,8 @@
 title: Why Not Ask AI?
 date: 09/09/2026
 lang: en
+category: AI
+tags: AI, Productivity, Learning
 -->
 
 # Why Not Ask AI?

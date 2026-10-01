@@ -2,6 +2,8 @@
 title: Anonymous functions in elixir
 date: 05/06/2016
 lang: en
+category: Programming
+tags: Elixir, Functional Programming
 -->
 
 # Anonymous functions in elixir

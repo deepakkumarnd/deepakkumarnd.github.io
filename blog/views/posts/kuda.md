@@ -2,6 +2,8 @@
 title: കുടമാഹാത്മ്യം
 date: 25/05/2025
 lang: ml
+category: Stories
+tags: Umbrella, Monsoon, Childhood, മലയാളം
 -->
 
 # കുടമാഹാത്മ്യം

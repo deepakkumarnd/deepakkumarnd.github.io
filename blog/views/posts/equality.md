@@ -2,6 +2,8 @@
 title: തുല്യത എന്ന സാങ്കല്പിക ആധുനിക മൂല്യം
 date: 26/07/2025
 lang: ml
+category: Philosophy
+tags: Equality, Constitution, Society, മലയാളം
 -->
 
 # തുല്യത എന്ന സാങ്കല്പിക ആധുനിക മൂല്യം

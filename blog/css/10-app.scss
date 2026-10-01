@@ -66,21 +66,28 @@ main {
   }
 }
 
+// Shared look for post tags and category tags.
+%tag {
+  display: inline-block;
+  padding: 0.1rem 0.2rem;
+  border-color: var(--primary-dark);
+  font-weight:200;
+  font-size: medium;
+  color: var(--info-light);
+  text-transform: uppercase;
+}
+
 .post-tags {
   margin-top: 2rem;
   font-size: 0.9rem;
   color: var(--text-light);
 
-  .tag {
-    display: inline-block;
-    padding: 0.1rem 0.2rem;
-    border-color: var(--primary-dark);
-    font-weight:200;
-    font-size: medium;
-    color: var(--info-light);
-    text-transform: uppercase;
-  }
+  .tag { @extend %tag; }
 }
+
+// {post_category_tag} in list_format and the category under a post's title
+// both render as <a class="category-tag">.
+.category-tag { @extend %tag; }
 
 footer {
   margin: 2em 0;

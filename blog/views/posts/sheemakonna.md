@@ -2,6 +2,8 @@
 title: ശീമക്കൊന്ന
 date: 04/05/2025
 lang: ml
+category: Stories
+tags: Kerala, Plants, Nature, മലയാളം
 -->
 
 # ശീമക്കൊന്ന

@@ -2,6 +2,8 @@
 title: Loss Optimizers
 date: 29/05/2025
 lang: en
+category: Machine Learning
+tags: Neural Networks, Optimizers, Gradient Descent
 -->
 
 # Loss Optimizers

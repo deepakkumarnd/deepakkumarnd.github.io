@@ -2,6 +2,8 @@
 title: N-Bandits problem
 date: 08/09/2026
 lang: en
+category: Machine Learning
+tags: Reinforcement Learning, Exploration, Decision Making
 -->
 
 # N-Bandits problem

@@ -2,6 +2,8 @@
 title: ടി ഡി രാമകൃഷ്ണന്റെ ദേവനായകി
 date: 01/06/2025
 lang: ml
+category: Books
+tags: Book Review, Malayalam Literature, T D Ramakrishnan, മലയാളം
 -->
 
 # ടി ഡി രാമകൃഷ്ണന്റെ ദേവനായകി

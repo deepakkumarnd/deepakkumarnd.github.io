@@ -2,6 +2,8 @@
 title: Neural Network Learns a Half-Circle
 date: 24/06/2025
 lang: en
+category: Machine Learning
+tags: Neural Networks, Python, NumPy
 -->
 
 # Neural Network Learns a Half-Circle

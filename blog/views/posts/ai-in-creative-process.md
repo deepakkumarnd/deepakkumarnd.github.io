@@ -2,6 +2,8 @@
 title: AI in creative process
 date: 14/09/2026
 lang: en
+category: AI
+tags: AI, Software Development, Creativity
 -->
 
 # AI in creative process

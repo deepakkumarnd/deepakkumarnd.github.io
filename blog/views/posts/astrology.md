@@ -2,6 +2,8 @@
 title: A second look at the original problem hiding behind Astrology
 date: 07/05/2025
 lang: en
+category: Philosophy
+tags: Astrology, Belief, Prediction
 -->
 
 # A second look at the original problem hiding behind Astrology

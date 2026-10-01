@@ -2,6 +2,8 @@
 title: Getting the distributed unique realtime counts
 date: 19/01/2022
 lang: en
+category: Engineering
+tags: HyperLogLog, Redis, Distributed Systems
 -->
 
 # Getting the distributed unique realtime counts

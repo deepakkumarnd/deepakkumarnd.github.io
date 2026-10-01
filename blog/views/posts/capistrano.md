@@ -2,6 +2,8 @@
 title: Deploying ruby applications using Capistrano
 date: 13/01/2014
 lang: en
+category: Engineering
+tags: Ruby, Capistrano, Deployment
 -->
 
 # Deploying ruby applications using Capistrano

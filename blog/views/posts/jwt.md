@@ -2,6 +2,8 @@
 title: How Secure Is JWT Token
 date: 09/08/2026
 lang: en
+category: Engineering
+tags: JWT, OAuth, Security
 -->
 
 # How Secure Is JWT Token

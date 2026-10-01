@@ -2,6 +2,8 @@
 title: ആനക്കഥ
 date: 22/05/2025
 lang: ml
+category: Stories
+tags: Wayanad, Elephant, Childhood, മലയാളം
 -->
 
 # ആനക്കഥ

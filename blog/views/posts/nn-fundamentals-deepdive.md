@@ -2,6 +2,8 @@
 title: Deep diving into fundamentals of neural networks
 date: 18/05/2025
 lang: en
+category: Machine Learning
+tags: Neural Networks, Perceptron, Fundamentals
 -->
 
 # Deep diving into fundamentals of neural networks

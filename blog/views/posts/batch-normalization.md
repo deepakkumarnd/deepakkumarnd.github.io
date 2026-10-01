@@ -2,6 +2,8 @@
 title: Batch normalization
 date: 18/06/2025
 lang: en
+category: Machine Learning
+tags: Neural Networks, Deep Learning, Normalization
 -->
 
 # Batch normalization

@@ -2,6 +2,8 @@
 title: GCD and LCM
 date: 01/01/2012
 lang: en
+category: Programming
+tags: Math, Algorithms, C
 -->
 
 # GCD and LCM

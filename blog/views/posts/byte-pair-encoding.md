@@ -2,6 +2,8 @@
 title: Byte Pair Encoding
 date: 01/05/2025
 lang: en
+category: Machine Learning
+tags: NLP, Tokenization, Language Models
 -->
 
 # Byte Pair Encoding
