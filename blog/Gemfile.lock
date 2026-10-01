@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:deepakkumarnd/parrot.git
-  revision: 152f673a0c056c5b51111e0bfd6baa34bf2c2c2d
+  revision: 7b278b671f60113650f4e1754087ca21527f1e50
   specs:
-    parrot (0.2.4)
+    parrot (0.3.0)
       kramdown
       kramdown-parser-gfm
       logger
@@ -50,7 +50,7 @@ CHECKSUMS
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
   nokogiri (1.19.4-arm64-darwin) sha256=a46db9853286e6597b36ebc6953817d15acf3a299583eb3f89fdc6f91dd63527
   observer (0.1.2) sha256=d8a3107131ba661138d748e7be3dbafc0d82e732fffba9fccb3d7829880950ac
-  parrot (0.2.4)
+  parrot (0.3.0)
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
   rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rouge (5.1.0) sha256=b77c632842ab7f5147940212f0345808cccfbce864fd5b631d7d12a35ac85452
