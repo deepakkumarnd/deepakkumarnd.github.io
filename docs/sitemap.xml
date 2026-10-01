@@ -103,4 +103,36 @@
   <url>
     <loc>https://deepsnapster.com/about.html</loc>
   </url>
+  <url>
+    <loc>https://deepsnapster.com/categories.html</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-ai.html</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-books.html</loc>
+    <lastmod>2025-06-01</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-engineering.html</loc>
+    <lastmod>2026-09-22</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-machine-learning.html</loc>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-philosophy.html</loc>
+    <lastmod>2025-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-programming.html</loc>
+    <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-stories.html</loc>
+    <lastmod>2025-05-25</lastmod>
+  </url>
 </urlset>
