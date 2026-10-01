@@ -34,7 +34,23 @@ header .site-identity {
 header .site-navigation {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem;
+}
+
+// Icon shows the theme you'd switch to: moon in light mode, sun in dark mode.
+.theme-toggle {
+  min-width: 0;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  color: var(--body-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-full);
+  font-size: 1rem;
+  line-height: 1;
+
+  &::before { content: "☾"; }
+  :root[color-scheme=dark] &::before { content: "☀"; }
 }
 
 .back-link {
@@ -63,5 +79,25 @@ main {
     font-size: medium;
     color: var(--info-light);
     text-transform: uppercase;
+  }
+}
+
+footer {
+  margin: 2em 0;
+}
+
+:root[color-scheme=dark] {
+  color-scheme: dark;
+}
+
+// Rouge's .highlighter-rouge wrapper already draws the code box. Classless's
+// dark-mode pre/code backgrounds outrank Rouge's reset and add inner boxes,
+// so clear them here with matching specificity.
+:root .highlighter-rouge {
+  pre, code {
+    background: none;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
   }
 }
