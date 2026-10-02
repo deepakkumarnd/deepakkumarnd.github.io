@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://deepsnapster.com/</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/index2.html</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/aanakkadha.html</loc>
@@ -51,6 +51,10 @@
   <url>
     <loc>https://deepsnapster.com/gcd-and-lcm.html</loc>
     <lastmod>2012-01-01</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/journey-through-my-favourite-text-editors.html</loc>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/journey-to-eventual-consistency.html</loc>
@@ -105,7 +109,7 @@
   </url>
   <url>
     <loc>https://deepsnapster.com/categories.html</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/category-ai.html</loc>
@@ -130,6 +134,10 @@
   <url>
     <loc>https://deepsnapster.com/category-programming.html</loc>
     <lastmod>2026-09-25</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/category-reflections.html</loc>
+    <lastmod>2026-10-02</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/category-stories.html</loc>

@@ -6,6 +6,13 @@
     <description>Deepak Kumar's personal writings</description>
     <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Journey through my favourite text editors</title>
+      <link>https://deepsnapster.com/journey-through-my-favourite-text-editors.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/journey-through-my-favourite-text-editors.html</guid>
+      <pubDate>Fri, 02 Oct 2026 00:00:00 -0000</pubDate>
+      <description>I have been using many text editors since my college days. College days because that's when I brought my first computer financed by an educational loan…</description>
+    </item>
+    <item>
       <title>Private constants in ruby</title>
       <link>https://deepsnapster.com/private-constants-in-ruby.html</link>
       <guid isPermaLink="true">https://deepsnapster.com/private-constants-in-ruby.html</guid>
