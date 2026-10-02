@@ -108,3 +108,20 @@ footer {
     padding: 0;
   }
 }
+
+// Monokai's comment color (#75715e) is ~1.9:1 on the #49483e code box, so
+// comments are barely readable. Lift it to ~4.9:1 while staying muted next to
+// the #f8f8f2 code text. :root bumps specificity past the theme, which loads
+// after this file.
+:root .highlighter-rouge {
+  .c, .ch, .cd, .cpf, .cm, .c1, .cp, .cs {
+    color: #c2bea6;
+  }
+}
+
+// Rouge marks text its lexer can't parse (e.g. `//` in plain json) as .err,
+// which Monokai paints as a red-on-maroon box. Show it as ordinary code text.
+:root .highlighter-rouge .err {
+  color: inherit;
+  background: none;
+}
