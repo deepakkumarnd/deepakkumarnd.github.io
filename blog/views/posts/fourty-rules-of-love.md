@@ -3,6 +3,7 @@ title: Fourty rules of love
 date: 13/06/2026
 lang: ml
 tags: മലയാളം, Book Review, Summary
+category: Books
 -->
 
 # {post_title}
