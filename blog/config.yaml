@@ -8,3 +8,6 @@ post_listing:
 post_date_format:
   on_list: "%d-%b"
   on_post: "%d-%m-%Y"
+search:
+  enabled: true
+  placeholder: "Search posts"
