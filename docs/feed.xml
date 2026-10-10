@@ -171,7 +171,7 @@
       <link>https://deepsnapster.com/unique-counts-using-hyperloglog.html</link>
       <guid isPermaLink="true">https://deepsnapster.com/unique-counts-using-hyperloglog.html</guid>
       <pubDate>Wed, 19 Jan 2022 00:00:00 -0000</pubDate>
-      <description>How do you identify on a realtime basis, unique number of items such as unique number of users visiting your website, unique number of people doing a…</description>
+      <description>How do you count unique number of users visiting your high traffic website ? You may log visits to a file and use a batch job to get the unique counts.…</description>
     </item>
     <item>
       <title>Anonymous functions in elixir</title>
