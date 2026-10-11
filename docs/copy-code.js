@@ -4,7 +4,6 @@
 // corner that copies the code and shows a short "Copied" toast. Restyle it
 // through the .code-block, .copy-code and .copy-toast classes.
 (() => {
-  const COPY_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
   const LABEL = 'Copy code';
   const TOAST_MS = 1500;
 
@@ -61,7 +60,9 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'copy-code';
-    button.innerHTML = `${COPY_ICON}<span>${LABEL}</span>`;
+    // The icon itself is images/copy-icon.svg, drawn by app.css as a mask
+    // so it takes the button's text colour.
+    button.innerHTML = `<span class="copy-code-icon" aria-hidden="true"></span><span>${LABEL}</span>`;
     button.addEventListener('click', async () => {
       try {
         // Kramdown ends every block with a newline; leave it out of the copy.
