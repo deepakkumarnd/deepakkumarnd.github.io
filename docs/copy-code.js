@@ -1,9 +1,11 @@
-// Copy buttons for code blocks, shipped by Parrot into every build. Each
-// <pre><code> block gets a button in its top-right corner that copies the
-// code and shows a short "Copied" toast. Restyle it through the .code-block,
-// .copy-code and .copy-toast classes.
+// Copy buttons for code blocks, shipped by Parrot into every build and
+// loaded by the layout on every page. It does nothing on a page without a
+// code block; otherwise each <pre><code> block gets a button in its top-right
+// corner that copies the code and shows a short "Copied" toast. Restyle it
+// through the .code-block, .copy-code and .copy-toast classes.
 (() => {
   const COPY_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const LABEL = 'Copy code';
   const TOAST_MS = 1500;
 
   let toast;
@@ -59,9 +61,7 @@
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'copy-code';
-    button.title = 'Copy code';
-    button.setAttribute('aria-label', 'Copy code');
-    button.innerHTML = COPY_ICON;
+    button.innerHTML = `${COPY_ICON}<span>${LABEL}</span>`;
     button.addEventListener('click', async () => {
       try {
         // Kramdown ends every block with a newline; leave it out of the copy.
@@ -74,7 +74,12 @@
     wrapper.appendChild(button);
   };
 
-  const init = () => document.querySelectorAll('pre > code').forEach(addButton);
+  const init = () => {
+    const blocks = document.querySelectorAll('pre > code');
+    if (!blocks.length) return;
+
+    blocks.forEach(addButton);
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
