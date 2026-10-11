@@ -36,7 +36,7 @@
   <meta name="turbo-refresh-method" content="morph">
 
   <title>How Secure Is JWT Token</title>
-<script src="search.js" defer></script><meta property="article:tag" content="JWT">
+<script src="search.js" defer></script><script src="copy-code.js" defer></script><meta property="article:tag" content="JWT">
 <meta property="article:tag" content="OAuth">
 <meta property="article:tag" content="Security">
 <meta property="article:published_time" content="2026-08-09">
@@ -98,7 +98,7 @@ tags: JWT, OAuth, Security
 
 <p>JSON Web Token (JWT) is fundamentally a compact string representation of claims, commonly containing a JSON payload. When a JWT is digitally signed, its authenticity and integrity can be verified using a cryptographic signing key.</p>
 
-<p>OAuth 2.0 defines authentication semantics as per the following diagram, the <code>access_token</code> and <code>refresh_token</code> are two tokens required for OAuth 2.0 and JWT is a good fit as these tokens. Therefore JWT is commonly used to implement authentication and authorization in systems built around OAuth 2.0 and OpenID Connect.</p>
+<p><strong>OAuth 2.0</strong> defines authentication semantics as per the following diagram, the <strong><code>access_token</code></strong> and <strong><code>refresh_token</code></strong> are two tokens required for OAuth 2.0 and JWT is a good fit as these tokens. Therefore, JWT is commonly used to implement authentication and authorization in systems built around OAuth 2.0 and OpenID Connect.</p>
 
 <pre><code>OAuth 2.0
 │
@@ -111,16 +111,18 @@ tags: JWT, OAuth, Security
         └── can be JWT or opaque token
 </code></pre>
 
-<p>Since a JWT uses URL-safe Base64 encoding, it can be safely transmitted in a URL, as a bearer token in an HTTP header, or in the request body. However, putting an access token in a URL is generally discouraged because URLs can be exposed through browser history, server logs, analytics systems etc. The recommended approach for API authentication is typically to send the access token as a <code>Bearer token</code> in the <code>Authorization HTTP header</code>.</p>
+<p>JWT uses URL-safe Base64 encoding, it can be safely transmitted in a URL either as a bearer token in an HTTP header or in the request body. However, putting an access token in a URL is generally discouraged because URLs can be exposed through browser history, server logs, analytics systems etc. The recommended approach for API authentication is typically to send the access token as a <strong>Bearer token</strong> in the <strong>Authorization HTTP header</strong>.</p>
 
-<p>A JWT can contain information, known as claims, that a server can validate without querying a database or another centralized source of authority. For example, the server can verify the token's signature and inspect claims such as the subject (sub), expiration time (exp), issuer (iss), and audience (aud). Just imagine in a heavy production traffic system the throughput that you can gain by dropping a database query or cache read per request for authentication. This self-contained nature is one reason JWTs are widely used for authentication and authorization.</p>
+<p>A JWT can contain information, known as claims, that a server can validate without querying a database or another centralized source of authority. For example, the server can verify the token's signature and inspect claims such as the subject (<strong>sub</strong>), expiration time (<strong>exp</strong>), issuer (<strong>iss</strong>), and audience (<strong>aud</strong>).  This self-contained nature is one reason why JWTs are widely used for authentication and authorization. In a production system with heavy traffic the throughput you can gain by dropping a database query or cache read per request for authentication is significant.</p>
 
-<p>Now lets look at how to generate JWT and its structure. Here is an example code in typescript that generates a JWT. Before generating JWT you need to generate a <code>JWT_SECRET</code> (a cryptographic key) as follows I am using <code>bun</code> to generate this key.</p>
+<p>Now lets look at how to generate JWT and its structure. Here is an example code in typescript that generates a JWT. Before generating JWT you need to generate a <strong><code>JWT_SECRET</code></strong> (a cryptographic key) as follows I am using <strong><code>bun</code></strong> to generate this key.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>bun <span class="nt">-e</span> <span class="s2">"console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nv">$ </span>bun <span class="nt">-e</span> <span class="s2">"console.log(Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url'))"</span>
+
 </code></pre></div></div>
 
-<p>Now use the generated <code>JWT_SECRET</code> as an environment variable. The following code will generate a JWT with our <code>JWT_SECRET</code> as signin key with an expiry of five minutes.</p>
+<p>Now use the generated <code>JWT_SECRET</code> as an environment variable. The following code will generate a JWT with our <code>JWT_SECRET</code> as signin key with an expiry of five minutes. You may need to install the <code>jose</code> library before running the code.</p>
 
 <div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">SignJWT</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">jose</span><span class="dl">"</span>
 
@@ -132,7 +134,7 @@ tags: JWT, OAuth, Security
     <span class="p">})</span>
         <span class="p">.</span><span class="nf">setProtectedHeader</span><span class="p">({</span> <span class="na">alg</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HS256</span><span class="dl">"</span> <span class="p">})</span>
         <span class="p">.</span><span class="nf">setIssuedAt</span><span class="p">()</span>
-        <span class="p">.</span><span class="nf">setExpirationTime</span><span class="p">(</span><span class="dl">"</span><span class="s2">15m</span><span class="dl">"</span><span class="p">)</span>
+        <span class="p">.</span><span class="nf">setExpirationTime</span><span class="p">(</span><span class="dl">"</span><span class="s2">5m</span><span class="dl">"</span><span class="p">)</span>
         <span class="p">.</span><span class="nf">sign</span><span class="p">(</span><span class="nx">secret</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -150,7 +152,7 @@ tags: JWT, OAuth, Security
 └────────────── Header
 </code></pre>
 
-<p>You may go to https://www.jwt.io/ or https://jwt.ms/ and copy paste the JWT and decode the token.  You will see the decoded token as follows.</p>
+<p>You may go to https://www.jwt.io/ or https://jwt.ms/ and copy and paste the JWT to decode the token.  You will see the decoded token as follows.</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
@@ -161,9 +163,15 @@ tags: JWT, OAuth, Security
 </span><span class="p">}</span><span class="err">.</span><span class="p">[</span><span class="err">Signature</span><span class="p">]</span><span class="w">
 </span></code></pre></div></div>
 
-<p>As you can see above anybody who can access JWT can decode it, which is why it is advised not to keep any sensitive information in the JWT. Once the token is generated it can be validated as follows.</p>
+<blockquote>
+  <p>As you can see anybody who can access JWT can decode it, which is why it is advised not to keep any sensitive information in the JWT.</p>
+</blockquote>
 
-<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">verifyAccessToken</span><span class="p">(</span><span class="nx">token</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
+<p>Once the token is generated it can be validated as follows.</p>
+
+<div class="language-typescript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">jwtVerify</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">jose</span><span class="dl">"</span>
+
+<span class="kd">function</span> <span class="nf">verifyAccessToken</span><span class="p">(</span><span class="nx">token</span><span class="p">:</span> <span class="kr">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="kd">const</span> <span class="p">{</span> <span class="nx">payload</span> <span class="p">}</span> <span class="o">=</span> <span class="k">await</span> <span class="nf">jwtVerify</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">JWT_SECRET</span><span class="o">!</span><span class="p">,</span> <span class="p">{</span>
             <span class="na">algorithms</span><span class="p">:</span> <span class="p">[</span><span class="dl">"</span><span class="s2">HS256</span><span class="dl">"</span><span class="p">],</span>
@@ -181,17 +189,17 @@ tags: JWT, OAuth, Security
 
 <p>When the server can validate the JWT and make authorization decisions without maintaining server side session state for that token, the authentication mechanism can operate in a <code>stateless</code> manner. However, JWT itself is not inherently stateless; a highly secure system can still maintain server-side state for purposes such as <code>token revocation</code>, <code>session management</code>, or <code>refresh-token tracking</code>.</p>
 
-<p>The JWT is typically issued by the server and stored by the client. On each request, the client sends the JWT to the server. The server verifies the token's signature and validates relevant claims, such as its expiration time. If the token is valid and the claims satisfy the server's requirements, the request is considered authenticated and the server can authorize the requested operation.</p>
+<p>The JWT is typically issued by the server and stored by the client. On each request, the client sends the JWT to the server. The server verifies the token's signature and validates relevant claims, such as its expiration time. If the token is valid and the claims satisfy the server's requirements, the request is considered authenticated the server can authorize the requested operation.</p>
 
 <p>As per the OAuth 2.0 requirements we can have JWT-based authentication system involves two types of tokens and a cryptographic signing key.</p>
 
 <ol>
-  <li>Short lived <code>access_token</code> — a JWT used to authenticate API requests.</li>
-  <li>Long lived <code>refresh_token</code> — a credential used to obtain new access tokens. It can be a JWT, but it is often implemented as an opaque, random token stored and tracked by the server.</li>
-  <li>Signing key — a cryptographic key used by the server to sign JWTs and verify their authenticity. The signing key is kept securely by the server and is not given to the client.</li>
+  <li>Short-lived <code>access_token</code> — a JWT used to authenticate API requests.</li>
+  <li>Long-lived <code>refresh_token</code> — a credential used to obtain new access tokens. It can be a JWT, but it is often implemented as an opaque, random token stored and tracked by the server.</li>
+  <li>Signing key <code>JWT_TOKEN</code> — a cryptographic key used by the server to sign JWTs and verify their authenticity. The signing key is kept securely by the server and is not given to the client.</li>
 </ol>
 
-<p>An access token also know as short lived token is normally valid for a short duration. Once it expires, the client can no longer use it to access protected resources and must obtain a new access token from the server using a longer lived refresh token. If an access token is stolen, the attacker can potentially use it until the token expires. A shorter lifetime therefore limits the window during which a stolen access token can be abused. Long lived access tokens provide a larger window of opportunity for an attacker and are therefore generally less desirable from a security perspective.</p>
+<p>An access token also known as short-lived token is normally valid for a short duration. Once it expires, the client can no longer use it to access protected resources and must obtain a new access token from the server using a longer lived refresh token. If an access token is stolen, the attacker can potentially use it until the token expires. A shorter lifetime therefore limits the window during which a stolen access token can be abused. Long-lived access tokens provide a larger window of opportunity for an attacker and are therefore generally less desirable from a security perspective.</p>
 
 <p>In a normal scenario with a properly configured HTTPS connection, capturing an access token through a traditional man-in-the-middle attack is extremely difficult because TLS protects the communication between the client and server.</p>
 
@@ -199,7 +207,9 @@ tags: JWT, OAuth, Security
 
 <p>If attacker obtains access token through some other means for example, a compromised device, a malicious browser extension, leaked server logs, XSS, or a compromised TLS endpoint then it is a serious situation. Attacker can use it to impersonate the user and access the resources authorized by that token. In a typical stateless JWT-based authentication system, the token remains valid until it expires, unless the server has an additional mechanism for revoking or rejecting it.</p>
 
-<p>Issuing a new access token to the legitimate user does not, by itself, invalidate the previously issued token. Therefore, if the user logs in on another device and receives a new access token, the attacker may still be able to use the stolen token until it expires.</p>
+<p>Issuing a new access token to the legitimate user does not by itself, invalidate the previously issued token. Therefore, if the user logs in on another device and receives a new access token, the attacker may still be able to use the stolen token until it expires.</p>
+
+<p>One countermeasure to prevent the attacker from using the stolen <code>access_token</code> is to maintain list of issued active tokens in a cache store cross-check with cache for every authentication. Now we can blacklist or expire them once we get to know about the token compromise. But this is not an effective method at scale and defeats the purpose.</p>
 
 <p>But once the stolen access token expires, it can no longer be used to authenticate requests. This is one of the primary security benefits of keeping access tokens short-lived: it limits the amount of time an attacker can abuse a stolen token.</p>
 
@@ -207,7 +217,7 @@ tags: JWT, OAuth, Security
 
 <p>This is a more serious situation. Unlike a short-lived access token, a refresh token is specifically intended to obtain new access tokens. If an attacker obtains a valid refresh token, they can present it to the legitimate refresh endpoint and potentially obtain new access tokens, allowing them to continue impersonating the user even after the original access token has expired.</p>
 
-<p>The refresh endpoint response depends on how refresh tokens are implemented. A common approach is to make refresh tokens revocable and use refresh-token rotation. When a refresh token is used, the server issues a new refresh token and invalidates the previous one.</p>
+<p>The refresh endpoint response depends on how refresh tokens are implemented. A common approach is to make refresh tokens revocable and use refresh-token rotation. When a refresh token is rotated, the server issues a new refresh token and invalidates the previous one.</p>
 
 <pre><code>User logs in
     │
@@ -216,23 +226,23 @@ Refresh Token A, Access Token A1
     │          
     │ /refresh
     ▼
-Refresh Token B invalidates A, Access Token B1
+Refresh Token B, invalidates A, Access Token B1
     │
     │ /refresh
     ▼
-Refresh Token C invalidates B, Access Token C1
+Refresh Token C, invalidates B, Access Token C1
     │
     │ /refresh
     ▼
-Refresh Token D invalidates C, Access Token D1
+Refresh Token D, invalidates C, Access Token D1
 </code></pre>
 
-<p>The refresh token rotation issues new refresh tokens after each refresh. All these refresh tokens generated in a session are called family of tokens. Server can maintain a revocation list for these refresh token typically till the expiry time of the token, if the revoked token is used after invalidating it that is most likely a stolen token and is an attempt by an attacker.
-Server can now invalidate the entire family of refresh tokens generated by the user session so that user will be forced to login again or even lock the user account because of the suspicious activity.</p>
+<p>The refresh token rotation issues new refresh tokens after each refresh. All these refresh tokens generated in a session are called family of tokens. Server can maintain a revocation list for these refresh token typically till the expiry time of the token, <strong>if the revoked token is used after invalidating it that is most likely a stolen token and is an attempt by an attacker.</strong>
+Server can now invalidate the entire family of refresh tokens generated by the user session so that user will be forced to log in again or even lock the user account because of the suspicious activity.</p>
 
 <p>Another mechanism is signing-key rotation. The cryptographic key used by the server to sign JWTs by the server or other trusted services to verify them. If JWT access or refresh tokens are signed with a key that is subsequently removed from the set of trusted verification keys, those tokens can no longer be verified which will force the user to authenticate again.</p>
 
-<p>However, signing-key rotation is a relatively broad mechanism: depending on the implementation, it can invalidate tokens belonging to every user. Therefore, it is generally better suited to situations such as a compromised signing key, while refresh-token revocation or rotation provides more targeted control when an individual user's refresh token is compromised. MFA can also be required during re-authentication, particularly for sensitive accounts or high-risk operations.</p>
+<p>However, signing-key rotation is a relatively broad mechanism: depending on the implementation, it can invalidate tokens belonging to every user or token belonging to a region. Therefore, it is generally better suited to situations such as a compromised signing key, while refresh-token revocation or rotation provides more targeted control when an individual user's refresh token is compromised. MFA can also be required during re-authentication, particularly for sensitive accounts or high-risk operations.</p>
 
   <p class="post-tags">Tags: <span class="tag">JWT</span> <span class="tag">OAuth</span> <span class="tag">Security</span></p></main>
 
