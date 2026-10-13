@@ -1,0 +1,91 @@
+// The header's dropdown menu (<details class="menu"> in the nav). The build
+// compiles this file ahead of the rest of css/, so app.scss can override it.
+// Themed for Classless.css: colors, radii and shadows come from its
+// variables, so it follows the light/dark toggle.
+
+.menu {
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+
+  // The button. Looks like the nav's other links ("Categories").
+  > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0;
+    color: var(--link-color);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition-base);
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    // Classless draws a gradient underline under every summary with
+    // ::after; reuse it as a caret instead.
+    &::after {
+      content: "";
+      position: static;
+      width: 0.4em;
+      height: 0.4em;
+      margin-top: -0.2em;
+      background: none;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.2s ease-in-out, margin 0.2s ease-in-out;
+    }
+
+    &:hover {
+      color: var(--link-hover-color);
+    }
+  }
+
+  &[open] > summary::after {
+    margin-top: 0.2em;
+    transform: rotate(-135deg);
+  }
+
+  // The list that drops down. Anchored to the right edge, since the menu
+  // sits at the right of the header and would spill off narrow screens.
+  .menu-items {
+    position: absolute;
+    z-index: 20;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    min-width: 10rem;
+    margin: 0;
+    padding: 0.35rem;
+    list-style: none;
+    text-align: left;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+
+    li {
+      margin: 0;
+    }
+
+    a {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--border-radius-sm);
+      color: var(--body-color);
+      white-space: nowrap;
+
+      &:hover,
+      &:focus-visible {
+        background: var(--border-color);
+        color: var(--link-hover-color);
+      }
+    }
+  }
+}

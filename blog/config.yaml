@@ -11,3 +11,8 @@ post_date_format:
 search:
   enabled: true
   placeholder: "Search posts"
+menu:
+  label: "Menu"
+  pages:
+    - projects
+    - about
