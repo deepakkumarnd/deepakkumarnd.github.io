@@ -54,6 +54,8 @@ As of today, spinal is a subset of Ruby, it supports many of the language featur
 
 > Spinel runs Ruby Threads as true parallelism with no GVL. A threaded program is scheduled onto N OS workers that run green threads over a stop-the-world garbage collector, so CPU-bound threads make progress on separate cores at the same time. This is the JRuby / TruffleRuby model, not CRuby's: individual operations are not made atomic by a global lock.
 
+What about testing ? As of now spinal does not have a testing framework. Ruby's default`Minitest` won't work with spinal. The question is do we need a testing framework for spinal ? Spinal is just ruby so any testing framework that tests ruby code can technically test spinal code.
+
 So can spinal be drop-in replacement for Ruby ? Certainly not but I feel the direction spinal is taking is very hopeful for ruby programmers. For smaller ruby libraries and applications it could be a replacement with minimal code changes in near future. For large applications and libraries if we can rewrite parts to run on spinal then it is a going to be a great motivation boost to the ruby ecosystem.
 
 In the new age, where agents write most of the code, a programming language that is still readable without compromise on performance is the need of the hour. Agents generating rust for everything might not be a long term feasible solution. By compiling Ruby to C all those efforts and workarounds to optimize the language for raw performance and concurrency can be better utilized to produce high performant, agent safe, readable and maintainable code.
