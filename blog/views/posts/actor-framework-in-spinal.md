@@ -69,4 +69,6 @@ The program worked as expected with the old release. But in the latest main the 
 
 Anyway the issue didn't affect my development. I have created a simple POC version of actor framework [here](https://github.com/deepakkumarnd/actors).
 
+As I progressed I spotted another bug in `Enumerable#cycle` which I reported [here](https://github.com/matz/spinel/issues/9620). Matz merged a [fix](https://github.com/matz/spinel/commit/13bf19f25d3a15669b82193c2212fed9b4ea4458) and the issue go resolved. His agent is super cool btw.
+
 _To be continued ..._
