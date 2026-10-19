@@ -6,6 +6,13 @@
     <description>Deepak Kumar's personal writings</description>
     <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Building an actor framework in spinal</title>
+      <link>https://deepsnapster.com/actor-framework-in-spinal.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/actor-framework-in-spinal.html</guid>
+      <pubDate>Mon, 19 Oct 2026 00:00:00 -0000</pubDate>
+      <description>Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.</description>
+    </item>
+    <item>
       <title>Spinal new kid in the block</title>
       <link>https://deepsnapster.com/spinal-new-kid-in-the-block.html</link>
       <guid isPermaLink="true">https://deepsnapster.com/spinal-new-kid-in-the-block.html</guid>

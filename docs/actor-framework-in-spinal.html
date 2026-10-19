@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="Deepak Kumar">
+  <meta name="description" content="Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.">
+
+  <meta property="og:title" content="Building an actor framework in spinal">
+  <meta property="og:description" content="Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.">
+  <meta property="og:url" content="https://deepsnapster.com/actor-framework-in-spinal.html">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://deepsnapster.com/actor-framework-in-spinal.html">
+  <meta property="og:site_name" content="Deepak Kumar">
+  <meta property="og:image" content="https://deepsnapster.com/images/avatar.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:description" content="Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+  <link rel="stylesheet" href="app.css">
+  <script src="app.js"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZW6PHT9ZN6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-ZW6PHT9ZN6');
+  </script>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@latest/dist/turbo.es2017-esm.min.js"></script>
+  <meta name="turbo-refresh-method" content="morph">
+
+  <title>Building an actor framework in spinal</title>
+<script src="search.js" defer></script><script src="copy-code.js" defer></script><meta property="article:tag" content="Ruby">
+<meta property="article:tag" content="Spinal">
+<meta property="article:tag" content="Actor Model">
+<meta property="article:published_time" content="2026-10-19">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "url": "https://deepsnapster.com/actor-framework-in-spinal.html",
+  "headline": "Building an actor framework in spinal",
+  "mainEntityOfPage": "https://deepsnapster.com/actor-framework-in-spinal.html",
+  "inLanguage": "en",
+  "datePublished": "2026-10-19",
+  "dateModified": "2026-10-19",
+  "description": "Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.",
+  "keywords": "Ruby, Spinal, Actor Model",
+  "image": "https://deepsnapster.com/images/avatar.jpg",
+  "author": {
+    "@type": "Person",
+    "name": "Deepak Kumar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Deepak Kumar"
+  }
+}</script>
+</head>
+<body>
+  <header>
+    <div class="site-header">
+      <div class="site-identity">
+        <a href="/">
+          <img class="avatar" src="images/avatar.jpg" width="40" height="40" alt="Deepak Kumar">
+        </a>
+        <h2>Deepak Kumar</h2>
+      </div>
+      
+      <nav class="site-navigation">
+        <a href="/categories.html">Categories</a>
+        <details class="menu"><summary>Menu</summary><ul class="menu-items">
+<li><a href="/projects.html">Projects</a></li>
+<li><a href="/about.html">About Me</a></li>
+</ul></details>
+        <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"></button>
+      </nav>
+    </div>
+  <div class="search" hidden="hidden">
+<input class="search-input" type="search" placeholder="Search posts" aria-label="Search posts" autocomplete="off"><ul class="search-suggestions" id="search-suggestions" role="listbox" hidden="hidden"></ul>
+</div></header>
+  
+  <main><p class="back-link"><a href="index.html">← Back to all posts</a></p>
+    <!--
+title: Building an actor framework in spinal
+date: 19/10/2026
+lang: en
+category: Programming
+tags: Ruby, Spinal, Actor Model
+-->
+
+<h1>Building an actor framework in spinal</h1>
+<p class="post-meta"><time datetime="2026-10-19">19-10-2026</time> · <a class="category-tag" href="category-programming.html">Programming</a></p>
+
+<p><em>Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.</em></p>
+
+<p>The <a href="https://github.com/matz/spinel/blob/master/docs/thread.md">threads in Spinal</a> are parallel without GVL, and they are basically lightweight with large number of M threads multiplexed into fewer N OS workers (OS threads), probably just like Erlang processes. Therefore, it should be possible to build an actor framework using those threads.</p>
+
+<p>I have started working on an actor framework many years back, I knew the basics but never had an opportunity to use actor frameworks in production. My exposure to concurrency was very limited back then. After joining TrueCaller and working on an in house ad server made pushed me to learn more about Akka framework and explore it in details. Before Akka I spent some time on Elixir and tried to understand more about actors, supervisors and the mechanism. But working on ad server at scale gave me more insights.</p>
+
+<p>On last weekend after reading about the spinal threads I restarted my effort in creating a simple very limited actor library with my fresh perspective.</p>
+
+<p>While working on it, I found a new bug in the Spinal compiler's code-gen. I tried to simulate an expensive computation as follows.</p>
+
+<pre><code># File fib.rb
+def fib(n)
+    a, b = 0, 1
+
+    n.times do 
+        c = a + b
+        a = b
+        b = c
+    end
+
+    a
+end
+
+p fib(300000)
+</code></pre>
+
+<p>In Ruby we can run this program it works perfectly, ruby interpreter promotes integer to <code>Bignum</code> when required. But when compiling using spinal we need to tell the compiler that we need to promote the number to <code>Bignum</code> when needed. Otherwise, integer overflow occurs and program crashed while running.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>integer overflow <span class="k">in</span> + <span class="o">(</span>RangeError<span class="o">)</span>
+</code></pre></div></div>
+
+<p>So we need to instruct the compiler using a compiler flag <code>--int-overflow=promote</code>.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./spinal <span class="nt">--int-overflow</span><span class="o">=</span>promote fib.rb
+</code></pre></div></div>
+
+<p>But spinal throws an error saying.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fib.rb:2: error: incompatible integer to pointer conversion assigning to <span class="s1">'sp_Bigint *'</span> <span class="o">(</span>aka <span class="s1">'struct sp_Bigint *'</span><span class="o">)</span> from <span class="s1">'sp_int'</span> <span class="o">(</span>aka <span class="s1">'long'</span><span class="o">)</span> <span class="o">[</span><span class="nt">-Wint-conversion</span><span class="o">]</span>
+fib.rb:2: error: incompatible integer to pointer conversion assigning to <span class="s1">'sp_Bigint *'</span> <span class="o">(</span>aka <span class="s1">'struct sp_Bigint *'</span><span class="o">)</span> from <span class="s1">'sp_int'</span> <span class="o">(</span>aka <span class="s1">'long'</span><span class="o">)</span> <span class="o">[</span><span class="nt">-Wint-conversion</span><span class="o">]</span>
+fib.rb:2: error: incompatible integer to pointer conversion assigning to <span class="s1">'sp_Bigint *'</span> <span class="o">(</span>aka <span class="s1">'struct sp_Bigint *'</span><span class="o">)</span> from <span class="s1">'sp_int'</span> <span class="o">(</span>aka <span class="s1">'long'</span><span class="o">)</span> <span class="o">[</span><span class="nt">-Wint-conversion</span><span class="o">]</span>
+spinel: C compilation failed
+spinel: the generated C is kept at /var/folders/p7/r09j45l150xfdf1zmyddlfrm0000gp/T//spinel_out_15725_0.c
+</code></pre></div></div>
+
+<p>The error happened because of the multiple assignment in the single line <code>a, b = 0, 1</code>. When I changed it into single assignment in separate lines the error goes and programs works as expected.</p>
+
+<p>Interestingly the error wasn't there on the first spinal release. I have verified this separately.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$.</span>./spinel/spinel-2026.09.12/spinel <span class="nt">--int-overflow</span><span class="o">=</span>promote programs/fib.rb
+</code></pre></div></div>
+
+<p>The program worked as expected with the old release. But in the latest main the issue was still present. Therefore, I have raised an <a href="https://github.com/matz/spinel/issues/9537">issue</a> on Github, and suggested a fix. On the next morning to my surprise Matz immediately made a fix and closed the issue referencing my issue in his <a href="https://github.com/matz/spinel/commit/6822d676e9679470d9241d78eb41b00bc3a318ee">commit</a>. To be honest I never expected such a fast response form him, or may be this is done by his Claude agent.</p>
+
+<p>Anyway the issue didn't affect my development. I have created a simple POC version of actor framework <a href="https://github.com/deepakkumarnd/actors">here</a>.</p>
+
+<p><em>To be continued …</em></p>
+
+  <p class="post-tags">Tags: <span class="tag">Ruby</span> <span class="tag">Spinal</span> <span class="tag">Actor Model</span></p></main>
+
+  <footer>
+      <small>
+        Built using <a href="https://github.com/deepakkumarnd/parrot" target="_blank">Parrot</a>, styled using <a href="https://github.com/DigitallyTailored/Classless.css" target="_blank">Classless</a>
+      </small>
+  </footer>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async="true"></script>
+</body>
+</html>
