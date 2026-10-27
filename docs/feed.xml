@@ -6,18 +6,18 @@
     <description>Deepak Kumar's personal writings</description>
     <atom:link href="https://deepsnapster.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Building an actor framework in spinal</title>
-      <link>https://deepsnapster.com/actor-framework-in-spinal.html</link>
-      <guid isPermaLink="true">https://deepsnapster.com/actor-framework-in-spinal.html</guid>
+      <title>Building an actor framework in Spinel</title>
+      <link>https://deepsnapster.com/actor-framework-in-spinel.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/actor-framework-in-spinel.html</guid>
       <pubDate>Mon, 19 Oct 2026 00:00:00 -0000</pubDate>
       <description>Disclaimer: This is going to be an ongoing post, I will keep it updated as I do more development.</description>
     </item>
     <item>
-      <title>Spinal new kid in the block</title>
-      <link>https://deepsnapster.com/spinal-new-kid-in-the-block.html</link>
-      <guid isPermaLink="true">https://deepsnapster.com/spinal-new-kid-in-the-block.html</guid>
+      <title>Spinel new kid in the block</title>
+      <link>https://deepsnapster.com/spinel-new-kid-in-the-block.html</link>
+      <guid isPermaLink="true">https://deepsnapster.com/spinel-new-kid-in-the-block.html</guid>
       <pubDate>Sat, 17 Oct 2026 00:00:00 -0000</pubDate>
-      <description>Few days ago I have found out that Ruby creator Yukihiro Matzumato aka Matz is working on a new programming language called Spinal. This was during a…</description>
+      <description>Few days ago I have found out that Ruby creator Yukihiro Matzumato aka Matz is working on a new programming language called Spinel. This was during a…</description>
     </item>
     <item>
       <title>Journey through my favourite text editors</title>
