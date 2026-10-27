@@ -12,7 +12,7 @@ _Disclaimer: This is going to be an ongoing post, I will keep it updated as I do
 
 The [threads in Spinel](https://github.com/matz/spinel/blob/master/docs/thread.md) are parallel without GVL, and they are basically lightweight with large number of M threads multiplexed into fewer N OS workers (OS threads), probably just like Erlang processes. Therefore, it should be possible to build an actor framework using those threads.
 
-I have started working on an actor framework many years back, I knew the basics but never had an opportunity to use actor frameworks in production. My exposure to concurrency was very limited back then. After joining TrueCaller and working on an in house ad server made pushed me to learn more about Akka framework and explore it in details. Before Akka I spent some time on Elixir and tried to understand more about actors, supervisors and the mechanism. But working on ad server at scale gave me more insights.
+I have started working on an actor framework many years back, I knew the basics but never had an opportunity to use actor frameworks in production. My exposure to concurrency was very limited back then. After joining TrueCaller and working on an in house ad server pushed me to learn more about [Akka framework](https://doc.akka.io/libraries/akka-core/current/typed/guide/introduction.html) and explore it in details. Before Akka I spent some time on [Elixir](https://elixir-lang.org/) and tried to understand more about actors, supervisors and the mechanism. But working on ad server at scale gave me more insights.
 
 On last weekend after reading about the spinel threads I restarted my effort in creating a simple very limited actor library with my fresh perspective.
 
@@ -71,4 +71,28 @@ Anyway the issue didn't affect my development. I have created a simple POC versi
 
 As I progressed I spotted another bug in `Enumerable#cycle` which I reported [here](https://github.com/matz/spinel/issues/9620). Matz merged a [fix](https://github.com/matz/spinel/commit/13bf19f25d3a15669b82193c2212fed9b4ea4458) and the issue go resolved. His agent is super cool btw.
 
-_To be continued ..._
+## The actor model
+
+The fundamental idea comes from 1973 paper ['A Universal Modular ACTOR Formalism for Artificial Intelligence'](https://dl.acm.org/doi/10.5555/1624775.1624804) by Carl Hewitt, Peter Bishop, and Richard Steiger. Later by another important paper ['Actor Model of Computation: Scalable Robust Information Systems'](https://arxiv.org/abs/1008.1459). The model is well explained by the author Hewitt in this youtube [video](https://www.youtube.com/watch?v=7erJ1DV_Tlo).
+
+Fundamentally actors are independent computational units living within a system called 'Actor system'. These units wait for a message and act on it. The outer world interact with actors within the 'actor system' via sending a message to it.
+
+So in simple word, the actor can be thought of as a process with a mailbox. The process wait for a message in the mailbox, as soon as the message arrives in the mailbox it act on the message. The actor logic decides what need to be done with the results. An actor may send the result to another actor via message passing, or even discard the result. There can be any number of actors within the system, they are concurrent and share nothing. Therefore the system can actually execute actors in parallel.
+
+Actor system does the book keeping, it registers all the actors available and help in communicating between the actors via actor address.
+
+### Actor address
+
+An actor in the actor system is identified by its address. Actor have the following address format. 
+
+```
+actor_id@actor_system_id.hostname
+```
+
+The address is unique and this allows actors to communicate even with actors on a different machine.
+
+### Supervisor
+
+A supervisor is a special actor that manages a group of actors. We generally need more than one actor to perform a set of similar tasks, each task can be executed concurrently. A supervisor acts a load balancer to multiple actors performing a particular task. In this scenario we commuicate with supervisor instead of communicating directly with the worker actors. Supervisor forward the message to the next available actor in a round robin fashion.
+
+_To be continueed_
