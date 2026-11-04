@@ -3,7 +3,7 @@ title: My swimming journey
 date: 03/11/2026
 lang: en
 category: Reflections
-tags: 
+tags: Swimming, Kerala, Life
 -->
 
 # {post_title}
