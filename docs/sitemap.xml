@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://deepsnapster.com/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/index2.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/index3.html</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/aanakkadha.html</loc>
@@ -47,6 +51,10 @@
   <url>
     <loc>https://deepsnapster.com/devanayaki.html</loc>
     <lastmod>2025-06-01</lastmod>
+  </url>
+  <url>
+    <loc>https://deepsnapster.com/dog-story.html</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/equality.html</loc>
@@ -129,14 +137,8 @@
     <lastmod>2026-09-09</lastmod>
   </url>
   <url>
-    <loc>https://deepsnapster.com/projects.html</loc>
-  </url>
-  <url>
-    <loc>https://deepsnapster.com/about.html</loc>
-  </url>
-  <url>
     <loc>https://deepsnapster.com/categories.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/category-ai.html</loc>
@@ -164,7 +166,7 @@
   </url>
   <url>
     <loc>https://deepsnapster.com/category-reflections.html</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://deepsnapster.com/category-stories.html</loc>
